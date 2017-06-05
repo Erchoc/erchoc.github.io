@@ -1,0 +1,819 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tools," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
+<meta name="keywords" content="tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第N次安装Hexo框架和Next博客主题">
+<meta property="og:url" content="http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
+<meta property="og:updated_time" content="2017-06-04T07:55:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第N次安装Hexo框架和Next博客主题">
+<meta name="twitter:description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/"/>
+
+
+
+
+
+  <title>第N次安装Hexo框架和Next博客主题 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第N次安装Hexo框架和Next博客主题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T08:14:10+08:00">
+                2017-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。</p>
+<p>然后就是<code>npm install -g hexo-cli</code>安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下初始化框架：<code>hexo init</code>。这些操作在第一篇文章<code>又写Next博客</code>就提过，这里又说了一遍。为了表示差异性，这篇文章我就主要讲一些功能特效和 Next 主题的配置吧。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>Next三种主题选择</li>
+</ul>
+<blockquote>
+<p>在配置文件中搜索 Schemes ，你会看到<code>Muse, Mist, Pisces</code>三种 scheme，去掉你喜欢的主题前的 # 注释即可。修改主题需要重启 hexo 服务并执行清除缓存操作：<code>hexo clean</code>。</p>
+</blockquote>
+<ul>
+<li>右下角的屏幕滚动百分比设置。</li>
+</ul>
+<blockquote>
+<p>配置文件中将 scrollpercent 设置为 true 即可，如果你要让百分比在侧边栏显示，只需要把b2t的值也设置为 true。</p>
+</blockquote>
+<ul>
+<li>多种canvas背景特效</li>
+</ul>
+<blockquote>
+<p>在配置文件中选择性的把 canvas_ 开头的值设置为 true 即可，特效可以同时设置为 true。</p>
+</blockquote>
+<ul>
+<li>关闭被墙的 Google 字体</li>
+</ul>
+<blockquote>
+<p>配置文件中将 font 中的 enable 和 global 中的 external 设置为 false 即可。</p>
+</blockquote>
+<ul>
+<li>给博文添加协议</li>
+</ul>
+<blockquote>
+<p>配置文件中把 post_copyright 的 enable 设置为 true 即可，如果你想在侧边栏也有这样的提示图标，把 creative_commons 的值设置为 by-nc-sa 即可。</p>
+</blockquote>
+<ul>
+<li>前端/本地搜索功能</li>
+</ul>
+<blockquote>
+<p>配置文件中的 local_search 中将 enable 的值设置为 true 即可。</p>
+</blockquote>
+<ul>
+<li>友情链接 /social links 设置</li>
+</ul>
+<blockquote>
+<p>打开配置文件中 social 的默认注释并添加链接即可，例如: <code>简书博客: http://www.jianshu.com/u/9d64b43bc1a1</code>。同时可以为友情链接设置 FontWaesome 图标，图标名参考 FontAwesome 官网：<a href="http://fontawesome.io/icons" target="_blank" rel="external">http://fontawesome.io/icons</a></p>
+</blockquote>
+<ul>
+<li>博主头像设置</li>
+</ul>
+<blockquote>
+<p>在 next/images/ 中放入你的头像，名称为 avatar.jpg ，然后打开 Next 配置文件<code>Sidebar Avatar</code>中avatar默认的注释并修改对应的值为<code>/images/avatar.jpg</code>，你也可以根据这里的说明把头像放倒 uploads 文件夹下。</p>
+</blockquote>
+<ul>
+<li>网站图标设置</li>
+</ul>
+<blockquote>
+<p>将图片转换为图标，将图标文件 favicon.ico 放到 next/source/ 目录下，然后在 next 配置文件中搜索并修改 facicon 的值为<code>/favicon.ico</code>。</p>
+</blockquote>
+<ul>
+<li>代码高亮主题</li>
+</ul>
+<blockquote>
+<p>Next 有五款使用了Tomorrow Theme的代码高亮主题，在配置文件中修改 highlight_theme 的值即可。文章使用(<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 开启微信/支付宝打赏功能</div><div class="line"></div><div class="line">&gt; 首先确保 layout/_macro/ 目录下存在 post.swig 和 reward.swig 两个文件，缺少则以utf-8为编码新建这两个文件，并点击[这个地址](https://github.com/iissnan/hexo-theme-next/blob/master/layout/_macro/reward.swig)中的代码复制粘贴到新建的文件中。然后再配置文件中的任意位置添加如下几行代码：</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="增加Donate-打赏功能"><a href="#增加Donate-打赏功能" class="headerlink" title="增加Donate 打赏功能"></a>增加Donate 打赏功能</h1><p>alipay: /uploads/alipay.png<br>wechatpay: /uploads/wechatpay.png<br>reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作!<br>```</p>
+<blockquote>
+<p>注意事项：微信和支付宝提供的图片格式不一样，尺寸也不同</p>
+</blockquote>
+<ul>
+<li>订阅微信公众号</li>
+</ul>
+<blockquote>
+<p>Next 5.0.1版本加入该功能，在每篇文章末尾显示公众号二维码。你只需要将公众号二维码 wechat-qcode.jpg 从微信平台下载后放在 source/uploads/ 目录下，然后将配置文件中的 wechat_subscriber 的enable 值设置为 true，qcode 设置为 /uploads/wechat-qcode.jpg，descripion 值设置为 <code>欢迎您扫一扫上面的二维码，关注技术博客最新动态</code>。</p>
+</blockquote>
+<ul>
+<li>自定义导航栏</li>
+</ul>
+<blockquote>
+<p>打开 menu 中的注释再访问网址，你会发现网页提示<code>Cannot GET /categories/</code>，你需要</p>
+</blockquote>
+<ul>
+<li>自定义导航栏之文章分类</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li>自定义导航栏之关于博主</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li>网站404页面设置</li>
+</ul>
+<blockquote>
+<p>在 /source/ 目录下心间 404.html 页面，内容随你开心填写，建议使用下面腾讯公益404儿童丢失页面：<a href="http://theme-next.iissnan.com/theme-settings.html#volunteer-404" target="_blank" rel="external">http://theme-next.iissnan.com/theme-settings.html#volunteer-404</a></p>
+</blockquote>
+<ul>
+<li>自定义导航栏之标签管理</li>
+</ul>
+<blockquote>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Erchoc WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/" title="第N次安装Hexo框架和Next博客主题">http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tools/" rel="tag"># tools</a>
+          
+        </div>
+      
+
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#增加Donate-打赏功能"><span class="nav-number">1.</span> <span class="nav-text">增加Donate 打赏功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
