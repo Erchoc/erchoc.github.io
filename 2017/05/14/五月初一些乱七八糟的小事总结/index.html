@@ -1,0 +1,727 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前段时间很忙，学长的项目在周末大范围更新的时候我还在山上陪妹子玩，回来学校之后🈶又忙着考试没来得及补回去，进度上落后了胖子好多。上次庄子给的陶居企业站开发也要推后进行，陶居企业站前台我本打算使用BootStrap+jQuery+ajax传统套餐，后台Voyager+Laravel54+Laradock做持续集成部署CI。最近又有孵化园那边的某某某的邀请和课程考试的干扰，感觉自己整个人都不好了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五月初一些乱七八糟的小事总结">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/14/五月初一些乱七八糟的小事总结/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="前段时间很忙，学长的项目在周末大范围更新的时候我还在山上陪妹子玩，回来学校之后🈶又忙着考试没来得及补回去，进度上落后了胖子好多。上次庄子给的陶居企业站开发也要推后进行，陶居企业站前台我本打算使用BootStrap+jQuery+ajax传统套餐，后台Voyager+Laravel54+Laradock做持续集成部署CI。最近又有孵化园那边的某某某的邀请和课程考试的干扰，感觉自己整个人都不好了。">
+<meta property="og:updated_time" content="2017-06-04T13:23:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="五月初一些乱七八糟的小事总结">
+<meta name="twitter:description" content="前段时间很忙，学长的项目在周末大范围更新的时候我还在山上陪妹子玩，回来学校之后🈶又忙着考试没来得及补回去，进度上落后了胖子好多。上次庄子给的陶居企业站开发也要推后进行，陶居企业站前台我本打算使用BootStrap+jQuery+ajax传统套餐，后台Voyager+Laravel54+Laradock做持续集成部署CI。最近又有孵化园那边的某某某的邀请和课程考试的干扰，感觉自己整个人都不好了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/14/五月初一些乱七八糟的小事总结/"/>
+
+
+
+
+
+  <title>五月初一些乱七八糟的小事总结 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/14/五月初一些乱七八糟的小事总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">五月初一些乱七八糟的小事总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T16:12:23+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>前段时间很忙，学长的项目在周末大范围更新的时候我还在山上陪妹子玩，回来学校之后🈶又忙着考试没来得及补回去，进度上落后了胖子好多。上次庄子给的陶居企业站开发也要推后进行，陶居企业站前台我本打算使用BootStrap+jQuery+ajax传统套餐，后台Voyager+Laravel54+Laradock做持续集成部署CI。最近又有孵化园那边的某某某的邀请和课程考试的干扰，感觉自己整个人都不好了。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>虽说我和这个团队人员的学习方向不同，但多少还是有点想试着加入一个团队，教别人一些自己领悟的体系知识。他们团队为只记得大概四个人。团队最大的不足就是缺乏实际开发经验，这点真的是她们团队的致命问题！我看了他们的一个毕业设计项目，Jsp后台配合matlab是个非常好的idea，分别由嵌入式和理学院的两个人负责前端和后端。其实这个项目的前后台并没有明显概念，而且作为实际开发项目他们完全可以使用前端脚手架搭建这个唯一的页面，现在的话仅有一个界面发布作业完成作业实时查看，最基本的权限管理也没有了。这些都是没有开发经验或者说没有培训的问题。很多项目客户是只要结果的，后台UI已经基本可以使用一些开源的前端模板，顶多前台需要一些定制页面，前端目前主要是负责接口数据交互才对。另外几个人一个态度很强势，一个很好学，另一个还也在培训，基本都是搞JAVA的，剩下几个说是前端实际上并没做过什么东西。如果我管理这个团队，我给出的公司定位是：企业站点，微信公众号接口和大学生毕业设计，从需求到上线全套开发。涉及到商城和ERP，OA系统的暂时不接，团队尽量使用ThinkPHP开发。虽然我也没用TP开发过什么项目，我倒是更想用拓展数不胜数的laravel，但这框架对现在他们这样的团队来说确实不太好上手。</p>
+</li>
+<li><p>JAVA终于考完了，挂了就准备补考吧反正总算是少了一门课。Android应该是过了吧，PHP课程有60就行懒得复习了，前端课下次我举手写个题目拿95平时分就行了，体育稳过，马克思和概率论结课了，概率论基本放弃了挣扎。补考的高数2目前还在补救，听不懂的人机交互我尽量去上课应该不会挂吧。</p>
+</li>
+<li><p>除了这些课，还要考虑一下六月的英语四级考试和征兵体检，想想还是挺忙的(虽然最后我也没去体检)。项目开发方面目前同时进行的是穰学长的firechat微信项目和亮哥的小叮租书项目。前者的优惠券模块拖了一个月了，本打算尽可能这快点搞定，毕竟还有那么多功能，但团队瞎使用Git的问题导致的开发环境问题让我无法配置好本地环境。后者的进度相对就很严格了，开发流程很有条理，并且数据库ER图，每日和每段时间的安排都用TeamBition团队协作软件安排下来了。使用Gitlab企业自建仓库和严格的git分支管理开发。希望两个项目能相互借鉴提高一下Laravel和composer结合组件化开发能力。</p>
+</li>
+<li><p>总结下两个项目：两者分别使用Laravel 5.4和Laravel 5.1开发，API均为RESTful风格。前者我也不知道用什么库实现的RESTful，明天看一下吧，实现方式是使用laravel自带的资源路由和指定资源控制器方法，我可以使用route:list 查看如图所示的项目所有路由列表。目前后台部分需要实现ORM取得数据表数据并传递到视图，使用blade模板引擎的@foreach遍历输出；同时还要搞定分页显示优惠券，这个地方还有个select表单实时修改每页显示的数据量暂无思路；点击新建按钮使用route函数或者url函数访问新建表单页面；表单部分UI我写的不好看，后端代码参考慕课网laravel中级课程；这里本打算模仿水滴公众号平台，使用angularJS数据双向绑定左侧填写表单数据，右侧实时显示客户在微信能看到的界面；考虑到开发太慢了都要挨骂，还是先实现基本增删改查再去优化吧。其他一些操作基本上是基于用户点击调用资源控制器方法，create/destory/edit/update/show/index方法链接Eloquent模型表数据这个步骤我还要熟悉一下，这样看来估计真的还要两周左右。</p>
+</li>
+<li><p>后者租书系统接口和路由部分使用dingo/api包，该项目用到的包和数据库设计都让团队人员打包下载了。uuid是有别于自动增长主键的一种更为安全的做法，Reposotiry是JAVA中的一种分层设计模式在laravel中的实现，这两个是我下周一周二前要完成的，这人在一个月前2K找上我开发周期大概1-2月的租赁系统，本着学习和项目借鉴的想法我答应了（其实最主要的原因是没钱重修，没钱泡妹子，没钱换眼镜，没钱换iphone，最最最主要的是真的急切需要买台Macbook）。另外，关于今天开始的环境搭建<a href="https://erchoc.github.io/2017/05/13/laravel%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C-%E5%BC%80%E5%A7%8B%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87%E5%92%8C%E6%B2%9F%E9%80%9A/#more">请点击查看这篇文章</a>。</p>
+</li>
+<li><p>加油，冲击BAT。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/14/五月初一些乱七八糟的小事总结/" title="五月初一些乱七八糟的小事总结">http://erchoc.github.io/2017/05/14/五月初一些乱七八糟的小事总结/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/14/Oh-My-Zsh的安装和使用初体验/" rel="next" title="Oh_My_Zsh的安装和使用初体验">
+                <i class="fa fa-chevron-left"></i> Oh_My_Zsh的安装和使用初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/" rel="prev" title="Laravel 5.1 模型关联(Eloquent Relationships)">
+                Laravel 5.1 模型关联(Eloquent Relationships) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

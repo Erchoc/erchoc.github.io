@@ -1,0 +1,725 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="skills," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="这绝对是值得收藏的纯干货，已加入和将要加入收藏的有QQ聊天，添加QQ好友，加入QQ群，添加微信好友，加入微信群聊，发送邮件，Skype聊天，MSN聊天，MSN添加好友，旺信聊天，百度地图接口，Google地图接口。本页面不提供测试访问，测试某接口的话请确保客户端安装有相应的应用程序。 比如说，我想用电脑试试旺信聊天接口代码能否调用。那么我要在电脑上安装阿里旺旺软件，然后将接口调用代码写在HTML">
+<meta name="keywords" content="skills">
+<meta property="og:type" content="article">
+<meta property="og:title" content="纯HTML调用客户端程序的一些实用代码">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/10/纯HTMl调用客户端程序的一些实用代码/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="这绝对是值得收藏的纯干货，已加入和将要加入收藏的有QQ聊天，添加QQ好友，加入QQ群，添加微信好友，加入微信群聊，发送邮件，Skype聊天，MSN聊天，MSN添加好友，旺信聊天，百度地图接口，Google地图接口。本页面不提供测试访问，测试某接口的话请确保客户端安装有相应的应用程序。 比如说，我想用电脑试试旺信聊天接口代码能否调用。那么我要在电脑上安装阿里旺旺软件，然后将接口调用代码写在HTML">
+<meta property="og:updated_time" content="2017-06-04T16:29:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="纯HTML调用客户端程序的一些实用代码">
+<meta name="twitter:description" content="这绝对是值得收藏的纯干货，已加入和将要加入收藏的有QQ聊天，添加QQ好友，加入QQ群，添加微信好友，加入微信群聊，发送邮件，Skype聊天，MSN聊天，MSN添加好友，旺信聊天，百度地图接口，Google地图接口。本页面不提供测试访问，测试某接口的话请确保客户端安装有相应的应用程序。 比如说，我想用电脑试试旺信聊天接口代码能否调用。那么我要在电脑上安装阿里旺旺软件，然后将接口调用代码写在HTML">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/10/纯HTMl调用客户端程序的一些实用代码/"/>
+
+
+
+
+
+  <title>纯HTML调用客户端程序的一些实用代码 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/10/纯HTMl调用客户端程序的一些实用代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">纯HTML调用客户端程序的一些实用代码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-10T16:09:38+08:00">
+                2017-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这绝对是值得收藏的纯干货，已加入和将要加入收藏的有QQ聊天，添加QQ好友，加入QQ群，添加微信好友，加入微信群聊，发送邮件，Skype聊天，MSN聊天，MSN添加好友，旺信聊天，百度地图接口，Google地图接口。本页面不提供测试访问，测试某接口的话请确保客户端安装有相应的应用程序。</p>
+<p>比如说，我想用电脑试试旺信聊天接口代码能否调用。那么我要在电脑上安装阿里旺旺软件，然后将接口调用代码写在HTML文件中，保存再用浏览器打开，点击链接唤醒旺旺软件。默认聊天对象均为博主本人。下面是一些简短的常用代码：</p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">点击QQ聊天</div><div class="line">&lt;a href=&quot;tencent://message/?uin=310932019&amp;amp;Site=QQ&amp;amp;Menu=yes&quot; &gt;点击QQ聊天&lt;/a&gt;</div><div class="line"></div><div class="line">企业QQ聊天</div><div class="line">&lt;a href=&quot;http://wpa.qq.com/msgrd?V=1&amp;Uin=310932019&amp;Site=&amp;Menu=yes&quot; target=&quot;_blank&quot;&gt;咨询QQ：310932019&lt;/a&gt;</div><div class="line"></div><div class="line">QQ聊天样式</div><div class="line">&lt;img src=&quot;http://wpa.qq.com/pa?p=1:21755061:1&quot; border=&quot;0&quot; /&gt;</div><div class="line">&lt;img src=&quot;http://wpa.qq.com/pa?p=1:21755061:2&quot; border=&quot;0&quot; /&gt;</div><div class="line">&lt;img src=&quot;http://wpa.qq.com/pa?p=1:21755061:3&quot; border=&quot;0&quot; /&gt;</div><div class="line">&lt;img src=&quot;http://wpa.qq.com/pa?p=1:21755061:4&quot; border=&quot;0&quot; /&gt;</div><div class="line">&lt;img src=&quot;http://wpa.qq.com/pa?p=1:21755061:5&quot; border=&quot;0&quot; /&gt;</div><div class="line"></div><div class="line">点击进行MSN聊天</div><div class="line">&lt;a href=&quot;msnim:chat?contact=jinshangdi310@163.com&quot; &gt;点这里MSN聊天&lt;/a&gt;</div><div class="line"></div><div class="line">点击链接发送邮件</div><div class="line">&lt;a href=&quot;mailto:jinshangdi310@163.com?subject=测试主题&amp;body=你好，一个HTML测试。&quot;&gt;Email to: jinshangdi310@163.com&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;a href=&quot;msnim:add?contact=jinshangdi310@163.com&quot;&gt;加我为好友MSN&lt;/a&gt;</div><div class="line"></div><div class="line">阿里旺旺加好友</div><div class="line">&lt;a href=&quot;wangwang:SendIM?晋殇帝&amp;uid_t=abcde&amp;suid=******&amp;desc=123456&quot;&gt;加我为好友旺旺&lt;/a&gt;</div><div class="line">&lt;!-- abcde请改为对方的账号，******请改为自己账号，123456是商品名称  --&gt;</div><div class="line"></div><div class="line">点击加好友Skype</div><div class="line">&lt;a href=&quot;callto://abcde &quot;&gt;点击加好友Skype&lt;/a&gt;</div><div class="line"></div><div class="line">Paypay付款</div><div class="line">&lt;a href=&quot;https://www.paypal.me/erchoc&quot;&gt;Paypay付款&lt;/a&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>百度地图API(含密钥)：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">- 头部head引入百度地图API：</div><div class="line">&lt;script src=&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=e4HVYXyDIAkqODAN7ZREFsRBx8roV2Hj&quot;&gt;&lt;/script&gt;</div><div class="line">- 身体body创建百度地图容器：</div><div class="line">&lt;div style=&quot;width:700px;height:550px;border:#ccc solid 1px;font-size:12px&quot; id=&quot;map&quot;&gt;&lt;/div&gt;</div><div class="line">- js脚本创建动态交互效果：</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">  //创建和初始化地图函数：</div><div class="line">  function initMap()&#123;</div><div class="line">    createMap();//创建地图</div><div class="line">    setMapEvent();//设置地图事件</div><div class="line">    addMapControl();//向地图添加控件</div><div class="line">    addMapOverlay();//向地图添加覆盖物</div><div class="line">  &#125;</div><div class="line">  function createMap()&#123;</div><div class="line">    map = new BMap.Map(&quot;map&quot;);</div><div class="line">    map.centerAndZoom(new BMap.Point(116.038355,28.686546),15);</div><div class="line">  &#125;</div><div class="line">  function setMapEvent()&#123;</div><div class="line">    map.enableScrollWheelZoom();</div><div class="line">    map.enableKeyboard();</div><div class="line">    map.enableDragging();</div><div class="line">    map.enableDoubleClickZoom()</div><div class="line">  &#125;</div><div class="line">  function addClickHandler(target,window)&#123;</div><div class="line">    target.addEventListener(&quot;click&quot;,function()&#123;</div><div class="line">      target.openInfoWindow(window);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  function addMapOverlay()&#123;</div><div class="line">    var markers = [</div><div class="line">      &#123;content:&quot;电话：6800780&lt;br/&gt;备注：欢迎莅临我校参观指导&quot;,title:&quot;江西师范大学&quot;,imageOffset: &#123;width:-46,height:-21&#125;,position:&#123;lat:28.687116,lng:116.036415&#125;&#125;</div><div class="line">    ];</div><div class="line">    for(var index = 0; index &lt; markers.length; index++ )&#123;</div><div class="line">      var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);</div><div class="line">      var marker = new BMap.Marker(point,&#123;icon:new BMap.Icon(&quot;http://api.map.baidu.com/lbsapi/createmap/images/icon.png&quot;,new BMap.Size(20,25),&#123;</div><div class="line">        imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)</div><div class="line">      &#125;)&#125;);</div><div class="line">      var label = new BMap.Label(markers[index].title,&#123;offset: new BMap.Size(25,5)&#125;);</div><div class="line">      var opts = &#123;</div><div class="line">        width: 200,</div><div class="line">        title: markers[index].title,</div><div class="line">        enableMessage: false</div><div class="line">      &#125;;</div><div class="line">      var infoWindow = new BMap.InfoWindow(markers[index].content,opts);</div><div class="line">      marker.setLabel(label);</div><div class="line">      addClickHandler(marker,infoWindow);</div><div class="line">      map.addOverlay(marker);</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  //向地图添加控件</div><div class="line">  function addMapControl()&#123;</div><div class="line">    var scaleControl = new BMap.ScaleControl(&#123;anchor:BMAP_ANCHOR_BOTTOM_LEFT&#125;);</div><div class="line">    scaleControl.setUnit(BMAP_UNIT_METRIC);</div><div class="line">    map.addControl(scaleControl);</div><div class="line">    var navControl = new BMap.NavigationControl(&#123;anchor:BMAP_ANCHOR_BOTTOM_RIGHT,type:2&#125;);</div><div class="line">    map.addControl(navControl);</div><div class="line">  &#125;</div><div class="line">  var map;</div><div class="line">    initMap();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/10/纯HTMl调用客户端程序的一些实用代码/" title="纯HTML调用客户端程序的一些实用代码">http://erchoc.github.io/2017/05/10/纯HTMl调用客户端程序的一些实用代码/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/skills/" rel="tag"># skills</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/09/优盘PE和Windows系统的安装教程/" rel="next" title="优盘PE和Windows系统的安装教程">
+                <i class="fa fa-chevron-left"></i> 优盘PE和Windows系统的安装教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/10/PhpStorm-IDE个人使用指南/" rel="prev" title="PhpStorm IDE个人使用指南">
+                PhpStorm IDE个人使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

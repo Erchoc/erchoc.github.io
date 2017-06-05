@@ -1,0 +1,773 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tools," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="在实验楼的官方QQ群和人家吹牛逼时候学到了几点东西：windows子系统linux仿终端开源软件wsl，最新windows10 1703内置ubuntu16.04，听说支持在linux中打开exe可执行文件，编译安装vim以执行python lua补全和异步代码测试，公司服务器可能运行着Arch这等神器，据说今年Build大会微软会推出安装Fodora和Suse，VirtualBox和VMwar">
+<meta name="keywords" content="tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oh_My_Zsh的安装和使用初体验">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/14/Oh-My-Zsh的安装和使用初体验/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="在实验楼的官方QQ群和人家吹牛逼时候学到了几点东西：windows子系统linux仿终端开源软件wsl，最新windows10 1703内置ubuntu16.04，听说支持在linux中打开exe可执行文件，编译安装vim以执行python lua补全和异步代码测试，公司服务器可能运行着Arch这等神器，据说今年Build大会微软会推出安装Fodora和Suse，VirtualBox和VMwar">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-542011a4e02aea1d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-04T13:17:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oh_My_Zsh的安装和使用初体验">
+<meta name="twitter:description" content="在实验楼的官方QQ群和人家吹牛逼时候学到了几点东西：windows子系统linux仿终端开源软件wsl，最新windows10 1703内置ubuntu16.04，听说支持在linux中打开exe可执行文件，编译安装vim以执行python lua补全和异步代码测试，公司服务器可能运行着Arch这等神器，据说今年Build大会微软会推出安装Fodora和Suse，VirtualBox和VMwar">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3995745-542011a4e02aea1d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/14/Oh-My-Zsh的安装和使用初体验/"/>
+
+
+
+
+
+  <title>Oh_My_Zsh的安装和使用初体验 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/14/Oh-My-Zsh的安装和使用初体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Oh_My_Zsh的安装和使用初体验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T16:12:05+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>在实验楼的官方QQ群和人家吹牛逼时候学到了几点东西：windows子系统linux仿终端开源软件wsl，最新windows10 1703内置ubuntu16.04，听说支持在linux中打开exe可执行文件，编译安装vim以执行python lua补全和异步代码测试，公司服务器可能运行着Arch这等神器，据说今年Build大会微软会推出安装Fodora和Suse，VirtualBox和VMware虚拟机作用可以使用Hyper-V+Docker替代，最重要的一点是他让我知道了：Oh-My-Zsh主题是可以安装在Windows-Linux-MacOS 三大平台的！</p>
+<p>那我就不得不尝试一下了，官网在这里：<a href="http://ohmyz.sh/" target="_blank" rel="external">http://ohmyz.sh/</a> 。考虑到没几个月我就会转向MacOS上开发，这次我就打算先双系统更新到WIN10 1703，使用wsl终端+子系统Ubuntu 16.04+Zsh Shell。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>OS X用户：睾贵的自带了zsh，跳过…</p>
+</li>
+<li><p>Ubuntu用户：sudo apt-get install zsh</p>
+</li>
+<li><p>Windows老用户：由于天生太高贵，无法安装。</p>
+</li>
+<li><p>Windows 10推出了bash for windows，终于也可以使用zsh</p>
+</li>
+<li><p>装上1703之后我不得不说这个版本确实更新挺大，很值得升级！默认使用powershell代替cmd提示符，ubuntu子系统可以选择中文，php源仓库中默认版本为php7，默认还有游戏模式，邮件直接支持注册Gmail账户，太多好处了，下面我们还是先说说zsh这个高效主题吧吧。</p>
+</li>
+<li><p>首先当然是去开源的代码托管平台看看这个star数超过50K的Oh-My-Zsh项目，要知道laravel也才30K。源码地址：<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh</a> 。</p>
+</li>
+<li><p>然后当然是windows上安装这东西的步骤</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">查看系统中有哪些shell？</div><div class="line">cat /etc/shells</div><div class="line"></div><div class="line">搜索看看仓库里和zsh相关的包有哪些？</div><div class="line">sudo apt-cache search zsh</div><div class="line"></div><div class="line">看到了包的说明后，我们看看zsh包详细说明。</div><div class="line">sudo apt-cache show zsh</div><div class="line"></div><div class="line">看到我们即将安装的是最新版本5.0，然后安装zsh这个SHELL。</div><div class="line">sudo apt-get install zsh -y</div><div class="line"></div><div class="line">验证下安装是否成功。</div><div class="line">zsh –version</div><div class="line"></div><div class="line">查看当前的默认shell是啥。</div><div class="line">echo $SHELL</div><div class="line"></div><div class="line">是bash。那么我们把默认SHELL改成zsh吧。</div><div class="line">chsh -s $(which zsh)</div></pre></td></tr></table></figure>
+<ul>
+<li>上面最后部分的操作可能在windows内置子系统中并不生效，那么我们可以在.bashrc末尾加上shell代码，用脚本实现当你打开bash时候切换到zsh。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bash -c zsh</div></pre></td></tr></table></figure>
+<ul>
+<li><p>退出后重新登录，查看默认shell。windows用户就不用查看shell了，永远只能看到默认的bash。</p>
+</li>
+<li><p>默认情况下用户主目录会生成.oh-my-zsh目录，.zsh_history，.zshrc和.zsh -update文件，.zcompdump文件，他们的作用和bash类似，分别是，<code>oh_my_zsh主题配置文件夹</code>, <code>记录用户历史执行的命令</code>, <code>zsh启动时加载的配置文件</code>,<code>记录更新操作</code>和这种dump文件我也不知道是啥了。</p>
+</li>
+<li><p>关于zsh主题和插件</p>
+</li>
+<li><p>zsh默认主题是robbyrussell，位于主目录.zshrc文件中，下面我们来修改一下zsh的主题。</p>
+</li>
+<li><p>找到.zshrc文件中的ZSH_THEME=”xxxx”，修改为下列我使用后推荐的主题或随机主题random。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ZSH_THEME=”random”</div><div class="line">ZSH_THEME=”agnoster”</div><div class="line">ZSH_THEME=”ys”</div><div class="line">ZSH_THEME=”sorin”</div><div class="line">ZSH_THEME=”cloud”</div></pre></td></tr></table></figure>
+<ul>
+<li><p>更多主题效果查看(按英文字母排序)：<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a> 。</p>
+</li>
+<li><p>另外，zsh自带Git命令哦，Ubuntu 16.04实测自带git版本还挺新 2.7.4。</p>
+</li>
+<li><p>主题主要是界面，好看就行。实用的还是zsh的插件哦，zsh插件太多了，暂时我也没接触多少，留着以后的文章再提吧。</p>
+</li>
+<li><p>关于zsh完美搭档git和iTerm2</p>
+</li>
+<li><p>zsh利用alias默认给你配置好了一大堆用于git操作的常见命令，你能用上几个技术水平哦，贴图：</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/3995745-542011a4e02aea1d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Oh_My_Zsh已有Git系列的别名"></p>
+<ul>
+<li>其他一些注意事项</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zsh在其实默认不完全兼容bash，但是你可以搜索一些方式配置使其尽可能兼容。</div><div class="line"></div><div class="line">zsh提供了很多短小但是强大的命令，zsh的拓展命令很多也非常强大，这点我也在慢慢学习。</div><div class="line"></div><div class="line">关于iTerm2配合使用在另一篇文章有写过，强大工具！</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/14/Oh-My-Zsh的安装和使用初体验/" title="Oh_My_Zsh的安装和使用初体验">http://erchoc.github.io/2017/05/14/Oh-My-Zsh的安装和使用初体验/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tools/" rel="tag"># tools</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/13/Laravel-远程工作之开始前的准备和沟通/" rel="next" title="Laravel 远程工作之开始前的准备和沟通">
+                <i class="fa fa-chevron-left"></i> Laravel 远程工作之开始前的准备和沟通
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/14/五月初一些乱七八糟的小事总结/" rel="prev" title="五月初一些乱七八糟的小事总结">
+                五月初一些乱七八糟的小事总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="laravel," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="项目的数据库部分昨晚晓乐已经微信视频和我讲了近一个小时，小叮租书项目的后台使用laravel开发接口和业务逻辑部分，前台部分是由海洋大学以为大二的前端学生在做。这个项目数据表很多，大体上分为了product,order和乱七八糟的er-common部分。 项目涉及到的实体比较多，昨天另一个PHPer把数据表全部migration写完push上去了，担心我不会今天的API-Model怎么写，晓乐还">
+<meta name="keywords" content="laravel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel 5.1 模型关联(Eloquent Relationships)">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="项目的数据库部分昨晚晓乐已经微信视频和我讲了近一个小时，小叮租书项目的后台使用laravel开发接口和业务逻辑部分，前台部分是由海洋大学以为大二的前端学生在做。这个项目数据表很多，大体上分为了product,order和乱七八糟的er-common部分。 项目涉及到的实体比较多，昨天另一个PHPer把数据表全部migration写完push上去了，担心我不会今天的API-Model怎么写，晓乐还">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-d20d4c221ba4aee0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-05T03:24:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel 5.1 模型关联(Eloquent Relationships)">
+<meta name="twitter:description" content="项目的数据库部分昨晚晓乐已经微信视频和我讲了近一个小时，小叮租书项目的后台使用laravel开发接口和业务逻辑部分，前台部分是由海洋大学以为大二的前端学生在做。这个项目数据表很多，大体上分为了product,order和乱七八糟的er-common部分。 项目涉及到的实体比较多，昨天另一个PHPer把数据表全部migration写完push上去了，担心我不会今天的API-Model怎么写，晓乐还">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3995745-d20d4c221ba4aee0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/"/>
+
+
+
+
+
+  <title>Laravel 5.1 模型关联(Eloquent Relationships) | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Laravel 5.1 模型关联(Eloquent Relationships)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T00:34:28+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>项目的数据库部分昨晚晓乐已经微信视频和我讲了近一个小时，<code>小叮租书</code>项目的后台使用laravel开发接口和业务逻辑部分，前台部分是由海洋大学以为大二的前端学生在做。这个项目数据表很多，大体上分为了<code>product</code>,<code>order</code>和乱七八糟的<code>er-common</code>部分。</p>
+<p>项目涉及到的实体比较多，昨天另一个PHPer把数据表全部migration写完push上去了，担心我不会今天的API-Model怎么写，晓乐还特意写了Role和Permission部分。然后，我也确实不会写，一开始都不知道到底要写啥，等讲完一小时的数据表才知道：<strong>原来是要我写模型里面实体间的对应关系</strong>。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>没办法咯，看官方的英文文档的Eloquent: Relationships部分咯。文档指出实体之间的关系有七种(六种：一对多和多对一可以理解为一种)：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">一对一</div><div class="line">一对多</div><div class="line">多对一</div><div class="line">多对多</div><div class="line">远程一对多</div><div class="line">多态关联</div><div class="line">多态多对多关联</div></pre></td></tr></table></figure>
+<ul>
+<li><p>使用模型关联之前，我们要先定义每个实体关系的类型。</p>
+</li>
+<li><p>首先创建一个继承了Eloquent/Model类的User Model，根据项目ER图找出和用户实体有关系的实体：</p>
+<ul>
+<li><p><code>role角色</code>，<code>permission权限</code>，<code>school学校</code></p>
+</li>
+<li><p><code>enrollmentInfo学籍</code>，<code>orders订单</code>，<code>coupons优惠券</code></p>
+</li>
+<li><p><code>addresses地址</code>，<code>carts购物车</code></p>
+</li>
+</ul>
+</li>
+<li><p>除了和实体的关系，User Model还应该定义一些用于获取id，token信息的函数。</p>
+</li>
+<li><p>为啥上面的实体一些是单数一些是复数呢？这就是laravel所谓的约定大于配置。用户和其他实体之间的关系决定了User类中关系函数的单复数形式。比如说用户和订单的关系，一个用户可以下多个订单，一个订单之恩那个属于一个用户，所以他们之间是一对多的关系，使用Eloquent内置的hasMany函数表明相对关联：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public function orders()</div><div class="line">&#123;</div><div class="line">      return $this-&gt;hasMany(&apos;App\Entities\Order&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>那么现在的重点就是两个：表明相对关联的Eloquent内置函数有哪些？请看<a href="https://cs.laravel-china.org/#eloquent" target="_blank" rel="external">https://cs.laravel-china.org/#eloquent</a> 。千万不要和Laravel内置的辅助函数(帮助函数，助手函数，Helpers函数)搞混哦，简单用法如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 一对一 - User::phone()</div><div class="line"> return $this-&gt;hasOne(&apos;App\Phone&apos;, &apos;foreign_key&apos;, &apos;local_key&apos;);</div><div class="line">// 一对一 - Phone::user(), 定义相对的关联</div><div class="line"> return $this-&gt;belongsTo(&apos;App\User&apos;, &apos;foreign_key&apos;, &apos;other_key&apos;);</div><div class="line"></div><div class="line">// 一对多 - Post::comments()</div><div class="line"> return $this-&gt;hasMany(&apos;App\Comment&apos;, &apos;foreign_key&apos;, &apos;local_key&apos;);</div><div class="line">//  一对多 - Comment::post()</div><div class="line"> return $this-&gt;belongsTo(&apos;App\Post&apos;, &apos;foreign_key&apos;, &apos;other_key&apos;);</div><div class="line"></div><div class="line">// 多对多 - User::roles();</div><div class="line"> return $this-&gt;belongsToMany(&apos;App\Role&apos;, &apos;user_roles&apos;, &apos;user_id&apos;, &apos;role_id&apos;);</div><div class="line">// 多对多 - Role::users();</div><div class="line"> return $this-&gt;belongsToMany(&apos;App\User&apos;);</div><div class="line">// 多对多 - Retrieving Intermediate Table Columns</div><div class="line">$role-&gt;pivot-&gt;created_at;</div><div class="line">// 多对多 - 中间表字段</div><div class="line"> return $this-&gt;belongsToMany(&apos;App\Role&apos;)-&gt;withPivot(&apos;column1&apos;, &apos;column2&apos;);</div><div class="line">// 多对多 - 自动维护 created_at 和 updated_at 时间戳</div><div class="line"> return $this-&gt;belongsToMany(&apos;App\Role&apos;)-&gt;withTimestamps();</div></pre></td></tr></table></figure>
+</li>
+<li><p>那么回过头来看看这个项目中app/ Entities/目录下那么多个实体Model(Entities就是个目录，改成Model也行，但是Entities翻译过来就是更准确的<code>实体</code>的意思，我一开始还以为是啥厉害的Composer包呢)。我们看看User.php和上面说的有啥不同。<br><img src="http://upload-images.jianshu.io/upload_images/3995745-d20d4c221ba4aee0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="首先"></p>
+</li>
+<li><p>首先命名空间和使用缓存，然后是Eloquent的软删除(也叫softdelete,惰性删除，要和惰性加载load区分一下)。其他的四个是用来认证授权的一些内容，这个项目的认证授权使用第三方包JWT，有空我得了解一下。</p>
+</li>
+<li><p>然后就是User Model实现接口AuthenticatableContract和AuthorizableContract(其实我也不太清楚这接口在哪里定义的，为什么要这样写)，接着开始定义一些配置，比如:</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1. 表名不是默认的名词+s形式，则需要指定$table。</div><div class="line"></div><div class="line">2. 如果表中不存在created_at和updated_at，需要将timestamp指定为false，即关闭自动维护时间戳。</div><div class="line"></div><div class="line">3. 按照情况添加guarded数组，如created_at等。</div><div class="line"></div><div class="line">4. 如果存在deleted_at，为model添加softdelete 的trait。(写文章时候这一点我还不理解)</div><div class="line"></div><div class="line">5. 对于外键不是【表名单数】_id这样形式的，需要在指定关系时，显性指定键名，如address表中的province_id指向areas，就需要单独指定。</div></pre></td></tr></table></figure>
+<ul>
+<li><p>对比项目User.php和上面的函数你会发现hasOne()还能带参数，也是定义配置里面的重新定义外键，因为默认情况下外键名称是基于Model名称的。包括第三个参数，具体请看：<a href="http://d.laravel-china.org/docs/5.1/eloquent-relationships" target="_blank" rel="external">http://d.laravel-china.org/docs/5.1/eloquent-relationships</a> 。</p>
+</li>
+<li><p>除此之外这个文件中海油获取user_id的getAuthIdentifier()，获取user_password的getAuthPassword()和静态的addUser()。</p>
+</li>
+<li><p>实际上这个部分不仅仅写模型关联这么简单，还有获取数据，更新删除数据的方法，Model相关的内容包括</p>
+<ul>
+<li><code>基础用法</code>，<code>更多用法</code>，<code>软删除</code>，<code>模型关联</code>，<code>事件</code>和<code>Eloquent配置信息</code>。</li>
+</ul>
+</li>
+<li><p>那么我就联系了另一个工作三年的PHPer，问下他写了哪些实体关系，我就开始写咯，要写的如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">Account  账户</div><div class="line">Address  地址</div><div class="line">Cart  购物车</div><div class="line">Category  分类</div><div class="line">College  大学</div><div class="line">Coupon  优惠券</div><div class="line">EnrollmentInfo  学籍信息</div><div class="line">EnrollmentUnit  学籍单位</div><div class="line">Entity  相当于Eloquent/Model，这里所有实体的父类</div><div class="line">Inventory  库存</div><div class="line">Item  商品</div><div class="line">Major  学生主修专业</div><div class="line">Order  订单</div><div class="line">OrderAddition  订单辅表</div><div class="line">OrderHistory  历史订单</div><div class="line">OrderItem  订单商品表</div><div class="line">Payment  付款方式</div><div class="line">PaymentRecord  付款记录</div><div class="line">Permission  权限，william wei写完了。</div><div class="line">    - 多对多roles</div><div class="line">Product  产品</div><div class="line">ProductAttr  产品属性</div><div class="line">ProductAttrValue  产品属性值</div><div class="line">Role  角色，william wei写完了。</div><div class="line">    - 多对多users，多对多permissions</div><div class="line">School  学校</div><div class="line">Shipping  配送方式</div><div class="line">StockOutRecord 出库记录</div><div class="line">Tag  标签</div><div class="line">User  用户，william wei写完了。</div><div class="line">    - 一对多school，一对一EnrollmentInfo，多对多Role，</div><div class="line">    - 一对多orders，多对多coupons，一对多addresses，一对多carts</div><div class="line">Warehourse  仓库</div></pre></td></tr></table></figure>
+</li>
+<li><p>注意，一对多和多对一概念类似但是函数名单复数不一致哦。学生对学校是一对多，使用school()；学校对学生是多多对一，使用students()。</p>
+</li>
+<li><p>使用belongsTo时可能是一对一，也可能是一对多。</p>
+</li>
+<li><p>上面有少数是实体之间的联系表，考虑到适度增加冗余于是给该表增加字段作为实体操作，例如：product。</p>
+</li>
+<li><p>怎么查看本地和远程代码的区别呢，使用<code>git diff</code>命令咯(zsh下默认别用gd)，但是需要自己指定参数哦，常见参数有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git diff test 查看本地当前分支与本地test分支的区别</div><div class="line"></div><div class="line">git diff dev master 查看本地dev分支与远程master分支的区别</div><div class="line"></div><div class="line">git diff pull test 查看下次提交到远程dev分支时出变化的内容</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这个部分git命令没写好以后继续添加，并追加到以前的Git命令学习文章中。另外下篇文章就是我单独把上面所有实体关联写完的烧脑过程，对着ER图一直想，一个XXX可以有YYY个ZZZ，但是一个ZZZ只能有YYY个个XXX，所以这个N对M模型，然后对照速查表写关联函数。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/" title="Laravel 5.1 模型关联(Eloquent Relationships)">http://erchoc.github.io/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/laravel/" rel="tag"># laravel</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/14/五月初一些乱七八糟的小事总结/" rel="next" title="五月初一些乱七八糟的小事总结">
+                <i class="fa fa-chevron-left"></i> 五月初一些乱七八糟的小事总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/16/直推！Git服务器的搭建/" rel="prev" title="直推！Git服务器的搭建">
+                直推！Git服务器的搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

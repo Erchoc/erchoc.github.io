@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章是我根据学校图书馆一本讲HTML+CSS的基础书籍，花费半天时间看完并总结的，主要是针对我个人理解，写的可能有点乱让别看的有点郁闷了。这里的基础知识涉及到的也不多，都是w3c文档写的部分，建议到中国区w3cschool查看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一起来复习一下HTML和CSS基础吧">
+<meta property="og:url" content="http://erchoc.github.io/2017/03/16/一起来复习一下HTML和CSS基础吧/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="这篇文章是我根据学校图书馆一本讲HTML+CSS的基础书籍，花费半天时间看完并总结的，主要是针对我个人理解，写的可能有点乱让别看的有点郁闷了。这里的基础知识涉及到的也不多，都是w3c文档写的部分，建议到中国区w3cschool查看。">
+<meta property="og:updated_time" content="2017-06-05T05:10:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一起来复习一下HTML和CSS基础吧">
+<meta name="twitter:description" content="这篇文章是我根据学校图书馆一本讲HTML+CSS的基础书籍，花费半天时间看完并总结的，主要是针对我个人理解，写的可能有点乱让别看的有点郁闷了。这里的基础知识涉及到的也不多，都是w3c文档写的部分，建议到中国区w3cschool查看。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/03/16/一起来复习一下HTML和CSS基础吧/"/>
+
+
+
+
+
+  <title>一起来复习一下HTML和CSS基础吧 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/03/16/一起来复习一下HTML和CSS基础吧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一起来复习一下HTML和CSS基础吧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-16T12:13:05+08:00">
+                2017-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这篇文章是我根据学校图书馆一本讲HTML+CSS的基础书籍，花费半天时间看完并总结的，主要是针对我个人理解，写的可能有点乱让别看的有点郁闷了。这里的基础知识涉及到的也不多，都是w3c文档写的部分，建议到中国区w3cschool查看。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="HTML部分"><a href="#HTML部分" class="headerlink" title="HTML部分"></a>HTML部分</h3><ul>
+<li><p>meta可以用于跳转网页</p>
+</li>
+<li><p>能用css实现的，就不要用图片实现！</p>
+</li>
+<li><p>mete base属性已经几乎不用了</p>
+</li>
+<li><p>粗体尽量用语义化strong,<code>粗体最好的选择是用CSS font-weight</code></p>
+</li>
+<li><p>斜体i,em,cite，尽量用em,<code>斜体最好的选择是CSS font-style</code></p>
+</li>
+<li><p>指数上标用sup,下标sub</p>
+</li>
+<li><p>删除线s，下划线u,<code>CSS的text-decoration</code></p>
+</li>
+<li><p>版权声明small</p>
+</li>
+<li><p>特殊符号表: 空格 <code>CSS缩进text-indent</code></p>
+</li>
+<li><p>inline元素里面放block元素？</p>
+</li>
+<li><p>有序列表，无序列表，定义列表</p>
+</li>
+<li><p>type=1,a,A,i,I <code>CSS的list-style-type</code></p>
+</li>
+<li><p>type=disc,circle,square</p>
+</li>
+<li><p>表格标题caption,</p>
+</li>
+<li><p>表头th，行头tr,单元格td对应语义化: thead,tbody,tfoot</p>
+</li>
+<li><p>合并行rowspan, 合并列colspan</p>
+</li>
+<li><p>图片src,alt,title给搜索引擎和用户看</p>
+</li>
+<li><p>任何名字不要用中文</p>
+</li>
+<li><p>位图(点阵图)和矢量图(向量图)8/16/24/32位图</p>
+</li>
+<li><p>超链接的target:_self, _blank, _top, _parent(HTML框架)</p>
+</li>
+<li><p>内部链接、外部链接和锚点链接</p>
+</li>
+<li><p>常用表单元素:</p>
+<ul>
+<li>input</li>
+<li>textarea</li>
+<li>select,option</li>
+</ul>
+</li>
+<li><p>form标签属性:</p>
+<ul>
+<li>name</li>
+<li>action</li>
+<li>method</li>
+<li>enctype</li>
+<li>target</li>
+</ul>
+</li>
+<li><p>表单对象的属性:</p>
+<ul>
+<li>value</li>
+<li>size</li>
+<li>maxlength</li>
+</ul>
+</li>
+<li><p>复选框checkbox必须配合label和其for属性使用</p>
+</li>
+<li><p>表单按钮button, submit, reset</p>
+</li>
+<li><p>图片域: image属性</p>
+</li>
+<li><p>隐藏域: hidden属性</p>
+</li>
+<li><p>文件域: file属性，要声明编码方式enctype=”multi/form-data”</p>
+</li>
+<li><p>多行文本框textarea: rows clos</p>
+</li>
+<li><p>下拉列表select+option属性:</p>
+<ul>
+<li>multiple(Ctrl+鼠标左键选择多个)</li>
+<li>size(显示的行数，其他出现滚动条)</li>
+</ul>
+</li>
+<li><p>在线音频视频用embed src</p>
+</li>
+<li><p>frameset框架集标签被HTML5舍弃，用浮动框架iframe和scrolling属性: auto(默认左对齐),yes,no(滚动条)</p>
+</li>
+</ul>
+<h3 id="CSS部分"><a href="#CSS部分" class="headerlink" title="CSS部分"></a>CSS部分</h3><ul>
+<li><p>三种引入样式的办法: 外部样式表，内部样式表，内联样式表</p>
+</li>
+<li><p>注意: link在加载CSS后加载HTML，@import却先加载HTML再加载CSS</p>
+</li>
+<li><p>id选择器也可以写成name，但是id是HTML的标准，name是XHTML的标准，尽量不用name。</p>
+</li>
+<li><p>子元素选择器，相邻选择器，群组选择器(#a,#b)</p>
+</li>
+<li><p>关于字体(类型，大小，粗细，斜体，颜色)</p>
+</li>
+<li><p>字体单位(关键字): xx-small, x-small, small, medium, large, x-large, xx-large</p>
+</li>
+<li><p>字体粗细(100-900): normal, lighter, bold, nolder</p>
+</li>
+<li><p>字体斜体(font-style): normal, italic, oblique(没有倾斜属性的特殊字体)</p>
+</li>
+<li><p>关于文本：用text-decoration取代s和u标签(空，下划线，删除线，顶划线)</p>
+</li>
+<li><p>用text-transform转换大小写(none, uppercase, lowercase, capitalize)</p>
+</li>
+<li><p>font-variant小型大写字母(normal, small-caps)</p>
+</li>
+<li><p>text-indent段落首行缩进</p>
+</li>
+<li><p>p段落字体14px，则text-indent: 28px</p>
+</li>
+<li><p>text-align文本和img水平对齐(left,center,right)</p>
+</li>
+<li><p>line-height行高</p>
+</li>
+<li><p>letter-spacing字距</p>
+</li>
+<li><p>word-spacing词距</p>
+</li>
+<li><p>边框样式（border-width, border-color, border-style）<br>none, hidden, solid, dashed, dotted, double</p>
+</li>
+<li><p>3D: inset内, outset外, ridge脊, groove槽</p>
+</li>
+<li><p>简洁写法:border: 1px red solid;</p>
+</li>
+<li><p>局部边框样式:border-bottom</p>
+</li>
+<li><p>背景样式</p>
+</li>
+<li><p>web2.0都在CSS中使用background</p>
+</li>
+<li><p>background-color:背景颜色</p>
+</li>
+<li><p>image:url()背景图像</p>
+</li>
+<li><p>repeat:是否横纵平铺(no-repeat, repeat, repeat-x, repeat-y)</p>
+</li>
+<li><p>position:图像显示位置(用法margin)top button left right</p>
+</li>
+<li><p>attachment:是否随内容滚动(响应式)(默认scroll，可选fixed)</p>
+</li>
+<li><p>超链接伪类(必须按顺序定义)</p>
+<ul>
+<li>a:link,未访问时</li>
+<li>a:visited,访问后</li>
+<li>a:hover,鼠标经过</li>
+<li>a:actived，单击激活时</li>
+<li>:hover伪类可以定义于每个元素！</li>
+</ul>
+</li>
+<li><p>浏览器鼠标样式cursor: pointer,default,wait,help等等。</p>
+</li>
+<li><p>自定义鼠标样式cursor:url(“ “),属性;</p>
+</li>
+<li><p>图片水平对齐用text-align</p>
+</li>
+<li><p>垂直对齐用vertical-align(top,middle,baseline,bottom)</p>
+</li>
+<li><p>文字环绕效果float(图文混排)</p>
+</li>
+<li><p>列表样式:统一使用list-style-type</p>
+</li>
+<li><p>无序ul列表:(decimal,lower-roman,upper-romam,lower-alpha,upper-alpha)</p>
+</li>
+<li><p>有序ol列表:(disc,circle,square,none)</p>
+</li>
+<li><p>自定义列表项符号:list-style-image: url();</p>
+</li>
+<li><p>表格样式,边框合并和边框间距border-collapse(默认sqparate,collapse)</p>
+</li>
+<li><p>border-spacing:(一或两个像素参数)</p>
+</li>
+<li><p>标题位置caption-side(top,bottom)</p>
+</li>
+<li><p>CSS盒子模型(块元素和行内元素)</p>
+</li>
+<li><p>content-padding-margin-border四大属性</p>
+</li>
+<li><p>content区三属性:width,height,overflow</p>
+</li>
+<li><p>宽高属于内容区，不包括”补白”，溢出属性用于处理超出内容区的范围</p>
+</li>
+<li><p>负margin重叠技术,行内变块级display:block;</p>
+</li>
+<li><p>浮动布局和定位布局</p>
+</li>
+<li><p>CSS: 正常文档流和脱离文档流relative，absolute，fixed，默认是静态定位static</p>
+</li>
+<li><p>相对定位元素始终会获得相应的空间</p>
+</li>
+<li><p>绝对定位和固定定位会完全脱离文档流</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/03/16/一起来复习一下HTML和CSS基础吧/" title="一起来复习一下HTML和CSS基础吧">http://erchoc.github.io/2017/03/16/一起来复习一下HTML和CSS基础吧/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/" rel="next" title="来聊聊PhpStudy环境本地多站点虚拟域名配置">
+                <i class="fa fa-chevron-left"></i> 来聊聊PhpStudy环境本地多站点虚拟域名配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/17/Laravel微型项目开发流程/" rel="prev" title="Laravel微型项目开发流程">
+                Laravel微型项目开发流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML部分"><span class="nav-number">1.</span> <span class="nav-text">HTML部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS部分"><span class="nav-number">2.</span> <span class="nav-text">CSS部分</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

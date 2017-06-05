@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="os," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="应某电脑小白之托，特意写了这篇文章给各位想要了解电脑装windows系统的朋友。其实安装windows系统的方式非常多种，比如解压安装，在线升级系统，备份还原系统，软碟通刻录安装，电脑维修店最常见的还是PE系统安装。安装方式这么多，但其实也就是一种思路：暂时脱离系统盘(C:)安装，这篇文章使用PE教程，网上的PE软件常见如老毛桃、大白菜、深度，我使用的是U启动，因为前者都植入和很多广告和第三方软">
+<meta name="keywords" content="os">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优盘PE和Windows系统的安装教程">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/09/优盘PE和Windows系统的安装教程/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="应某电脑小白之托，特意写了这篇文章给各位想要了解电脑装windows系统的朋友。其实安装windows系统的方式非常多种，比如解压安装，在线升级系统，备份还原系统，软碟通刻录安装，电脑维修店最常见的还是PE系统安装。安装方式这么多，但其实也就是一种思路：暂时脱离系统盘(C:)安装，这篇文章使用PE教程，网上的PE软件常见如老毛桃、大白菜、深度，我使用的是U启动，因为前者都植入和很多广告和第三方软">
+<meta property="og:updated_time" content="2017-06-04T13:22:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优盘PE和Windows系统的安装教程">
+<meta name="twitter:description" content="应某电脑小白之托，特意写了这篇文章给各位想要了解电脑装windows系统的朋友。其实安装windows系统的方式非常多种，比如解压安装，在线升级系统，备份还原系统，软碟通刻录安装，电脑维修店最常见的还是PE系统安装。安装方式这么多，但其实也就是一种思路：暂时脱离系统盘(C:)安装，这篇文章使用PE教程，网上的PE软件常见如老毛桃、大白菜、深度，我使用的是U启动，因为前者都植入和很多广告和第三方软">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/09/优盘PE和Windows系统的安装教程/"/>
+
+
+
+
+
+  <title>优盘PE和Windows系统的安装教程 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/09/优盘PE和Windows系统的安装教程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优盘PE和Windows系统的安装教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-09T16:08:48+08:00">
+                2017-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>应某电脑小白之托，特意写了这篇文章给各位想要了解电脑装windows系统的朋友。其实安装windows系统的方式非常多种，比如解压安装，在线升级系统，备份还原系统，软碟通刻录安装，电脑维修店最常见的还是PE系统安装。安装方式这么多，但其实也就是一种思路：暂时脱离系统盘(C:)安装，这篇文章使用PE教程，网上的PE软件常见如老毛桃、大白菜、深度，我使用的是U启动，因为前者都植入和很多广告和第三方软件。电脑维修的地方可能会使用自己定制的PE和镜像。下面开始准备工作吧。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>准备一个8G优盘，事先下载好需要安装的系统镜像 [<a href="http://msdn.itellyou.cn/" target="_blank" rel="external">http://msdn.itellyou.cn/</a>] 和U启动软件 [<a href="http://www.uqidong.com/" target="_blank" rel="external">http://www.uqidong.com/</a>] 。这里不得不说几点：微软公司的软件尽量都在官方[<a href="https://www.microsoft.com" target="_blank" rel="external">https://www.microsoft.com</a>] 下载，但是由于微软官网所在服务器距离我们过于遥远，下载非常慢而且经常中断。国内的一个小伙子利用CDN网络搭建了一个服务器把微软官方的系统和各种工具都放在这个MSDN网站上。如果你担心被植入病毒，可以使用md5校验工具查看md5值是否与微软提供的一致。</p>
+</li>
+<li><p>U启动软件用于把一个小型的系统(PE维护系统)写入你的优盘中。这个系统一般不提供网络环境，但是提供了很多专业维护和测试工具。由于现代主板在2012年左右引入了一种EFI(UEFI前身)引导模式，现在BIOS设置引导系统就出现了EFI和Legacy两种方式。这个软件也提供了所谓的装机版和UEFI版本，根据需求自行下载。</p>
+</li>
+<li><p>操作系统必须是安装在一块硬盘的主分区中，开机时候引导程序根据A-B-C-D的路线去查看你的主分区中是否存在操作系统。就像三个人(外接设备)突然来了你家(硬盘)，看门狗(引导程序)一个一个闻他们身上的味道，第一个人是主人，好了主人可以进门(进入操作系统)，其他不许进来。如果你安装多系统，就像你和老爸一起回家，看门狗就会叫两句(只能先进来一个，你们谁先吧)，虽然要求不能同时进入房间，但最终都会让你们进来。</p>
+</li>
+<li><p>于是我们需要在BIOS中修改一下的外部设备的加载顺序(也就是三个人来你家的站位顺序)。BIOS全称基本输入输出系统，可以理解为看门狗的房子，在你还没进入系统之前，BIOS一直守着大门。是的，主板型号各种各样，进入BIOS的方式也是千奇百怪，这是装系统的难点之一。</p>
+</li>
+<li><p>装系统两大难点之二：MBR和GPT硬盘格式分不清。这是一个不得不说的大问题，GPT这种格式的硬盘数据无法被传统的引导程序识别，只能使用配套的UEFI引导模式。使用GPT+UEFI是最近几年几乎所有笔记本的做法，它可以让你的开机速度明显提高，还可以支持超多主分区。(MBR最多4个主分区意味着最多安装4个操作系统)</p>
+</li>
+<li><p>如果你想依靠重装系统摆脱电脑卡顿，那还是放弃吧。卡顿找理由：有固态吗？垃圾软件多吗？开机启动项关了吗？内存是不是小了啊？处理器是不是超低压低频啊？是不是长期用来打多渲染游戏啊？</p>
+</li>
+<li><p>把镜像文件放到D盘根目录。插上优盘，备份数据，格式化优盘。</p>
+</li>
+<li><p>打开U启动，选择写入PE，写入完成。</p>
+</li>
+<li><p>关机，开机。看到品牌标识按F1/F2/F8/F12/del/esc(根据你的型号选择，如果BIOS开启了Fn,那还需要同时按Fn键)。</p>
+</li>
+<li><p>如果进入了BIOS,找到BOOT选项卡下的引导顺序栏，根据提示使用F5/F6调整你的优盘到第一启动项，根据提示保存重启就会自动进入PE。</p>
+</li>
+<li><p>如果没进入BIOS而是弹出一个列表框，这是大概2012年后主板的快速选择，选择你的优盘回车即可，也会自动进入PE。</p>
+</li>
+<li><p>当你看到PE界面时，大概有10-20秒反应时间，如果你啥都不做，那就会默认进入你的系统，而不是重装系统，所以请立刻按下方向键。</p>
+</li>
+<li><p>PE制作考虑到兼容性一般会好几种微型系统如XP/2003/WIN8，一般情况下进入哪个都行，建议10年以前的电脑进入XP/2003PE，某些时候还是有些区别的。</p>
+</li>
+<li><p>成功进入PE后等待几秒会弹出一个自动安装系统的软件，在桌面上也可以打开这个软件，你只需要选择D盘中的.iso系统镜像，然后选择安装到C盘，确定即可。有个提示框问你引导程序放哪？系统放哪个盘符引导就放那个盘符。</p>
+</li>
+<li><p>有时候我们的硬盘是刚买来的，没有盘符，或者我想重新格式化整块硬盘。</p>
+</li>
+<li><p>那么你就要把镜像放在优盘或者移动硬盘中了，然后使用PE都会安装的DG磁盘分区工具，使用方法很简单不做赘述。</p>
+</li>
+<li><p>安装完成后会自动重启，关机后拔掉优盘。否则修改BIOS顺序的话，开机后还是会进入U启动界面。</p>
+</li>
+<li><p>接下来的安装就是傻瓜式了，激活码可以先跳过，不建议联网。进入系统后使用事先下载的激活工具或者某宝买来的密钥激活即可。<br>```</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/09/优盘PE和Windows系统的安装教程/" title="优盘PE和Windows系统的安装教程">http://erchoc.github.io/2017/05/09/优盘PE和Windows系统的安装教程/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/os/" rel="tag"># os</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/09/Git在项目开发中的使用/" rel="next" title="Git在项目开发中的使用">
+                <i class="fa fa-chevron-left"></i> Git在项目开发中的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/10/纯HTMl调用客户端程序的一些实用代码/" rel="prev" title="纯HTML调用客户端程序的一些实用代码">
+                纯HTML调用客户端程序的一些实用代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

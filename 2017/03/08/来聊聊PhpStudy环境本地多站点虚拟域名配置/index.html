@@ -1,0 +1,807 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="教程在Windows系统下使用PhpStudy在Apache服务器环境搭建本地站点，通过这篇文章你可以学到：修改hosts文件和域名系统的原理，Apache多站点的配置，MarkDown语法以及各平台推荐软件和一些零碎的网络相关知识。 类似于这篇文章，后续我还写了不使用集成环境在Apache和Nginx的虚拟域名本地多站点配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="来聊聊PhpStudy环境本地多站点虚拟域名配置">
+<meta property="og:url" content="http://erchoc.github.io/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="教程在Windows系统下使用PhpStudy在Apache服务器环境搭建本地站点，通过这篇文章你可以学到：修改hosts文件和域名系统的原理，Apache多站点的配置，MarkDown语法以及各平台推荐软件和一些零碎的网络相关知识。 类似于这篇文章，后续我还写了不使用集成环境在Apache和Nginx的虚拟域名本地多站点配置。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-f70c9d5ed43d5bbb.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-afb502abda87f2ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-eaadb4fd83ffc879.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-4cd4f9245495ffe6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-00f25e5476fcbbcf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-b876d6567f0d3ae5.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-e1bfe337f33468f0.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-621204533a6c8541.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-05T04:52:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="来聊聊PhpStudy环境本地多站点虚拟域名配置">
+<meta name="twitter:description" content="教程在Windows系统下使用PhpStudy在Apache服务器环境搭建本地站点，通过这篇文章你可以学到：修改hosts文件和域名系统的原理，Apache多站点的配置，MarkDown语法以及各平台推荐软件和一些零碎的网络相关知识。 类似于这篇文章，后续我还写了不使用集成环境在Apache和Nginx的虚拟域名本地多站点配置。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3995745-f70c9d5ed43d5bbb.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/"/>
+
+
+
+
+
+  <title>来聊聊PhpStudy环境本地多站点虚拟域名配置 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">来聊聊PhpStudy环境本地多站点虚拟域名配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T13:41:15+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>教程在Windows系统下使用PhpStudy在Apache服务器环境搭建本地站点，通过这篇文章你可以学到：<code>修改hosts文件和域名系统的原理</code>，<code>Apache多站点的配置</code>，<code>MarkDown语法以及各平台推荐软件</code>和<code>一些零碎的网络相关知识</code>。</p>
+<p>类似于这篇文章，后续我还写了不使用集成环境在Apache和Nginx的虚拟域名本地多站点配置。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="来聊聊什么是服务器"><a href="#来聊聊什么是服务器" class="headerlink" title="来聊聊什么是服务器"></a>来聊聊什么是服务器</h3><ul>
+<li><p>我记得看到过一位老师写的文章，题目是当你在浏览器输入<a href="www.google.com">www.google.com</a>回车后发生了什么？这里就是在谈论这个问题。首先什么是服务器？说白了就是一台电脑，但由于服务器需要提供服务给其他人，所以这机器尽量不能关机。怎么让它连续工作，那就得靠硬件配置和操作系统的内核优化了。</p>
+</li>
+<li><p>几乎大所数服务器使用Intel架构至强处理器，为甚？多核心高缓存啊！少数使用IBM得power芯片这个不谈。服务器有自己的ECC内存条，总之就是比你我的DDR3，DDR4更加稳定。根据CPU的选择，服务器有自己的主板，而不是什么B75,Z97,B150,H170这种民用主办。服务器系统主要是Windows,Linux和Unix三大阵营。Unix要钱我没玩过，Windows在服务器上有Server2003，2008，2012和2016，分别对应你们桌面版用的XP，WIN7，WIN8，WIN10，操作啥的稍微方便，但是安全性堪忧。总体上使用Linux服务器的公司居多。Linux和MacOS是Unix的儿子女儿，由于Linux内核开源，它又有很多变体出来了。但主要上分为两支：Fordora系列和Debian系列。你们熟知的CentOS和Ubuntu就是这两个分支中的典型代表，具体就不说下去了，蛋疼。</p>
+</li>
+<li><p>我们必须知道每一台能访问外网的电脑都有一个ip地址，关于ip v4和ip v6，大概就是以前大家都有固定的ip v4地址，但是后来不够用了(32位二进制的缺陷，和千年虫问题一个道理)，然后就来了个超大范围的ip v6，并且把ip v4静态地址换成动态地址，大家都在一个运营商的静态ip v4地址下使用动态ip v6地址。 这个变化要记住，很重要，其原理关系到目前我们为什么不能搭建自己的服务器主机。也就是说，我们都联网的时候，可以通过ip地址或者主机名称进行对话，目前的即时通讯软件就是这个原理辅以Socket协议，ip地址可以理解为主机名称的简写。我们的服务器一直开机，我怎么和它对话呢？</p>
+</li>
+<li><p>首先你要知道服务器的ip地址咯。由于服务器即使重启也不能让ip变化，否则就像你搬家了，亲戚找不到你。所以服务器需要静态ip地址，知道ip地址其实你们就能交流了。命令行ping命令用来测试你们能否联通，ftp，telnet等一系列命令就是程序员工具。但是服务器还得提供http上得各种服务啊，这就需要HTTP服务器了。</p>
+</li>
+</ul>
+<h3 id="HTTP服务器，域名和DNS"><a href="#HTTP服务器，域名和DNS" class="headerlink" title="HTTP服务器，域名和DNS"></a>HTTP服务器，域名和DNS</h3><ul>
+<li><p>上面我们知道了服务器只是一台可能有着特殊硬件、装着特殊系统的PC机，那么很多人不懂什么是HTTP服务器。其实HTTP服务也叫WEB服务器，甚至很多web相关职业者就喜欢叫它服务器，但实际上这只是一个软件！常见的Apache，Nginx，IIS，Tomcat，Jboss，Openresty这些都是WEB服务器。这家伙的作用就是通过http协议沟通外网的终端主机（就是你我的客户端电脑，由于http协议的安全性堪忧，目前越来越多的站点改用https协议，其实就是加了个SSL协议，80端口换403端口），我放一个html文件在WEB服务器指定的目录里面，理论上你就可以在浏览器中输入ip地址看到我这个页面了。但是你记得到几个ip地址呢？</p>
+</li>
+<li><p>为了方便记忆，域名和DNS这东西又出来了，这其实只是一种映射。我买一个域名叫erchoc.com，把它绑定到WEB服务器的指定目录，以后我输入erchoc.com就可以访问到我的网站了。并且我可以买十个域名，分别映射到服务器是个目录下，这就是多站点(关于顶级域名，二级域名和二级目录这种常识也不讲了)。然而实际上这是不够的，你的域名必须经过DNS服务器解析！我了个去，怎这么多服务器？这还不算多，学习PHP还要会自己配置FTP服务器，Git服务器，Samba服务器。。。。庆幸的是DNS解析有专门的公司在做这件事，也提供了免费解析的服务。很多时候你买域名租阿里云腾讯云云服务器什么虚拟主机（云服务器），这些都是人家帮你搞定了。另外必须吐槽的是，腾讯云所谓的云主机其实就是个虚拟机！</p>
+</li>
+</ul>
+<h3 id="hosts文件是什么"><a href="#hosts文件是什么" class="headerlink" title="hosts文件是什么"></a>hosts文件是什么</h3><ul>
+<li><p>好了，原理基本结束。最后hosts文件来说一下。当你在浏览器输入<a href="www.google.com">www.google.com</a>的时候，首先电脑的hosts文件会被扫一遍，然后去这个域名的DNS解析服务器那里看看google.com被解析到了哪个ip地址。然后客户端就在背后请求(简单理解就是缓存)那个ip地址上的HTTP服务器，HTTP服务器在本机把一些业务逻辑用后端代码搞定转换成html文件响应给客户端，然后你就看到大大的Google搜索框了。</p>
+</li>
+<li><p>其实关于HTTP的知识，叶老师的拓展阅读里面也有专门的讲解，<a href="http://web.3eol.com.cn/Home/Article/article/id/5.html" target="_blank" rel="external">点击阅读HTTP相关知识</a>。</p>
+</li>
+</ul>
+<h3 id="配置Apache的多站点"><a href="#配置Apache的多站点" class="headerlink" title="配置Apache的多站点"></a>配置Apache的多站点</h3><ul>
+<li><p>以下操作只要你跟着做就能成功，有不同请截图提问。</p>
+</li>
+<li><p>首先启动apache，访问localhost或者127.0.0.1出现页面就下一步</p>
+</li>
+<li><p>用sublime打开hosts文件，在最后部分添加如图两行代码【host文件夹的位置请自行百度】<br><img src="http://upload-images.jianshu.io/upload_images/3995745-f70c9d5ed43d5bbb.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="one.PNG"></p>
+</li>
+<li><p>然后在apache项目目录下建立erchoc和Hbuilder两个文件夹，分别在里面放一个不同内容的html文件【这个项目目录不是WWW就是htdos，具体还要看你的一键环境包】<br><img src="http://upload-images.jianshu.io/upload_images/3995745-afb502abda87f2ba.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="two.PNG"></p>
+</li>
+<li><p>重启Apache后分别访问erchoc.apph和hbuilder，app，出现和localhost一样的页面就继续</p>
+</li>
+<li><p>进入Apache的配置目录，用sublime打开httpd.conf<br><img src="http://upload-images.jianshu.io/upload_images/3995745-eaadb4fd83ffc879.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="three.PNG"></p>
+</li>
+<li><p>如图，搜索vhost，删除前面的’#‘号保存【开启虚拟域名配置】<br><img src="http://upload-images.jianshu.io/upload_images/3995745-4cd4f9245495ffe6.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="four.PNG"></p>
+</li>
+<li><p>还是根据上面图的位置找到并用sublime打开httpd-vhost.conf，复制粘贴原有内容两遍【PhpStudy默认位置已经改成了httpd.conf同级目录的vhost.conf】<br><img src="http://upload-images.jianshu.io/upload_images/3995745-00f25e5476fcbbcf.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="five.PNG"></p>
+</li>
+<li><p>粘贴后修改两行，添加一行ServerName,如图所示<br><img src="http://upload-images.jianshu.io/upload_images/3995745-b876d6567f0d3ae5.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="six.PNG"></p>
+</li>
+<li><p>重启Apache后，浏览器访问erchoc.app和hbuilder.app，看到和localhost完全不同的三个页面即成功。实际山在真实项目开发中的多站点就是这样配置的，Nginx的配置更简单一些。另外，其实phpstudy和wamp的多站点配置是可以手动点点点操作的，由于linux命令行界面不行，所以特意写这篇文章<br><img src="http://upload-images.jianshu.io/upload_images/3995745-e1bfe337f33468f0.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="demo1.PNG"></p>
+</li>
+<li><p>现在访问虚拟域名试试</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/3995745-621204533a6c8541.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="demo2.PNG"></p>
+<ul>
+<li><p>最后，文章使用MarkDown排版，使用windows上的Sublime插件编写，有兴趣的同学可以自行了解。</p>
+</li>
+<li><p>推荐Android使用小众轻巧的MarkdownEditors(可以在GitHub搜索并下载到源码)。</p>
+</li>
+<li><p>推荐喜欢英文写作的同学IA Write，功能强大还能学习英语。</p>
+</li>
+<li><p>喜欢社区和日志写作推荐使用简书这个平台。</p>
+</li>
+<li><p>Mac上建议使用Mou这款编辑器，同样支持类似Typora实时预览。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/" title="来聊聊PhpStudy环境本地多站点虚拟域名配置">http://erchoc.github.io/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/28/关于本学期接触到的数据库设计范式/" rel="next" title="关于本学期接触到的数据库设计范式">
+                <i class="fa fa-chevron-left"></i> 关于本学期接触到的数据库设计范式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/16/一起来复习一下HTML和CSS基础吧/" rel="prev" title="一起来复习一下HTML和CSS基础吧">
+                一起来复习一下HTML和CSS基础吧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#来聊聊什么是服务器"><span class="nav-number">1.</span> <span class="nav-text">来聊聊什么是服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP服务器，域名和DNS"><span class="nav-number">2.</span> <span class="nav-text">HTTP服务器，域名和DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hosts文件是什么"><span class="nav-number">3.</span> <span class="nav-text">hosts文件是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Apache的多站点"><span class="nav-number">4.</span> <span class="nav-text">配置Apache的多站点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

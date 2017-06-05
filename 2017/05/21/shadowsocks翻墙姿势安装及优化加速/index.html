@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="转载原文于：http://wuchong.me/blog/2015/02/02/shadowsocks-install-and-optimize/   最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而言， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shadowsocks翻墙姿势安装及优化加速">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/21/shadowsocks翻墙姿势安装及优化加速/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="转载原文于：http://wuchong.me/blog/2015/02/02/shadowsocks-install-and-optimize/   最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而言， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们">
+<meta property="og:updated_time" content="2017-06-05T03:04:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shadowsocks翻墙姿势安装及优化加速">
+<meta name="twitter:description" content="转载原文于：http://wuchong.me/blog/2015/02/02/shadowsocks-install-and-optimize/   最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而言， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/21/shadowsocks翻墙姿势安装及优化加速/"/>
+
+
+
+
+
+  <title>shadowsocks翻墙姿势安装及优化加速 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/21/shadowsocks翻墙姿势安装及优化加速/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shadowsocks翻墙姿势安装及优化加速</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T06:37:14+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>转载原文于：<a href="http://wuchong.me/blog/2015/02/02/shadowsocks-install-and-optimize/" target="_blank" rel="external">http://wuchong.me/blog/2015/02/02/shadowsocks-install-and-optimize/</a></li>
+</ul>
+<blockquote>
+<p>最近国内的网络形式越来越严峻，在日益高筑的围墙之下，掌握一门穿墙之术越来越成为需要。相对于 VPN 而言， Shadowsocks 更为轻量级，安装配置过程极其简单。而客户端也可以在windows、mac、iOS和android上轻松运行，被人们所深深喜爱。感谢<a href="https://twitter.com/clowwindy" target="_blank" rel="external">@clowwindy</a>，带给我们一款如此好用的<a href="https://github.com/shadowsocks/shadowsocks" target="_blank" rel="external">开源软件</a>。下面说说 Shadowosocks 的安装和优化。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="1-服务端安装"><a href="#1-服务端安装" class="headerlink" title="1. 服务端安装"></a>1. 服务端安装</h1><ul>
+<li>官方推荐 Ubuntu 14.04 LTS 作为服务器以便使用 TCP Fast Open，我使用的是搬瓦工CentOS7最小化安装。服务器端的安装非常简单，请使用root用户进行下面的操作。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Debian / Ubuntu:</div><div class="line">apt-get install python-pip</div><div class="line">pip install shadowsocks</div><div class="line"></div><div class="line">CentOS:</div><div class="line">yum install python-setuptools &amp;&amp; easy_install pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure>
+<ul>
+<li>然后直接在后台运行：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssserver -p 8000 -k password -m rc4-md5 -d start</div><div class="line"></div><div class="line">ssserver命令还可以查看使用帮助</div></pre></td></tr></table></figure>
+<ul>
+<li>当然也可以使用配置文件进行配置，方法创建/etc/shadowsocks.json<br>文件，填入如下内容：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</div><div class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</div><div class="line">    &quot;local_port&quot;:1080,</div><div class="line">    &quot;port_password&quot;:&#123;</div><div class="line">         &quot;8989&quot;:&quot;password&quot;,</div><div class="line">         &quot;9001&quot;:&quot;password1&quot;,</div><div class="line">         &quot;9002&quot;:&quot;password2&quot;,</div><div class="line">         &quot;9003&quot;:&quot;password3&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;timeout&quot;:300,</div><div class="line">    &quot;method&quot;:&quot;rc4-md5&quot;,</div><div class="line">    &quot;fast_open&quot;: false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>然后使用配置文件在后台运行：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div></pre></td></tr></table></figure>
+<ul>
+<li><p>如果要停止运行，将命令中的 start 改成 stop。</p>
+</li>
+<li><p>TIPS: 加密方式推荐使用rc4-md5，因为 RC4 比 AES 速度快好几倍，如果用在路由器上会带来显著性能提升。</p>
+</li>
+<li><p>旧的 RC4 加密之所以不安全是因为 Shadowsocks 在每个连接上重复使用 key，没有使用 IV。现在已经重新正确实现，可以放心使用。更多可以看<a href="https://github.com/clowwindy/shadowsocks/issues/178" target="_blank" rel="external">issue</a>。</p>
+</li>
+</ul>
+<h1 id="2-客户端安装"><a href="#2-客户端安装" class="headerlink" title="2. 客户端安装"></a>2. 客户端安装</h1><ul>
+<li>客户端安装比较入门，可以从<a href="https://www.shadowsocks.com.hk/client.html" target="_blank" rel="external">官方网站</a>下载对应客户端安装。</li>
+<li>电脑客户端：<a href="https://ttt.tt/150/" target="_blank" rel="external">使用方法</a>。</li>
+<li>安卓使用方法：<a href="http://jingyan.baidu.com/article/fdbd4277c62ec9b89e3f4821.html" target="_blank" rel="external">百度经验</a>, IOS同理。</li>
+</ul>
+<h1 id="3-加速优化"><a href="#3-加速优化" class="headerlink" title="3. 加速优化"></a>3. 加速优化</h1><ul>
+<li>下面介绍几种简单的优化方法，也是比较推荐的几种，能够得到立竿见影的效果。当然还有一些黑科技我没提到，如有大神路过，也可留言指出。</li>
+</ul>
+<h2 id="3-1-内核参数优化"><a href="#3-1-内核参数优化" class="headerlink" title="3.1 内核参数优化"></a>3.1 内核参数优化</h2><ul>
+<li>首先，将 Linux 内核升级到 3.5 或以上。<br><strong>第一步，增加系统文件描述符的最大限数</strong></li>
+<li>编辑文件limits.conf</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/security/limits.conf</div></pre></td></tr></table></figure>
+<p>增加以下两行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* soft nofile 51200</div><div class="line">* hard nofile 51200</div></pre></td></tr></table></figure>
+<ul>
+<li>启动shadowsocks服务器之前，设置以下参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ulimit -n 51200</div></pre></td></tr></table></figure>
+<p><strong>第二步，调整内核参数</strong></p>
+<ul>
+<li>修改配置文件/etc/sysctl.conf</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">fs.file-max = 51200</div><div class="line"></div><div class="line">net.core.rmem_max = 67108864</div><div class="line"></div><div class="line">net.core.wmem_max = 67108864</div><div class="line"></div><div class="line">net.core.netdev_max_backlog = 250000</div><div class="line"></div><div class="line">net.core.somaxconn = 4096</div><div class="line"></div><div class="line">net.ipv4.tcp_syncookies = 1</div><div class="line"></div><div class="line">net.ipv4.tcp_tw_reuse = 1</div><div class="line"></div><div class="line">net.ipv4.tcp_tw_recycle = 0</div><div class="line"></div><div class="line">net.ipv4.tcp_fin_timeout = 30</div><div class="line"></div><div class="line">net.ipv4.tcp_keepalive_time = 1200</div><div class="line"></div><div class="line">net.ipv4.ip_local_port_range = 10000 65000</div><div class="line"></div><div class="line">net.ipv4.tcp_max_syn_backlog = 8192</div><div class="line"></div><div class="line">net.ipv4.tcp_max_tw_buckets = 5000</div><div class="line"></div><div class="line">net.ipv4.tcp_fastopen = 3</div><div class="line"></div><div class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</div><div class="line"></div><div class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</div><div class="line"></div><div class="line">net.ipv4.tcp_mtu_probing = 1</div><div class="line"></div><div class="line">net.ipv4.tcp_congestion_control = hybla</div></pre></td></tr></table></figure>
+<ul>
+<li>修改后执行sysctl -p使配置生效</li>
+</ul>
+<h2 id="3-2-锐速"><a href="#3-2-锐速" class="headerlink" title="3.2 锐速"></a>3.2 锐速</h2><ul>
+<li><p>锐速是一款非常不错的TCP底层加速软件，可以非常方便快速地完成服务器网络的优化，配合 ShadowSocks 效果奇佳。目前锐速官方也出了永久免费版本，适用带宽20M、3000加速连接，个人使用是足够了。如果需要，先要在锐速官网注册个账户。</p>
+</li>
+<li><p>然后确定自己的内核是否在锐速的支持列表里，如果不在，请先更换内核，如果不确定，请使用<a href="http://my.serverspeeder.com/w.do?m=lslm" target="_blank" rel="external">手动安装</a>。</p>
+</li>
+<li><p>确定自己的内核版本在支持列表里，就可以使用以下命令快速安装了。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://my.serverspeeder.com/d/ls/serverSpeederInstaller.tar.gz</div><div class="line"></div><div class="line">tar xzvf serverSpeederInstaller.tar.gz</div><div class="line"></div><div class="line">bash serverSpeederInstaller.sh</div></pre></td></tr></table></figure>
+<ul>
+<li><p>输入在官网注册的账号密码进行安装，参数设置直接回车默认即可，最后两项输入 y 开机自动启动锐速，y 立刻启动锐速。之后可以通过lsmod<br>查看是否有appex模块在运行。</p>
+</li>
+<li><p>到这里还没结束，我们还要修改锐速的3个参数:</p>
+</li>
+</ul>
+<p>vi /serverspeeder/etc/config<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">rsc=&quot;1&quot; #RSC网卡驱动模式</div><div class="line"></div><div class="line">advinacc=&quot;1&quot; #流量方向加速</div><div class="line"></div><div class="line">maxmode=&quot;1&quot; #最大传输模式</div></pre></td></tr></table></figure></p>
+<ul>
+<li>digitalocean vps的网卡支持rsc和gso算法，所以开启rsc=”1”,gso=”1”，重新启动锐速：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service serverSpeeder restart</div></pre></td></tr></table></figure>
+<h2 id="3-3-net-speeder"><a href="#3-3-net-speeder" class="headerlink" title="3.3 net-speeder"></a>3.3 net-speeder</h2><ul>
+<li>net-speeder原理非常简单粗暴，就是发包翻倍，这会占用大量的国际出口带宽，本质是损人利己，不建议使用。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">**(1) Ubuntu/Debian 下安装依赖包**</div><div class="line"></div><div class="line">apt-get install libnet1</div><div class="line"></div><div class="line">apt-get install libpcap0.8</div><div class="line"></div><div class="line">apt-get install libnet1-dev</div><div class="line"></div><div class="line">apt-get install libpcap0.8-dev</div><div class="line"></div><div class="line">**(2) Centos 下安装依赖包**</div><div class="line"></div><div class="line">需要配置 epel 第三方源。下载 epel ：[http://dl.fedoraproject.org/pub/epel/](http://dl.fedoraproject.org/pub/epel/)。</div><div class="line"></div><div class="line">例如，Centos 7 x64：</div><div class="line"></div><div class="line">wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div><div class="line"></div><div class="line">rpm -ivh epel-release-7-5.noarch.rpm</div><div class="line"></div><div class="line">yum repolist</div></pre></td></tr></table></figure>
+<ul>
+<li>然后安装依赖包：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install libnet libpcap libnet-devel libpcap-devel</div></pre></td></tr></table></figure>
+<p><strong>(3) 下载官方的 tar.gz 压缩包。解压安装运行：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">wget http://net-speeder.googlecode.com/files/net_speeder-v0.1.tar.gz</div><div class="line"></div><div class="line">tar zxvf net_speeder-v0.1.tar.gz</div><div class="line"></div><div class="line">cd net_speeder</div><div class="line"></div><div class="line">chmod 777 *</div><div class="line"></div><div class="line">sh build.sh -DCOOKED</div></pre></td></tr></table></figure>
+<ul>
+<li>首先你需要知道你的网卡设备名，可以使用 ifconfig 查看。假设是eth0，那么运行方法是:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./net_speeder eth0 &quot;ip&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>关闭 net-speeder</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">killall net_speeder</div></pre></td></tr></table></figure>
+<ul>
+<li>现在作者已经将 net-speeder 迁移到<a href="https://github.com/snooda/net-speeder" target="_blank" rel="external">GitHub</a>了，感兴趣的可以关注、贡献代码。以上几种方法是作者用过的几种比较有效的加速方法。有任何错误之处还请在下面留言指出。</li>
+</ul>
+<p><strong>如果你不想折腾服务端安装和优化，你可以使用<a href="http://ss.erchoc.com/" target="_blank" rel="external">ss.erchoc.com</a>提供的免费 shadowsocks 服务。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/21/shadowsocks翻墙姿势安装及优化加速/" title="shadowsocks翻墙姿势安装及优化加速">http://erchoc.github.io/2017/05/21/shadowsocks翻墙姿势安装及优化加速/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/20/在MacOS上安装和使用Docker搭建laravel环境/" rel="next" title="在MacOS上安装和使用Docker搭建laravel环境">
+                <i class="fa fa-chevron-left"></i> 在MacOS上安装和使用Docker搭建laravel环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/21/关于Git-Push推送失败的两种解决方案/" rel="prev" title="关于Git Push推送失败的两种解决方案">
+                关于Git Push推送失败的两种解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-服务端安装"><span class="nav-number">1.</span> <span class="nav-text">1. 服务端安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-客户端安装"><span class="nav-number">2.</span> <span class="nav-text">2. 客户端安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-加速优化"><span class="nav-number">3.</span> <span class="nav-text">3. 加速优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-内核参数优化"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 内核参数优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-锐速"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 锐速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-net-speeder"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 net-speeder</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,756 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tools," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
+<meta name="keywords" content="tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="直推！Git服务器的搭建">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
+<meta property="og:updated_time" content="2017-06-05T03:19:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="直推！Git服务器的搭建">
+<meta name="twitter:description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/"/>
+
+
+
+
+
+  <title>直推！Git服务器的搭建 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">直推！Git服务器的搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T06:13:00+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。</p>
+<p>搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论范围哦。</p>
+<p>假设你已经登录了有sudo权限的用户账号，下面，正式开始安装。当然这里我们也可以在自己的服务器上安装具有更多功能的GitLab。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="第一步，安装git："><a href="#第一步，安装git：" class="headerlink" title="第一步，安装git："></a>第一步，安装git：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure>
+<h3 id="第二步，创建一个git用户，用来运行git服务："><a href="#第二步，创建一个git用户，用来运行git服务：" class="headerlink" title="第二步，创建一个git用户，用来运行git服务："></a>第二步，创建一个git用户，用来运行git服务：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo adduser git</div></pre></td></tr></table></figure>
+<h3 id="第三步，创建证书登录："><a href="#第三步，创建证书登录：" class="headerlink" title="第三步，创建证书登录："></a>第三步，创建证书登录：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件。</div><div class="line"></div><div class="line">把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。</div></pre></td></tr></table></figure>
+<h3 id="第四步，初始化Git仓库："><a href="#第四步，初始化Git仓库：" class="headerlink" title="第四步，初始化Git仓库："></a>第四步，初始化Git仓库：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">选一个目录作为这个项目的Git仓库，假定是/srv/sample.git，在/srv目录下输入命令：</div><div class="line"></div><div class="line">sudo git init --bare sample.git</div><div class="line"></div><div class="line">这样，Git就会创建一个裸仓库，裸仓库没有工作区。</div><div class="line"></div><div class="line">服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区。</div><div class="line"></div><div class="line">把owner改为git：</div><div class="line"></div><div class="line">sudo chown -R git:git sample.git</div></pre></td></tr></table></figure>
+<h3 id="第五步，禁用shell登录："><a href="#第五步，禁用shell登录：" class="headerlink" title="第五步，禁用shell登录："></a>第五步，禁用shell登录：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">安全考虑，第二步创建的git用户不允许登录shell，可以编辑/etc/passwd文件完成禁止。</div><div class="line"></div><div class="line">找到类似下面的一行：</div><div class="line"></div><div class="line">git:x:1001:1001:,,,:/home/git:/bin/bash</div><div class="line"></div><div class="line">改为：</div><div class="line"></div><div class="line">git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</div><div class="line"></div><div class="line">这样，git用户可以正常通过ssh使用git，但无法登录shell。</div><div class="line"></div><div class="line">因为我们为git用户指定的git-shell每次一登录就自动退出。</div></pre></td></tr></table></figure>
+<h3 id="第六步，克隆远程仓库："><a href="#第六步，克隆远程仓库：" class="headerlink" title="第六步，克隆远程仓库："></a>第六步，克隆远程仓库：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">现在，可以通过git clone命令克隆远程仓库了，在各自的电脑上运行：</div><div class="line"></div><div class="line">git clone git@server:/srv/sample.git</div><div class="line"></div><div class="line">Cloning into &apos;sample&apos;...</div><div class="line">warning: You appear to have cloned an empty repository.</div><div class="line"></div><div class="line">剩下的项目开发代码推送就简单了，和你使用Github是一样的。</div></pre></td></tr></table></figure>
+<h3 id="第七步，管理公钥"><a href="#第七步，管理公钥" class="headerlink" title="第七步，管理公钥"></a>第七步，管理公钥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">小团队把每个人的公钥收集放到服务器的/home/git/.ssh/authorized_keys文件里就行。</div><div class="line"></div><div class="line">如果团队有几百号人，就没法这么玩了，这时，可以用Gitosis来管理公钥。</div><div class="line"></div><div class="line">这里就不介绍怎么使用Gitosis了，几百号人的公司找个高水平的Linux管理员问题不大。</div></pre></td></tr></table></figure>
+<h3 id="第八步，管理权限"><a href="#第八步，管理权限" class="headerlink" title="第八步，管理权限"></a>第八步，管理权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">有些视源码如生命，视员工为窃贼的公司，会在版本控制系统里设置一套完善的权限控制。</div><div class="line"></div><div class="line">每个人是否有读写权限会精确到每个分支甚至每个目录下。</div><div class="line"></div><div class="line">因为Git是为Linux源代码托管而开发的，所以Git继承了开源社区的精神，不支持权限控制。</div><div class="line"></div><div class="line">但Git支持钩子(hook)，可以在服务器端编写脚本来控制提交等操作，达到权限控制的目的。</div><div class="line"></div><div class="line">Gitolite就是一个这样的控制权限的工具。</div><div class="line"></div><div class="line">这里我们也不介绍Gitolite了，不要把有限的生命浪费到权限斗争中。</div></pre></td></tr></table></figure>
+<h3 id="第九步，小结"><a href="#第九步，小结" class="headerlink" title="第九步，小结"></a>第九步，小结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">搭建Git服务器非常简单，通常10分钟即可完成；</div><div class="line"></div><div class="line">要方便管理公钥，用Gitosis；</div><div class="line"></div><div class="line">要像SVN那样变态地控制权限，用Gitolite。</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/" title="直推！Git服务器的搭建">http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tools/" rel="tag"># tools</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/16/Laravel-5-1-模型关联-Eloquent-Relationships/" rel="next" title="Laravel 5.1 模型关联(Eloquent Relationships)">
+                <i class="fa fa-chevron-left"></i> Laravel 5.1 模型关联(Eloquent Relationships)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/16/一个项目的初始和开发的流程/" rel="prev" title="一个项目的初始和开发的流程">
+                一个项目的初始和开发的流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步，安装git："><span class="nav-number">1.</span> <span class="nav-text">第一步，安装git：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步，创建一个git用户，用来运行git服务："><span class="nav-number">2.</span> <span class="nav-text">第二步，创建一个git用户，用来运行git服务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步，创建证书登录："><span class="nav-number">3.</span> <span class="nav-text">第三步，创建证书登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步，初始化Git仓库："><span class="nav-number">4.</span> <span class="nav-text">第四步，初始化Git仓库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五步，禁用shell登录："><span class="nav-number">5.</span> <span class="nav-text">第五步，禁用shell登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六步，克隆远程仓库："><span class="nav-number">6.</span> <span class="nav-text">第六步，克隆远程仓库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七步，管理公钥"><span class="nav-number">7.</span> <span class="nav-text">第七步，管理公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八步，管理权限"><span class="nav-number">8.</span> <span class="nav-text">第八步，管理权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九步，小结"><span class="nav-number">9.</span> <span class="nav-text">第九步，小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

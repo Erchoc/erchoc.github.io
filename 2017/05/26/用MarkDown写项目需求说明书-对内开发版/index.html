@@ -1,0 +1,847 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="项目概述: 这是一个前端使用bootstrap, jQuery框架, 服务端使用laravel开发的前后端分离电商系统，包括微信公众号管理和电商企业站点管理。项目主要是培养大家的团队开发意识，因此项目成员不仅仅应有特定方向的开发经验，还应该学习一些工具的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用MarkDown写项目需求说明书(对内开发版)">
+<meta property="og:url" content="http://erchoc.github.io/2017/05/26/用MarkDown写项目需求说明书-对内开发版/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="项目概述: 这是一个前端使用bootstrap, jQuery框架, 服务端使用laravel开发的前后端分离电商系统，包括微信公众号管理和电商企业站点管理。项目主要是培养大家的团队开发意识，因此项目成员不仅仅应有特定方向的开发经验，还应该学习一些工具的使用。">
+<meta property="og:updated_time" content="2017-06-05T01:23:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用MarkDown写项目需求说明书(对内开发版)">
+<meta name="twitter:description" content="项目概述: 这是一个前端使用bootstrap, jQuery框架, 服务端使用laravel开发的前后端分离电商系统，包括微信公众号管理和电商企业站点管理。项目主要是培养大家的团队开发意识，因此项目成员不仅仅应有特定方向的开发经验，还应该学习一些工具的使用。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/05/26/用MarkDown写项目需求说明书-对内开发版/"/>
+
+
+
+
+
+  <title>用MarkDown写项目需求说明书(对内开发版) | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/26/用MarkDown写项目需求说明书-对内开发版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用MarkDown写项目需求说明书(对内开发版)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T12:24:17+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>项目概述: 这是一个前端使用bootstrap, jQuery框架, 服务端使用laravel开发的前后端分离电商系统，包括微信公众号管理和电商企业站点管理。项目主要是培养大家的团队开发意识，因此项目成员不仅仅应有特定方向的开发经验，还应该学习一些工具的使用。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="项目小组成员任务说明"><a href="#项目小组成员任务说明" class="headerlink" title="项目小组成员任务说明"></a>项目小组成员任务说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- 界面工程师A : 负责PC端和移动端PSD图的设计, 要求完全使用Mac系统。</div><div class="line">- 界面工程师B : 负责设计图的实现和, 至少要求掌握响应式设计框架Bootstrap的样式和动画组件。</div></pre></td></tr></table></figure>
+<p>上面前端界面设计并实现和下面后端接口开发同时进行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 后端开发ABC : 在已有后台框架基础上开发常见模块如商品模块,日志模块,用户模块,网站管理,订单模块,文章模块,统计模块,微信管理,留言模块,物流管理,和权限管理。</div></pre></td></tr></table></figure></p>
+<p>下面是负责整合前后端的中端交互工程师和架构全局、组件集成的项目经理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- JS交互工程师 : 要求熟练掌握异步编程, 使用熟悉的JS框架处理接口数据, 例如前端搜索、分页、SEO优化。</div><div class="line">- 全栈项目经理 : 数据库设计;帮忙团队成员代码Review;规划项目进度和成员任务分布。</div></pre></td></tr></table></figure></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>团队开发，git管理代码，平台选用:码云</li>
+<li>统一的docker环境，建议使用MacOS系统</li>
+<li>统一IDE使用PhpStorm和WebStorm开发</li>
+<li>前台界面设计和响应式布局由前端A负责</li>
+<li>前台使用vue.js框架，由交互工程师负责</li>
+<li>项目经理整合后台的前端模板voyager</li>
+<li>后台RBAC权限菜单栏和用户登录登出</li>
+<li>项目以天为单位进行周期性工作汇报</li>
+</ul>
+<h3 id="通用后台模块"><a href="#通用后台模块" class="headerlink" title="通用后台模块"></a>通用后台模块</h3><ul>
+<li>后台控制面板主页<ul>
+<li>数据统计(系统)</li>
+<li>系统信息(系统时间,主机地址,GD库支持,COOKIE支持,SESSION支持,,,POST数据限制,上传文件限制,超时限制)</li>
+</ul>
+</li>
+<li>RBAC权限管理模块<ul>
+<li>基于角色用户和权限关系</li>
+<li>不同权限可见和可访问页面不同</li>
+</ul>
+</li>
+<li>文章内容管理模块<ul>
+<li>列表, 分页, 搜索, 新增, 修改, 删除, 分类。</li>
+<li>列表/删除页, 搜索结果页, 新增/修改表单页, 删除弹框提示页, 分类选择。</li>
+</ul>
+</li>
+<li>友情链接管理模块<ul>
+<li>新增, 修改, 删除, 样式。</li>
+</ul>
+</li>
+<li>网站管理模块:网站新闻发布，平台广告的添加和广告位的管理。<ul>
+<li>增删改查加状态。</li>
+</ul>
+</li>
+<li>系统设置:<ul>
+<li>语言设置, 时区设置, SEO优化设置。</li>
+</ul>
+</li>
+</ul>
+<h3 id="电商系统常用模块"><a href="#电商系统常用模块" class="headerlink" title="电商系统常用模块"></a>电商系统常用模块</h3><blockquote>
+<p>电子商务网站整个系统的后端管理，按功能划分为九大模块，包括<strong>商品组织管理</strong>、<strong>订单处理</strong>、<strong>内容发布管理</strong>等模块。</p>
+</blockquote>
+<p>一、后台主页：</p>
+<ul>
+<li>各类主要信息的概要统计，包括客户信息、 订单信息、商品信息、库存信息、评论和最近反馈等。</li>
+</ul>
+<p>二、商品模块：</p>
+<ul>
+<li>1.商品管理：商品和商品包的添加、修改、 删除、复制、批处理、商品计划上下架、SEO、商品多媒体上传等，可以定义商品是实体还是虚拟，可以定义是否预订、是否缺货销售等。</li>
+<li>2.商品目录管理：树形的商品目录组织管理，并可以设置关联/商品推荐。</li>
+<li>3.商品类型管理：定义商品的类型，设置自定义属性项、SKU项和商品评论项。</li>
+<li>4.品牌管理：添加、修改、删除、上传品牌 LOGO。</li>
+<li>5.商品评论管理：回复、删除。</li>
+</ul>
+<p>三、销售模块:</p>
+<ul>
+<li>1.促销管理: 分为目录促销、购物车促销和 优惠券促销三类，可以随意定义不同的促销规则，满足日常促销活动: 购物折扣、购物赠送积分、购物赠送优惠券、购物免运输费、特价商品、特定会员购买特定商品、折上折、买二送一等。</li>
+<li>2.礼券管理: 添加、发送礼券</li>
+<li>3.关联/推荐管理――基于规则引擎，可以支持多种推荐类型，可手工添加或者自动评估商品。</li>
+</ul>
+<p>四、订单模块:</p>
+<ul>
+<li>1.订单管理:可以编辑、解锁、取消订单、 拆分订单、添加商品、移除商品、确认可备货等，也可对因促销规则发生变化引起的价格变化进行调整。订单处理完可发起退货、换货流程。</li>
+<li>2.支付:常用于订单支付信息的查看和手工 支付两种功能。手工支付订单，常用于“款到发货”类型的订单，可理解为对款到发货这类订单的一种补登行为。</li>
+<li>3.结算:提供商家与第三方物流公司的结算 功能，通常是月结。同时，结算功能也是常用来对“货到付款”这一类型订单支付后的数据进行对帐。</li>
+</ul>
+<p>五、库存模块:</p>
+<ul>
+<li>1.库存管理: 引入库存的概念，不包括销售规则为永远可售的商品，一个SKU对应一个库存量。库存管理提供增加、减少等调整库存量的功能;另外，也可对具具体的SKU设置商品的保留数量、<em>*</em>小库存量、再进货数量。每条SKU商品的具体库存操作都会记录在库存明细记录里边。</li>
+<li>2.查看库存明细记录。</li>
+<li>3.备货/发货：创建备货单、打印备货单、打印发货单、打印EMS快递单、完成发货等一系列物流配送的操作。</li>
+<li>4.退/换货：对退/换货的订单进行收货流程的处理。</li>
+</ul>
+<p>六、内容模块:</p>
+<ul>
+<li>1.内容管理:包括内容管理以及内容目录管理。内容目录由树形结构组织管理。类似于商品目录的树形结构，可设置目录是否为链接目录。</li>
+<li>2.无限制创建独立内容网页，比如关于我们，联系我们。</li>
+<li>3.广告管理：添加、修改、删除、上传广告、 定义广告有效时限。</li>
+<li>4.可自由设置商城导航栏目以及栏目内容、栏目链接。</li>
+</ul>
+<p>七、客户模块：</p>
+<ul>
+<li>1.客户管理：添加、删除、修改、重设密码、发送邮件等。</li>
+<li>2.反馈管理：删除、回复。</li>
+<li>3.消息订阅管理：添加、删除、修改消息组 和消息、分配消息组、查看订阅人。</li>
+<li>4.会员资格：添加、删除、修改。</li>
+</ul>
+<p>八、系统模块：</p>
+<ul>
+<li>1.安全管理：管理员、角色权限分配和安全日志</li>
+<li>2.系统属性管理：用于管理自定义属性。可关联模块包括商品管理、商品目录管理、内容管理、客户管理。</li>
+<li>3.运输与区域：运输公司、运输方式、运输 地区。</li>
+<li>4.支付管理：支付方式、支付历史。</li>
+<li>5.包装管理：添加、修改、删除。</li>
+<li>6.数据导入管理：商品目录导入、商品导入、 会员资料导入。</li>
+<li>7.邮件队列管理：监控邮件发送情况，删除 发送异常邮件。</li>
+</ul>
+<p>九、报表模块:</p>
+<ul>
+<li>缺省数个统计报表，支持时间段过滤、支持按不同状态过滤、支持HTML、PDF和Excel格式的导出和打印。</li>
+<li>1.用户注册统计</li>
+<li>2.低库存汇总</li>
+<li>3.缺货订单</li>
+<li>4.订单汇总</li>
+<li>5.退换货</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/05/26/用MarkDown写项目需求说明书-对内开发版/" title="用MarkDown写项目需求说明书(对内开发版)">http://erchoc.github.io/2017/05/26/用MarkDown写项目需求说明书-对内开发版/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/面向对象之控制反转IOC和依赖注入/" rel="next" title="面向对象之控制反转IOC和依赖注入">
+                <i class="fa fa-chevron-left"></i> 面向对象之控制反转IOC和依赖注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/26/书写shell脚本登录服务器/" rel="prev" title="书写shell脚本登录服务器">
+                书写shell脚本登录服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目小组成员任务说明"><span class="nav-number">1.</span> <span class="nav-text">项目小组成员任务说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用后台模块"><span class="nav-number">3.</span> <span class="nav-text">通用后台模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电商系统常用模块"><span class="nav-number">4.</span> <span class="nav-text">电商系统常用模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

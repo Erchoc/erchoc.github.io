@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="12点半，刚才交大理工蹭完饭回来。昨晚妹子的那个拖拽上传始终萦绕在我心头，XHR异步上传为什么还要Canvas？这个文件用了AJAX那还算是个前端页面吗？一个布满纯JavaScript的页面我居然连代码都看不懂！ 我存起这个用于异步上传的前端代码文件，然后开始对着电脑开始了服务端对上传过来的文件的处理代码的书写form,enctype,file,$_FILES,copy,move_uploade">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一次接触ThinkPHP3.2.3">
+<meta property="og:url" content="http://erchoc.github.io/2016/12/04/第一次接触ThinkPHP3-2-3/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="12点半，刚才交大理工蹭完饭回来。昨晚妹子的那个拖拽上传始终萦绕在我心头，XHR异步上传为什么还要Canvas？这个文件用了AJAX那还算是个前端页面吗？一个布满纯JavaScript的页面我居然连代码都看不懂！ 我存起这个用于异步上传的前端代码文件，然后开始对着电脑开始了服务端对上传过来的文件的处理代码的书写form,enctype,file,$_FILES,copy,move_uploade">
+<meta property="og:updated_time" content="2017-06-05T00:41:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一次接触ThinkPHP3.2.3">
+<meta name="twitter:description" content="12点半，刚才交大理工蹭完饭回来。昨晚妹子的那个拖拽上传始终萦绕在我心头，XHR异步上传为什么还要Canvas？这个文件用了AJAX那还算是个前端页面吗？一个布满纯JavaScript的页面我居然连代码都看不懂！ 我存起这个用于异步上传的前端代码文件，然后开始对着电脑开始了服务端对上传过来的文件的处理代码的书写form,enctype,file,$_FILES,copy,move_uploade">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2016/12/04/第一次接触ThinkPHP3-2-3/"/>
+
+
+
+
+
+  <title>第一次接触ThinkPHP3.2.3 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2016/12/04/第一次接触ThinkPHP3-2-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第一次接触ThinkPHP3.2.3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-04T19:29:10+08:00">
+                2016-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>12点半，刚才交大理工蹭完饭回来。昨晚妹子的那个拖拽上传始终萦绕在我心头，XHR异步上传为什么还要Canvas？这个文件用了AJAX那还算是个前端页面吗？一个布满纯JavaScript的页面我居然连代码都看不懂！</p>
+<p>我存起这个用于异步上传的前端代码文件，然后开始对着电脑开始了服务端对上传过来的文件的处理代码的书写<code>form</code>,<code>enctype</code>,<code>file</code>,<code>$_FILES,copy</code>,<code>move_uploaded_file</code>,仅仅是个上传，感觉自己做得也很low。突然想起我建立了一个所谓的极客群，自己却水平这么low，心里很不是滋味。于是打开ThinkPHP官网，打算听学长的直接上手TP框架。下午一点，开始了ThinkPHP3.2的官方手册,这里来说说感慨。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>下载的TP5.0.2完整版和5.0.3核心版，解压后发现文件目录和官方教程不太像，而且网上太多TP3.2的教程，又考虑到基于TP的未来可能使用的zswin1.5后台是用的TP3.2框架，郭佳栋暑假好像说他们公司用的TP3.1，纠结要不要升级3.2这个问题。于是我果断下载了3.2.3完整版，解压出来。</p>
+</li>
+<li><p>刚接触这东西我胡乱挣扎了近一个小时，总是纠结于哪些文件夹是不需要的（因为官网的phpwind，wordpress，CodeIgniter解压后都只需要一个文件，其他不是说明就是案例）。想起高学长说起文档多好入手，我立刻上git下载官方的chm和pdf文档（ThinkPHP官网也有，担心更新不及时）回忆一下CodeIgniter框架，我先根据官方文档了解了文件目录结构（这也是想起了06届老学长几个月前的提醒），保留单一入口文件index.php，ThinkPHP模块,Application模块，Public模块和重定向文件.htaccess，另一个composer.json记录了ThinkPHP3.2的一些信息和很少的依赖库，我担心这东西有其他用处，暂时还没删除。（因为之前了解到一个叫做composer依赖管理工具，我担心和这个有点关系）。</p>
+</li>
+<li><p>下午四点左右，我才大概过了一遍目录结构，其中配置部分还是不太了解，目录只在/ThinkPHP/Conf/convention.php内置了一个惯例配置文件，其他几种要么是空文件，要么是起临时作用绑定全局变量的，这个部分不太熟悉。</p>
+</li>
+<li><p>多次尝试我在这个时候理解了入口文件应该写啥了，可惜TP的配置参数感觉无穷无尽，我根本记不住。比如开发时关闭Runtime缓存，打开TP自带的Debug，绑定后台入口Admin到入口文件等等。（这里问一句：企业里项目的开发，一般后台是用子目录www.AAA.com/admin.php，还是解析一个二级域名admin.AAA.com到同级根目录呢，我认为后者的安全性更高）</p>
+</li>
+<li><p>下午五点左右我开始觉得得心应手了。刚开始的两三个小时真的是折磨，好几次怀疑高学长说ThinkPHP好入门这句话，庄子暑假都说TP框架比CI难，还麻烦。忍过了这几个小时，感觉前途一片光明，心情大好。虽然现在TP好多东西还在看，什么C方法，M方法，I方法，写TP的也是个奇葩。至于命名规范，TP是支持PSR4的，类和其他方面也有PSR2和PSR3，和已经被淘汰的PSR0写法也差不了多少，类名/函数名/变量名和严格的JAVA语法几乎一致。但是读取配置部分，TP并没有限制配置参数的大小写，官方建议大写，并且附上一句话：“无论大小写定义都会转换成小写”，这我就郁闷了，为了代码的优化应该建议使用小写避免转换才对把？</p>
+</li>
+<li><p>配置部分继续看下去，继续尝试，数据库配置没看到PDO，默认好像是MySQLi。而且，暑假学习PHP就感觉PHP把C语言的数组发挥的淋漓尽致，ThinkPHP3.2更让我坚定了自己的想法。我在思考TP在控制器种传递两个变量到视图时候，会怎么做？群里两个朋友都异口同声告诉我转换为数组。我认为这并不是很好的做法，尽管数组可以用键值对的方式输出任意多的变量，但是C语言告诉我，同类事物才会用数组存储。我一个time，可能是2个字节的int型（时间戳），也可能是4或者8个字节；但是其他一些变量可以是name，resource；碰到加个file本来就是二维数组的变量就更加蛋疼（有点像数据表列的冗余，需要大表拆分处理），难道我要写n行$this-&gt;assign()吗？我无法得到答案，只能暂时认同了他们的说法，认为ThinkPHP也把数组作为了重点。</p>
+</li>
+<li><p>官方文档的学习路线是这样的：基础-配置-架构-路由-控制器-模型-视图-模板-调试-缓存-安全-拓展-部署-专题-附录。我本想今晚通宵看完文档，明后天跟着极客，慕课和PHP100的实战项目走的，腾讯云和TP官方还有相应的上线案例，git的开源项目，已经部署的zswin1.5后台TP模板。现在想想还是多花两天过第一遍文档把，CI的路由类我暑假没好好看，MVC的开发我受到庄子的影响没严格把业务逻辑层分开，暑假的CI项目我也没好好完成；TP的模板技术对我而言就是新知识，因为此前我也没用过Smarty模板；GD库的操作我也只是稍微了解了一下；缓存知识暑假也几乎没讲，只稍微涉及了一下sesession用法，甚至客户端cookie也没接触，更别提memcache，Redis和Mongo这种高性能内存数据库了。</p>
+</li>
+<li><p>最近Server2016的无线网络还是不能使用，听说Server2012之后默认服务器管理器不安装LAN无线驱动，我更新后还是不行；Server2016用win10激活工具居然无法激活也是个问题；win10能正常安装的软件到了Server2016上却无法安装也是个问题！虽然我不得不说Server2016比Server2012好用很多，界面上又比Server2003和Server2008清新爽快，但是微软系统这服务器管理器就不能卸载去吗，真恶心！</p>
+</li>
+<li><p>至于CentOS7，网易镜像站最新版本还是1511，min版本各种缺损，网络配置必须在命令行完成，ifconfig无法使用，yum无法正常升级，DNS服务器配置目录辣么多个，我技术不行，能简单点吗？？换上4G完整版的CentOS7，Gnome桌面环境加开发者工具，安装前桥接宿主机，发现ping正常，网页无法打开！这绝绝逼又是DNS解析问题，妈蛋，搞了两天都失败。想尝试windows10新技术Hyper-V，又告诉我不能和VM兼容，安装CentOS还需要往镜像修改添加依赖文件，</p>
+</li>
+<li><p>这这这。。。。我还是老老实实拍黄片去吧。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2016/12/04/第一次接触ThinkPHP3-2-3/" title="第一次接触ThinkPHP3.2.3">http://erchoc.github.io/2016/12/04/第一次接触ThinkPHP3-2-3/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag"># php</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/17/我使用的Chrome快捷键/" rel="next" title="我使用的Chrome快捷键">
+                <i class="fa fa-chevron-left"></i> 我使用的Chrome快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/15/Linux无法识别NTFS硬盘怎么办/" rel="prev" title="Linux无法识别NTFS硬盘怎么办">
+                Linux无法识别NTFS硬盘怎么办 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

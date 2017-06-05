@@ -1,0 +1,836 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="sql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="数据库范式（Normal forms）：是用于规范关系型数据库设计，以减少谬误发生和数据冗余的一种准则。 尽管有很多概念定义性的东西，但是在实际使用数据库的过程中仍然有很多不尽人意的地方，下面我通过一些实例简要分析一下范式的特点，也是我对范式的个人理解。本篇博文我们主要看看第一范式（1nf）,第二范式（2nf）,第三范式（3nf）和bcnf范式，其中我们重点关注的就是第一范式。">
+<meta name="keywords" content="sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于本学期接触到的数据库设计范式">
+<meta property="og:url" content="http://erchoc.github.io/2016/12/28/关于本学期接触到的数据库设计范式/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="数据库范式（Normal forms）：是用于规范关系型数据库设计，以减少谬误发生和数据冗余的一种准则。 尽管有很多概念定义性的东西，但是在实际使用数据库的过程中仍然有很多不尽人意的地方，下面我通过一些实例简要分析一下范式的特点，也是我对范式的个人理解。本篇博文我们主要看看第一范式（1nf）,第二范式（2nf）,第三范式（3nf）和bcnf范式，其中我们重点关注的就是第一范式。">
+<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/CareySon/WindowsLiveWriter/ebfdc5eb7fff_14F19/0nf_2.png">
+<meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/CareySon/WindowsLiveWriter/ebfdc5eb7fff_14F19/1nf_2.png">
+<meta property="og:updated_time" content="2017-06-05T00:36:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于本学期接触到的数据库设计范式">
+<meta name="twitter:description" content="数据库范式（Normal forms）：是用于规范关系型数据库设计，以减少谬误发生和数据冗余的一种准则。 尽管有很多概念定义性的东西，但是在实际使用数据库的过程中仍然有很多不尽人意的地方，下面我通过一些实例简要分析一下范式的特点，也是我对范式的个人理解。本篇博文我们主要看看第一范式（1nf）,第二范式（2nf）,第三范式（3nf）和bcnf范式，其中我们重点关注的就是第一范式。">
+<meta name="twitter:image" content="http://images.cnblogs.com/cnblogs_com/CareySon/WindowsLiveWriter/ebfdc5eb7fff_14F19/0nf_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2016/12/28/关于本学期接触到的数据库设计范式/"/>
+
+
+
+
+
+  <title>关于本学期接触到的数据库设计范式 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2016/12/28/关于本学期接触到的数据库设计范式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于本学期接触到的数据库设计范式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-28T00:35:20+08:00">
+                2016-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>数据库范式（Normal forms）：是用于规范关系型数据库设计，以减少谬误发生和数据冗余的一种准则。</p>
+<p>尽管有很多概念定义性的东西，但是在实际使用数据库的过程中仍然有很多不尽人意的地方，下面我通过一些实例简要分析一下范式的特点，也是我对范式的个人理解。本篇博文我们主要看看第一范式（1nf）,第二范式（2nf）,第三范式（3nf）和bcnf范式，其中我们重点关注的就是第一范式。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>第一范式是关系型数据库的基础条件，我将1nf的特点归纳为以下几点：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1.不允许出现重复的行；</div><div class="line"></div><div class="line">2.没有重复的列；</div><div class="line"></div><div class="line">3. 符合原子性</div><div class="line">   - 即每列(或者每个属性)都是不可再分的最小数据单元，</div></pre></td></tr></table></figure>
+<ul>
+<li>举例说明：列值中含有分隔符或者属性字符串意义相同。</li>
+</ul>
+<p><img src="http://images.cnblogs.com/cnblogs_com/CareySon/WindowsLiveWriter/ebfdc5eb7fff_14F19/0nf_2.png" alt="不符合第一范式的示例"></p>
+<ul>
+<li>不难发现右图中Address这一列还可以继续分解为省市县和继续地址，所以现在这样是不符合1nf要求的列不可再分的要求，另外第一范式也要求一张表中不允许出现重复的列，下面是改正后的情况，用AddressId外键关联另一张记录地址的表，地址表用几个字段列详细地记录地址信息。</li>
+</ul>
+<p><img src="http://images.cnblogs.com/cnblogs_com/CareySon/WindowsLiveWriter/ebfdc5eb7fff_14F19/1nf_2.png" alt="第一范式示例"></p>
+<ul>
+<li><p>那么符合第一范式带来的好处：减少了代码的繁琐（比如Substring截取函数的频繁使用），提高了查询的效率，方便使用关键字搜索，提高了数据库的性能。</p>
+</li>
+<li><p>第二范式，2nf依赖1nf，所以满足2nf必须先符合1nf，然后第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。</p>
+</li>
+<li><p>如图所示，我们将Name和City两个属性作为主键，省份这个字段依赖于城市这个字段,同时不依赖于Name这个字段，根据城市可以确定省份。省份跟Name没有关系不符合第二范式。</p>
+</li>
+<li><p>应该将省市单独拿出来独立成表（AddressID,Province,City）,主表则变成（ID,Name,AddressID），通过AddressID关联。解决了可能存在的数据冗余、插入、删除和更新异常。</p>
+</li>
+<li><p>第三范式,消除对主键的传递依赖,简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包含的非主关键字信息。</p>
+</li>
+<li><p>下面我直接给大家看一个正确的第三范式的例子：</p>
+</li>
+<li><p>所谓传递依赖就是这样的逻辑：订单编号 &gt;&gt; 客户编号 &gt;&gt; 客户名称 。 这样的依赖不应该在一个表里面(主键是订单编号)，如图，客户名称、所属公司、联系方式，依赖于客户编号，分解成两个表以后消除了非主键的传递依赖。</p>
+</li>
+<li><p>BCNF(Boyce-Codd normal form)，在3NF的基础上，表中任何字段对任一候选关键字段的传递函数依赖都不存在。</p>
+</li>
+<li><p>定义：任何F可推导出的函数依赖X-&gt;A都在T中，这里A是不在X中的单一属性，X必须是T的一个超键。当一个数据库模式包含的所有表都符合BCNF时，这个数据库被称为符合BCNF.—这东西实在是太晦涩了。</p>
+</li>
+<li><p>我的理解：它要求关系模型中所有的属性（包括主属性和非主属性）都不传递依赖于任何候选关键字。也就是说，当关系型表中功能上互相依赖的那些列的每一列都是一个候选关键字时候。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">UserId</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">ProductId</th>
+<th style="text-align:center">Email</th>
+<th style="text-align:center">ProductName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Tom</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">tom@gmail.com</td>
+<td style="text-align:center">榴莲</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>首先应该拆分成两个表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">UserId</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Email</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Tom</td>
+<td style="text-align:center">tom@gmail.com</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ProductId</th>
+<th style="text-align:center">ProductName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">榴莲</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>这样没有任何主属性和非主属性的传递依赖了，但是缺少的是UserID 和ProductID的关系，我们还要加入关系表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">UserId</th>
+<th style="text-align:center">ProductId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>总结：就关系数据库而言，从其他元素中消除数据冗余问题，去除重复往往以减少冗余, 从特定的表中最小化冗余意味着摆脱不必要的数据。 在商业环境中，绝大多数超越第3范式的设计都是不切实际的。 由范式的进阶来看，越高等级的范式所产生的表越多，而在应用程序使用的过程中越多的表Join和查询造成的性能损耗的问题，甚至很多情况下为了兼顾性能和开发我们甚至要做一下反范式的操作，这个我准备接下来单独说一下。</p>
+</li>
+<li><p>一般认为超过第三范式都是多余的，所以再实际工作中不能太过教条，这里讨论更多是理解概念的一些讨论，通过总结以上这些概念帮助我们更好的设计，但是只有按照实际需求来设计才是王道。</p>
+</li>
+<li><p>当然，现在服务器配置各种升级，反范式化盛行，NoSQL如日中天。甚至范式等级渐渐淡出人们眼球，以适度的冗余增加查询效率，减少关联查询和外键使用的做法太多太多了。我们可以自行了解目前技术前沿的非关系型数据库，缓存数据库方案。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2016/12/28/关于本学期接触到的数据库设计范式/" title="关于本学期接触到的数据库设计范式">http://erchoc.github.io/2016/12/28/关于本学期接触到的数据库设计范式/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
+          
+        </div>
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/15/Linux无法识别NTFS硬盘怎么办/" rel="next" title="Linux无法识别NTFS硬盘怎么办">
+                <i class="fa fa-chevron-left"></i> Linux无法识别NTFS硬盘怎么办
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/08/来聊聊PhpStudy环境本地多站点虚拟域名配置/" rel="prev" title="来聊聊PhpStudy环境本地多站点虚拟域名配置">
+                来聊聊PhpStudy环境本地多站点虚拟域名配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

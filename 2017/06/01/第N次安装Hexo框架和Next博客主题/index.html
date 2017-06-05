@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="tools," />
+  <meta name="keywords" content="hexo," />
 
 
 
@@ -65,13 +65,13 @@
 
 
 <meta name="description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
-<meta name="keywords" content="tools">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第N次安装Hexo框架和Next博客主题">
 <meta property="og:url" content="http://erchoc.github.io/2017/06/01/第N次安装Hexo框架和Next博客主题/index.html">
 <meta property="og:site_name" content="Coding Notes">
 <meta property="og:description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
-<meta property="og:updated_time" content="2017-06-04T07:55:05.000Z">
+<meta property="og:updated_time" content="2017-06-04T13:22:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第N次安装Hexo框架和Next博客主题">
 <meta name="twitter:description" content="换了 Mac 之后 Hexo 框架和主题文章全没了，备份到码云的文章数据被 .gitignore 忽略了，没办法找个时间自己手动备份一下 Hexo 博客。这次懂事了，必须用iCloud把数据全备份下来，这里 windows 下的 OneDrive 即时备份机制真恶心。 然后就是npm install -g hexo-cli安装 hexo 客户端工具，在 ~/Documents/Hexo/ 目录下">
@@ -349,7 +349,8 @@
 </blockquote>
 <h1 id="增加Donate-打赏功能"><a href="#增加Donate-打赏功能" class="headerlink" title="增加Donate 打赏功能"></a>增加Donate 打赏功能</h1><p>alipay: /uploads/alipay.png<br>wechatpay: /uploads/wechatpay.png<br>reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作!<br>```</p>
 <blockquote>
-<p>注意事项：微信和支付宝提供的图片格式不一样，尺寸也不同</p>
+<p>注意事项：微信和支付宝提供的图片格式不一样，尺寸也不同。</p>
+<p>上述操作我目前是失败了请求各位道友指点。</p>
 </blockquote>
 <ul>
 <li>订阅微信公众号</li>
@@ -357,6 +358,10 @@
 <blockquote>
 <p>Next 5.0.1版本加入该功能，在每篇文章末尾显示公众号二维码。你只需要将公众号二维码 wechat-qcode.jpg 从微信平台下载后放在 source/uploads/ 目录下，然后将配置文件中的 wechat_subscriber 的enable 值设置为 true，qcode 设置为 /uploads/wechat-qcode.jpg，descripion 值设置为 <code>欢迎您扫一扫上面的二维码，关注技术博客最新动态</code>。</p>
 </blockquote>
+<ul>
+<li>用户评论系统</li>
+</ul>
+<p>&gt;</p>
 <ul>
 <li>自定义导航栏</li>
 </ul>
@@ -366,13 +371,11 @@
 <ul>
 <li>自定义导航栏之文章分类</li>
 </ul>
-<blockquote>
-</blockquote>
+<p>&gt;</p>
 <ul>
 <li>自定义导航栏之关于博主</li>
 </ul>
-<blockquote>
-</blockquote>
+<p>&gt;</p>
 <ul>
 <li>网站404页面设置</li>
 </ul>
@@ -382,8 +385,7 @@
 <ul>
 <li>自定义导航栏之标签管理</li>
 </ul>
-<blockquote>
-</blockquote>
+<p>&gt;</p>
 
       
     </div>
@@ -405,14 +407,9 @@
     </button>
     <div id="QR" style="display: none;">
       
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Erchoc WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/alipay.png" alt="Erchoc Alipay"/>
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
           <p>支付宝打赏</p>
         </div>
       
@@ -449,13 +446,33 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tools/" rel="tag"># tools</a>
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
           
         </div>
       
 
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/31/听说PHP中有个东西叫Trait/" rel="next" title="听说PHP中有个东西叫Trait">
+                <i class="fa fa-chevron-left"></i> 听说PHP中有个东西叫Trait
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/02/新时代的composer组件化学习道路/" rel="prev" title="新时代的composer组件化学习道路">
+                新时代的composer组件化学习道路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -524,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -537,7 +554,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -549,6 +566,15 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
             
               <span class="links-of-author-item">
                 <a href="https://github.com/erchoc" target="_blank" title="GitHub">
