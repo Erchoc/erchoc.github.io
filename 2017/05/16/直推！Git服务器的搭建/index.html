@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="tools," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -65,13 +65,13 @@
 
 
 <meta name="description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
-<meta name="keywords" content="tools">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="直推！Git服务器的搭建">
 <meta property="og:url" content="http://erchoc.github.io/2017/05/16/直推！Git服务器的搭建/index.html">
 <meta property="og:site_name" content="Coding Notes">
 <meta property="og:description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
-<meta property="og:updated_time" content="2017-06-05T03:19:22.000Z">
+<meta property="og:updated_time" content="2017-06-06T01:17:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="直推！Git服务器的搭建">
 <meta name="twitter:description" content="GitHub就是一个托管代码的远程仓库。但是对于某些公司项目来说，既不想公开源代码，又舍不得给GitHub交私有仓库管理费用，也不屑于使用国内的码云等平台，那就只能自己搭建一台Git服务器作为私有仓库使用。 搭建Git服务器需要准备一台运行Linux的机器，推荐使用Ubuntu或Debian，配合Docker集成文件监听，可以完美实现DevOps模式和无痛迭代。可是，Docker并不在本文的讨论">
@@ -357,7 +357,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tools/" rel="tag"># tools</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -427,17 +427,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -464,10 +455,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">10</span>
+              <a href="/tages/index.html">
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -538,22 +529,6 @@
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步，安装git："><span class="nav-number">1.</span> <span class="nav-text">第一步，安装git：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步，创建一个git用户，用来运行git服务："><span class="nav-number">2.</span> <span class="nav-text">第二步，创建一个git用户，用来运行git服务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步，创建证书登录："><span class="nav-number">3.</span> <span class="nav-text">第三步，创建证书登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步，初始化Git仓库："><span class="nav-number">4.</span> <span class="nav-text">第四步，初始化Git仓库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五步，禁用shell登录："><span class="nav-number">5.</span> <span class="nav-text">第五步，禁用shell登录：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六步，克隆远程仓库："><span class="nav-number">6.</span> <span class="nav-text">第六步，克隆远程仓库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七步，管理公钥"><span class="nav-number">7.</span> <span class="nav-text">第七步，管理公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八步，管理权限"><span class="nav-number">8.</span> <span class="nav-text">第八步，管理权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九步，小结"><span class="nav-number">9.</span> <span class="nav-text">第九步，小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -569,7 +544,7 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2016 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -577,17 +552,6 @@
   <span class="author" itemprop="copyrightHolder">Erchoc</span>
 </div>
 
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
 
 
         

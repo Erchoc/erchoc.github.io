@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="oop," />
+  <meta name="keywords" content="面向对象," />
 
 
 
@@ -65,13 +65,13 @@
 
 
 <meta name="description" content="PSR是PHP Standard Recommendations 的简写，由PHP FIG组织制定的PHP规范，是PHP 开发的实践标准。官网：https://psr.phphub.org 。 这篇文章是博主根据PSR基础规范和PHP100知名讲师张恩民的PHP教学视频进行整理，所有命名禁止使用阿拉伯数字。">
-<meta name="keywords" content="oop">
+<meta name="keywords" content="面向对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在PSR基础上自定义的代码命名规范">
 <meta property="og:url" content="http://erchoc.github.io/2017/03/30/在PSR基础上自定义的代码命名规范/index.html">
 <meta property="og:site_name" content="Coding Notes">
 <meta property="og:description" content="PSR是PHP Standard Recommendations 的简写，由PHP FIG组织制定的PHP规范，是PHP 开发的实践标准。官网：https://psr.phphub.org 。 这篇文章是博主根据PSR基础规范和PHP100知名讲师张恩民的PHP教学视频进行整理，所有命名禁止使用阿拉伯数字。">
-<meta property="og:updated_time" content="2017-06-05T04:18:52.000Z">
+<meta property="og:updated_time" content="2017-06-06T01:15:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在PSR基础上自定义的代码命名规范">
 <meta name="twitter:description" content="PSR是PHP Standard Recommendations 的简写，由PHP FIG组织制定的PHP规范，是PHP 开发的实践标准。官网：https://psr.phphub.org 。 这篇文章是博主根据PSR基础规范和PHP100知名讲师张恩民的PHP教学视频进行整理，所有命名禁止使用阿拉伯数字。">
@@ -421,7 +421,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/oop/" rel="tag"># oop</a>
+            <a href="/tags/面向对象/" rel="tag"># 面向对象</a>
           
         </div>
       
@@ -491,17 +491,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -528,10 +519,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">10</span>
+              <a href="/tages/index.html">
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -602,22 +593,6 @@
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录、文件和局部变量"><span class="nav-number">1.</span> <span class="nav-text">目录、文件和局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局常量"><span class="nav-number">2.</span> <span class="nav-text">全局常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组变量"><span class="nav-number">3.</span> <span class="nav-text">数组变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象变量"><span class="nav-number">4.</span> <span class="nav-text">对象变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的命名"><span class="nav-number">5.</span> <span class="nav-text">类的命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法命名"><span class="nav-number">6.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数、符号和运算符规范"><span class="nav-number">7.</span> <span class="nav-text">函数、符号和运算符规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他基础规范"><span class="nav-number">8.</span> <span class="nav-text">其他基础规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种注释的规范"><span class="nav-number">9.</span> <span class="nav-text">各种注释的规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库设计与操作规范"><span class="nav-number">10.</span> <span class="nav-text">数据库设计与操作规范</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -633,7 +608,7 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2016 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -641,17 +616,6 @@
   <span class="author" itemprop="copyrightHolder">Erchoc</span>
 </div>
 
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
 
 
         

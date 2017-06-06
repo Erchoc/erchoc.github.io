@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="oop," />
+  <meta name="keywords" content="面向对象," />
 
 
 
@@ -65,14 +65,14 @@
 
 
 <meta name="description" content="ThinkPHP是伟大的中国人自己开发的一套php面向对象框架，最新的TP5改进很多方面并专注于钱后端分离的API开发，中文的注释，中文的文档，中文的社区都让中国中小规模的企业不得不选择这个框架。适合人员迭代和快速开发，一套约定的编码规范让团队协作更加清爽，内置的日志和调试器功能强大，直接就能查看到性能分析，支持composer组件化集成。 总之，很强，很有学习的必要！">
-<meta name="keywords" content="oop">
+<meta name="keywords" content="面向对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5基础学习">
 <meta property="og:url" content="http://erchoc.github.io/2017/05/30/ThinkPHP5基础学习/index.html">
 <meta property="og:site_name" content="Coding Notes">
 <meta property="og:description" content="ThinkPHP是伟大的中国人自己开发的一套php面向对象框架，最新的TP5改进很多方面并专注于钱后端分离的API开发，中文的注释，中文的文档，中文的社区都让中国中小规模的企业不得不选择这个框架。适合人员迭代和快速开发，一套约定的编码规范让团队协作更加清爽，内置的日志和调试器功能强大，直接就能查看到性能分析，支持composer组件化集成。 总之，很强，很有学习的必要！">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-c35d92bb6b6dfabd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1440/q/50">
-<meta property="og:updated_time" content="2017-06-05T02:14:55.000Z">
+<meta property="og:updated_time" content="2017-06-06T01:18:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5基础学习">
 <meta name="twitter:description" content="ThinkPHP是伟大的中国人自己开发的一套php面向对象框架，最新的TP5改进很多方面并专注于钱后端分离的API开发，中文的注释，中文的文档，中文的社区都让中国中小规模的企业不得不选择这个框架。适合人员迭代和快速开发，一套约定的编码规范让团队协作更加清爽，内置的日志和调试器功能强大，直接就能查看到性能分析，支持composer组件化集成。 总之，很强，很有学习的必要！">
@@ -479,7 +479,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/oop/" rel="tag"># oop</a>
+            <a href="/tags/面向对象/" rel="tag"># 面向对象</a>
           
         </div>
       
@@ -549,17 +549,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -586,10 +577,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">10</span>
+              <a href="/tages/index.html">
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -660,22 +651,6 @@
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、获取ThinkPHP"><span class="nav-number">1.</span> <span class="nav-text">一、获取ThinkPHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、环境要求"><span class="nav-number">2.</span> <span class="nav-text">二、环境要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、目录结构"><span class="nav-number">3.</span> <span class="nav-text">三、目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、入口文件"><span class="nav-number">4.</span> <span class="nav-text">四、入口文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、编码规范"><span class="nav-number">5.</span> <span class="nav-text">五、编码规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、开发建议"><span class="nav-number">6.</span> <span class="nav-text">六、开发建议</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -691,7 +666,7 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2016 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -699,17 +674,6 @@
   <span class="author" itemprop="copyrightHolder">Erchoc</span>
 </div>
 
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
 
 
         
