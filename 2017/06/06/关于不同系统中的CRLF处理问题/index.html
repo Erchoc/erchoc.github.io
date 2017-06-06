@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="操作系统," />
 
 
 
@@ -64,16 +64,17 @@
 
 
 
-<meta name="description" content="现在网上大部分都是主讲代码的，很少涉及一个项目的启动、规划、分工等。大部分教程也是想到哪做到哪，并没有一个明确的思路。个人觉得，一个项目的开始并不应该急着上来就写代码，有一个清晰的思路，明确的业务关系等，也是非常重要的，毕竟磨刀不误砍柴功嘛~。本文先讲解一下我自己总结的一些流程上的东西，之后会拿一些实例来讲解。">
+<meta name="description" content="昨天胖子在群里问了个git add将代码从工作区加入暂存区时出现CRLF和LF转换的问题，正好一年前我刚玩linux时候研究过一阵子这个问题，今天早上使用tcg/voyager时候也出现了这个问题，这里我就稍微说一下问题出现的原因以及处理的办法。 如果您在Windows上进行编程，但你的合作团队有人在MacOS或者Linux上编程，你可能遇到这篇文章的说明问题。这是因为Windows在其文件中使">
+<meta name="keywords" content="操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个项目的初始和开发的流程">
-<meta property="og:url" content="http://erchoc.github.io/2017/05/16/一个项目的初始和开发的流程/index.html">
+<meta property="og:title" content="关于不同系统中的CRLF处理问题">
+<meta property="og:url" content="http://erchoc.github.io/2017/06/06/关于不同系统中的CRLF处理问题/index.html">
 <meta property="og:site_name" content="Coding Notes">
-<meta property="og:description" content="现在网上大部分都是主讲代码的，很少涉及一个项目的启动、规划、分工等。大部分教程也是想到哪做到哪，并没有一个明确的思路。个人觉得，一个项目的开始并不应该急着上来就写代码，有一个清晰的思路，明确的业务关系等，也是非常重要的，毕竟磨刀不误砍柴功嘛~。本文先讲解一下我自己总结的一些流程上的东西，之后会拿一些实例来讲解。">
-<meta property="og:updated_time" content="2017-06-05T03:06:45.000Z">
+<meta property="og:description" content="昨天胖子在群里问了个git add将代码从工作区加入暂存区时出现CRLF和LF转换的问题，正好一年前我刚玩linux时候研究过一阵子这个问题，今天早上使用tcg/voyager时候也出现了这个问题，这里我就稍微说一下问题出现的原因以及处理的办法。 如果您在Windows上进行编程，但你的合作团队有人在MacOS或者Linux上编程，你可能遇到这篇文章的说明问题。这是因为Windows在其文件中使">
+<meta property="og:updated_time" content="2017-06-06T01:08:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个项目的初始和开发的流程">
-<meta name="twitter:description" content="现在网上大部分都是主讲代码的，很少涉及一个项目的启动、规划、分工等。大部分教程也是想到哪做到哪，并没有一个明确的思路。个人觉得，一个项目的开始并不应该急着上来就写代码，有一个清晰的思路，明确的业务关系等，也是非常重要的，毕竟磨刀不误砍柴功嘛~。本文先讲解一下我自己总结的一些流程上的东西，之后会拿一些实例来讲解。">
+<meta name="twitter:title" content="关于不同系统中的CRLF处理问题">
+<meta name="twitter:description" content="昨天胖子在群里问了个git add将代码从工作区加入暂存区时出现CRLF和LF转换的问题，正好一年前我刚玩linux时候研究过一阵子这个问题，今天早上使用tcg/voyager时候也出现了这个问题，这里我就稍微说一下问题出现的原因以及处理的办法。 如果您在Windows上进行编程，但你的合作团队有人在MacOS或者Linux上编程，你可能遇到这篇文章的说明问题。这是因为Windows在其文件中使">
 
 
 
@@ -101,13 +102,13 @@
 
 
 
-  <link rel="canonical" href="http://erchoc.github.io/2017/05/16/一个项目的初始和开发的流程/"/>
+  <link rel="canonical" href="http://erchoc.github.io/2017/06/06/关于不同系统中的CRLF处理问题/"/>
 
 
 
 
 
-  <title>一个项目的初始和开发的流程 | Coding Notes</title>
+  <title>关于不同系统中的CRLF处理问题 | Coding Notes</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -217,7 +218,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/16/一个项目的初始和开发的流程/">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/06/06/关于不同系统中的CRLF处理问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Erchoc">
@@ -234,7 +235,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个项目的初始和开发的流程</h1>
+          <h1 class="post-title" itemprop="name headline">关于不同系统中的CRLF处理问题</h1>
         
 
         <div class="post-meta">
@@ -246,8 +247,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T06:36:50+08:00">
-                2017-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-06T09:07:08+08:00">
+                2017-06-06
               </time>
             
 
@@ -282,52 +283,43 @@
 
       
         <blockquote>
-<p>现在网上大部分都是主讲代码的，很少涉及一个项目的启动、规划、分工等。大部分教程也是想到哪做到哪，并没有一个明确的思路。<br>个人觉得，一个项目的开始并不应该急着上来就写代码，有一个清晰的思路，明确的业务关系等，也是非常重要的，毕竟磨刀不误砍柴功嘛~。本文先讲解一下我自己总结的一些流程上的东西，之后会拿一些实例来讲解。</p>
+<p>昨天胖子在群里问了个<code>git add</code>将代码从工作区加入暂存区时出现CRLF和LF转换的问题，正好一年前我刚玩linux时候研究过一阵子这个问题，今天早上使用tcg/voyager时候也出现了这个问题，这里我就稍微说一下问题出现的原因以及处理的办法。</p>
+<p>如果您在Windows上进行编程，但你的合作团队有人在MacOS或者Linux上编程，你可能遇到这篇文章的说明问题。这是因为Windows在其文件中使用换行符和换行字符，而Mac和Linux系统只使用换行字符。这是跨平台工作令人难以置信的烦人事实; Windows上的许多编辑器用CRLF替换现有的LF行的结尾，或者当用户点击Enter键时插入两个行结束字符</p>
 </blockquote>
 <a id="more"></a>
 <ul>
-<li>开发流程</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">业务原型图及设计</div><div class="line"></div><div class="line">业务确认，设计图</div><div class="line"></div><div class="line">前后端框架选择</div><div class="line"></div><div class="line">  - 后端框架 Laravel LTS</div><div class="line"></div><div class="line">  - js框架 Vue2.x</div><div class="line"></div><div class="line">  - UI框架 bootstrap</div><div class="line"></div><div class="line">数据库设计</div><div class="line"></div><div class="line">梳理模型关系</div><div class="line"></div><div class="line">根据业务逻辑设计表结构</div><div class="line"></div><div class="line">填充模拟数据（可在构建代码的过程同步进行）</div><div class="line"></div><div class="line">搭建脚手架</div><div class="line"></div><div class="line">  - 项目模块化</div><div class="line"></div><div class="line">  - 搭建项目基础（明确项目目录及结构等）</div><div class="line"></div><div class="line">  - 团队成员分工</div><div class="line"></div><div class="line">根据模块和分工完成程序</div><div class="line"></div><div class="line">  - 阶段测试</div><div class="line">  - 定期检查</div><div class="line">  - 代码重构</div><div class="line"></div><div class="line">Review</div><div class="line"></div><div class="line">  - 优化</div><div class="line"></div><div class="line">  - 测试</div></pre></td></tr></table></figure>
+<li><p>首先我们必须知道现在电脑系统有windows，unix两大系列，unix下有很多变体称为<code>类Unix系统</code>，主要有MacOS，Linux，Hp-ux，Ibm-aix，Solaris等等。这其中由于Linux是开源集大成者，在它的体系中又衍生了以Fodora和Debian的两大阵营。类unix系统大多数时候是使用兼容的，但是windows和类unix系统之间无论是操作还是设计理念都不一样。</p>
+</li>
+<li><p>这次要提到的问题，起源就在上面这段话中。类unix系统中，回车就是回车(carriage return)，换行就是换行(line feed)，它们绑定13和10两个ASCII码值，回车和换行分别简称CR和LF。编辑代码的时候，Windows系统里面，每行结尾是”&lt;回车&gt;&lt;换行&gt;”，即”\r\n”；类Unix系统里，每行结尾是”&lt;回车&gt;”。</p>
+</li>
+<li><p>这样会导致什么后果？Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</p>
+</li>
+<li><p>那么胖子的<code>git add</code>操作中为什么会提示LF将会被替换为CRLF呢？主要可能有下面几个原因？</p>
 <ul>
-<li><p>首先拿到一个项目，先理清楚基础的业务逻辑是非常重要的，在此基础上完成部分原型的设计（推荐使用Axure）。当然这个过程可能就会涉及到一部分后面实体的模型关系，要与客户交流并明确需求。</p>
+<li>团队开发，每个人实用的操作系统平台不同。</li>
+<li>胖子使用了双系统，开发时候切换系统进行编码。</li>
+<li>没有设置PhpStorm和Atom等常用IDE均有的LF绑定功能。</li>
+</ul>
 </li>
-<li><p>需求明确后，可以开始进行UI设计，当然数据库设计可以同步进行。</p>
-</li>
-<li><p>框架选择</p>
+<li><p>解决办法呢？主要看你从git角度去解决还是文件角度去思考。如果你想把文件本身进行转换，请使用<code>IDE的LF-CR绑定设置</code>或者<code>.editorconfig</code>文件转换，如果你从代码提交暂存区或者仓库来考虑，那么Git有几个配置选项来帮助解决这些问题，你应该看看下面的几行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git config core.autocrlf true</div><div class="line"></div><div class="line">git config core.autocrlf input</div><div class="line"></div><div class="line">git config core.autocrlf false</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <blockquote>
-<p>当已经知道一个项目的大致业务需求及应用场景后，可以选定框架。本文及后续实例均会以laravel最新版为核心，js框架使用VUE.js，UI框架选用bootstrap。数据库使用Mysql。</p>
+<p>core.autocrlf这个设置应该在Windows检查中留下CRLF结尾，但是在Mac和Linux系统以及存储库中的LF结束。</p>
 </blockquote>
 <ul>
-<li>数据库设计</li>
-</ul>
-<blockquote>
-<p>对于程序员来说（有的公司是产品经理完成），我觉得这一步非常重要的，主要确定模型与模型、表与表之间的对应关系。例如：一对一、一对多、多对多等（个人习惯是画一个模型关系图）。这样在开发的时候就会思路很明确，不会处于“懵比”状态。</p>
-</blockquote>
+<li><p>第一行：当你将文件添加到暂存区时，Git可以通过设置core.autocrlf将CRLF行结尾自动转换为LF来处理这类问题。如果您在Windows机器上，将其设置为true，那么当您pull代码时，将LF结尾转换为CRLF。</p>
+</li>
+<li><p>第二行：如果您使用的是Linux或Mac系统，那么当您pull文件时，您不希望Git自动转换它们; 然而，如果你的Windows猪队友把未经处理带CRLF格式的文件push到远程代码库，那么你可能希望Git来自动解决这个问题。可以通过将core.autocrlf设置为input来告知Git将CRLF转换为LF。</p>
+</li>
+<li><p>第三行：如果你是Windows程序员，只执行一个Windows项目或者所团队都是用windows系统甚至服务器都用windows，那么您可以关闭此功能，通过将配置值设置为false，将回车记录在存储库中。</p>
+</li>
+<li><p>参考地址：</p>
 <ul>
-<li>搭建脚手架</li>
+<li><a href="http://www.ruanyifeng.com/blog/2006/04/post_213.html" target="_blank" rel="external">阮一峰网络日志</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E7%B1%BBUnix%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">维基百科：类Unix系统</a></li>
 </ul>
-<blockquote>
-<p>这一步是一个程序项目良好的开始，主要包括两点：</p>
-</blockquote>
-<pre><code>- 模块化：根据页面、业务、数据模型等怎么方便怎么分。
-
-- 明确分工：模块化后拆分项目并分工。
-</code></pre><ul>
-<li><p>这里再主要说明一下项目管理工具。我们团队采用的是文件使用SVN，代码使用Git管理的方式。</p>
-</li>
-<li><p>程序主要说三点：</p>
-<ul>
-<li>阶段测试：按模块和按分工测试。</li>
-<li>定期检查：团队间定期碰头交叉测试。</li>
-<li>代码重构：抽象复用代码。</li>
-</ul>
-</li>
-<li><p>review</p>
-</li>
-<li><p>这是一个很总要但是又容易忽略或者省去的一部分。大部分代码重构和优化都会放在这里，团队开发一般由技术负责人review。</p>
 </li>
 </ul>
 
@@ -374,7 +366,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://erchoc.github.io/2017/05/16/一个项目的初始和开发的流程/" title="一个项目的初始和开发的流程">http://erchoc.github.io/2017/05/16/一个项目的初始和开发的流程/</a>
+      <a href="http://erchoc.github.io/2017/06/06/关于不同系统中的CRLF处理问题/" title="关于不同系统中的CRLF处理问题">http://erchoc.github.io/2017/06/06/关于不同系统中的CRLF处理问题/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -388,6 +380,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+        </div>
+      
 
       
 
@@ -395,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/16/直推！Git服务器的搭建/" rel="next" title="直推！Git服务器的搭建">
-                <i class="fa fa-chevron-left"></i> 直推！Git服务器的搭建
+              <a href="/2017/06/05/来聊聊Apache和Nginx的本地多站点虚拟域名配置/" rel="next" title="来聊聊Apache和Nginx的本地多站点虚拟域名配置">
+                <i class="fa fa-chevron-left"></i> 来聊聊Apache和Nginx的本地多站点虚拟域名配置
               </a>
             
           </div>
@@ -404,10 +402,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/20/在MacOS上安装和使用Docker搭建laravel环境/" rel="prev" title="在MacOS上安装和使用Docker搭建laravel环境">
-                在MacOS上安装和使用Docker搭建laravel环境 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
