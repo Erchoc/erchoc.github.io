@@ -367,7 +367,7 @@
 </ul>
 <h3 id="强调内容"><a href="#强调内容" class="headerlink" title="强调内容"></a>强调内容</h3><ul>
 <li><p>添加.lead类强调内容，其效果是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">margin-bottom: 20px;</div><div class="line">line-height:1.4;</div><div class="line">font-size: 16px;</div><div class="line">font-weight:300px;</div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</div><div class="line"><span class="attribute">line-height</span>:<span class="number">1.4</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">16px</span>;</div><div class="line"><span class="attribute">font-weight</span>:<span class="number">300px</span>;</div></pre></td></tr></table></figure>
 </li>
 <li><p>但是在min-width: 768px的情况下它的字体大小为21px;</p>
 </li>
@@ -468,7 +468,7 @@
 </ul>
 <h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><ul>
 <li><p>1个基础样式，4个附加样式，1个响应式表格够不够？表格行的背景色可以通过给tr添加六个相应颜色类名修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">active(#f5f5f5)</div><div class="line">success(#dff0d8)</div><div class="line">info(#d9edf7)</div><div class="line">warning(#fcf8e3)</div><div class="line">danger(#f2dede)</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">active</span><span class="params">(<span class="number">#f5f5f5</span>)</span></span></div><div class="line"><span class="function"><span class="title">success</span><span class="params">(<span class="number">#dff0d8</span>)</span></span></div><div class="line"><span class="function"><span class="title">info</span><span class="params">(<span class="number">#d9edf7</span>)</span></span></div><div class="line"><span class="function"><span class="title">warning</span><span class="params">(<span class="number">#fcf8e3</span>)</span></span></div><div class="line"><span class="function"><span class="title">danger</span><span class="params">(<span class="number">#f2dede</span>)</span></span></div></pre></td></tr></table></figure>
 </li>
 <li><p>table加上.table-hover，同时tr加上字体颜色，这样也会有额外的伪类样式导致颜色悬浮。</p>
 </li>
@@ -675,7 +675,7 @@
 <li><p>同样的，使用.alert声明警示框(为了利于SEO优化，建议声明组件类的同时添加role名)，需要其他颜色的警示框请追加使用alert-success，alert-info，alert-warning，alert-danger。</p>
 </li>
 <li><p><code>可关闭的警示框</code>通过给容器添加alert-dismissable类，并且在容器内添加这样一行按钮代码即可:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button class=&quot;close&quot; type=&quot;button&quot; data-dismiss=&quot;alert&quot;&gt;×&lt;/button&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button <span class="attribute">class</span>=<span class="string">"close"</span> <span class="attribute">type</span>=<span class="string">"button"</span> <span class="attribute">data-dismiss</span>=<span class="string">"alert"</span>&gt;×&lt;/button&gt;</div></pre></td></tr></table></figure>
 </li>
 <li><p><code>带超链接的警示框</code>只是在容器内部使用a标签而已，但是不同颜色类型的警示框，其超链接样式也有些美化和修改。为了突出警示框内容时，我们也常常在容器中使用strong标签。</p>
 </li>
@@ -725,7 +725,7 @@
 </li>
 </ul>
 <h3 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h3><ul>
-<li>无论在PC还是移动端，面板配合栅格布局的使用率还是很高的，尤其是文章列表和行列商品展示，但是在v4版本有了新的替代品组件。 .spanel是面板声明类，具体包括基础面板(.panel-default)，带头尾的面板(-heading，-body，-footer)，面板中嵌套表格，面板中嵌套列表组(.list-group)，彩色风格的面板：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">重点蓝-primary</div><div class="line">信息蓝-info</div><div class="line">成功绿-success</div><div class="line">警告黄-warning</div><div class="line">危险红-danger。</div></pre></td></tr></table></figure>
+<li>无论在PC还是移动端，面板配合栅格布局的使用率还是很高的，尤其是文章列表和行列商品展示，但是在v4版本有了新的替代品组件。 .spanel是面板声明类，具体包括基础面板(.panel-default)，带头尾的面板(-heading，-body，-footer)，面板中嵌套表格，面板中嵌套列表组(.list-group)，彩色风格的面板：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">重点蓝-primary</div><div class="line">信息蓝-<span class="builtin-name">info</span></div><div class="line">成功绿-success</div><div class="line">警告黄-<span class="builtin-name">warning</span></div><div class="line">危险红-danger。</div></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -874,7 +874,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

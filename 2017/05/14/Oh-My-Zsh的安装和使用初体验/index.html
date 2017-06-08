@@ -305,11 +305,11 @@
 <li><p>然后当然是windows上安装这东西的步骤</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">查看系统中有哪些shell？</div><div class="line">cat /etc/shells</div><div class="line"></div><div class="line">搜索看看仓库里和zsh相关的包有哪些？</div><div class="line">sudo apt-cache search zsh</div><div class="line"></div><div class="line">看到了包的说明后，我们看看zsh包详细说明。</div><div class="line">sudo apt-cache show zsh</div><div class="line"></div><div class="line">看到我们即将安装的是最新版本5.0，然后安装zsh这个SHELL。</div><div class="line">sudo apt-get install zsh -y</div><div class="line"></div><div class="line">验证下安装是否成功。</div><div class="line">zsh –version</div><div class="line"></div><div class="line">查看当前的默认shell是啥。</div><div class="line">echo $SHELL</div><div class="line"></div><div class="line">是bash。那么我们把默认SHELL改成zsh吧。</div><div class="line">chsh -s $(which zsh)</div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">查看系统中有哪些<span class="keyword">shell</span><span class="bash">？</span></div><div class="line">cat /etc/shells</div><div class="line"></div><div class="line">搜索看看仓库里和zsh相关的包有哪些？</div><div class="line">sudo apt-cache search zsh</div><div class="line"></div><div class="line">看到了包的说明后，我们看看zsh包详细说明。</div><div class="line">sudo apt-cache show zsh</div><div class="line"></div><div class="line">看到我们即将安装的是最新版本<span class="number">5.0</span>，然后安装zsh这个<span class="keyword">SHELL</span><span class="bash">。</span></div><div class="line">sudo apt-get install zsh -y</div><div class="line"></div><div class="line">验证下安装是否成功。</div><div class="line">zsh –version</div><div class="line"></div><div class="line">查看当前的默认<span class="keyword">shell</span><span class="bash">是啥。</span></div><div class="line">echo $<span class="keyword">SHELL</span><span class="bash"></span></div><div class="line"></div><div class="line">是bash。那么我们把默认<span class="keyword">SHELL</span><span class="bash">改成zsh吧。</span></div><div class="line">chsh -s $(which zsh)</div></pre></td></tr></table></figure>
 <ul>
 <li>上面最后部分的操作可能在windows内置子系统中并不生效，那么我们可以在.bashrc末尾加上shell代码，用脚本实现当你打开bash时候切换到zsh。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bash -c zsh</div></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">bash </span>-c zsh</div></pre></td></tr></table></figure>
 <ul>
 <li><p>退出后重新登录，查看默认shell。windows用户就不用查看shell了，永远只能看到默认的bash。</p>
 </li>
@@ -322,7 +322,7 @@
 <li><p>找到.zshrc文件中的ZSH_THEME=”xxxx”，修改为下列我使用后推荐的主题或随机主题random。</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ZSH_THEME=”random”</div><div class="line">ZSH_THEME=”agnoster”</div><div class="line">ZSH_THEME=”ys”</div><div class="line">ZSH_THEME=”sorin”</div><div class="line">ZSH_THEME=”cloud”</div></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">ZSH_THEME</span>=”random”</div><div class="line"><span class="attr">ZSH_THEME</span>=”agnoster”</div><div class="line"><span class="attr">ZSH_THEME</span>=”ys”</div><div class="line"><span class="attr">ZSH_THEME</span>=”sorin”</div><div class="line"><span class="attr">ZSH_THEME</span>=”cloud”</div></pre></td></tr></table></figure>
 <ul>
 <li><p>更多主题效果查看(按英文字母排序)：<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes" target="_blank" rel="external">https://github.com/robbyrussell/oh-my-zsh/wiki/themes</a> 。</p>
 </li>
@@ -339,7 +339,7 @@
 <ul>
 <li>其他一些注意事项</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zsh在其实默认不完全兼容bash，但是你可以搜索一些方式配置使其尽可能兼容。</div><div class="line"></div><div class="line">zsh提供了很多短小但是强大的命令，zsh的拓展命令很多也非常强大，这点我也在慢慢学习。</div><div class="line"></div><div class="line">关于iTerm2配合使用在另一篇文章有写过，强大工具！</div></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">zsh</span>在其实默认不完全兼容<span class="keyword">bash，但是你可以搜索一些方式配置使其尽可能兼容。</span></div><div class="line"></div><div class="line"><span class="symbol">zsh</span>提供了很多短小但是强大的命令，zsh的拓展命令很多也非常强大，这点我也在慢慢学习。</div><div class="line"></div><div class="line">关于<span class="keyword">iTerm2配合使用在另一篇文章有写过，强大工具！</span></div></pre></td></tr></table></figure>
       
     </div>
 
@@ -485,7 +485,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

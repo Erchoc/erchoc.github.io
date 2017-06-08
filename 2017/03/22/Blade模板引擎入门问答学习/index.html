@@ -288,40 +288,40 @@
 <a id="more"></a>
 <ul>
 <li><p>怎么在模板引擎输出变量？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">首先路由转发到一个控制器的一个方法，然后返回视图，同时使用链式操作with()方法，第一个字符串参数为模板变量，第二个字符串参数为实际的数据，然后模板文件输出即可。</div><div class="line"></div><div class="line">当然，你也可以在控制器方法内部先声明或者得到一个$data数组，这也是开发常用的做法，只是获取$data的操作由model去完成并返回。</div></pre></td></tr></table></figure>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">首先路由转发到一个控制器的一个方法，然后返回视图，同时使用链式操作<span class="keyword">with</span>()方法，第一个字符串参数为模板变量，第二个字符串参数为实际的数据，然后模板文件输出即可。</div><div class="line"></div><div class="line">当然，你也可以在控制器方法内部先声明或者得到一个$data数组，这也是开发常用的做法，只是获取$data的操作由model去完成并返回。</div></pre></td></tr></table></figure>
 </li>
 <li><p>参数分别有数组和字符串，怎么办？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在view()方法中使用compact()方法把不同类型的数据传递到模板，然后在模板文件中分别输出数组和字符串(compact方法的变量参数不需要$符号)，</div><div class="line"></div><div class="line">模板中输出可以使用嵌套php，也可以使用双大括号。</div></pre></td></tr></table></figure>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在view<span class="comment">()</span>方法中使用compact<span class="comment">()</span>方法把不同类型的数据传递到模板，然后在模板文件中分别输出数组和字符串<span class="comment">(compact方法的变量参数不需要$符号)</span>，</div><div class="line"></div><div class="line">模板中输出可以使用嵌套php，也可以使用双大括号。</div></pre></td></tr></table></figure>
 </li>
 <li><p>双大括号和Angular的语法冲突怎么办？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">要么修改Angular定界符，要么Blade输出前加@符号。</div></pre></td></tr></table></figure>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">要么修改Angular定界符，要么Blade输出前加<span class="meta">@符号。</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>查询文章，文章为空时候显示null？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">模板引擎设置默认值&#123;&#123; $name or &apos;默认值&apos; &#125;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">模板引擎设置默认值&#123;&#123; $name or <span class="string">'默认值'</span> &#125;&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
 <h3 id="Blade的六大流程控制语句"><a href="#Blade的六大流程控制语句" class="headerlink" title="Blade的六大流程控制语句"></a>Blade的六大流程控制语句</h3><ul>
 <li><p>模板引擎的流程控制 if 怎么写？？？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">     @if($persion[&apos;score&apos;]&lt;0 ||$persion[&apos;score&apos;]&gt;100)</div><div class="line">       不合法</div><div class="line">     @elseif($persion[&apos;score&apos;]&lt;60)</div><div class="line">       不及格</div><div class="line">     @else</div><div class="line">       及格</div><div class="line">     @endif</div><div class="line"></div><div class="line">如果传递的参数为字符串，模板引擎会转换为数字进行比较。</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">     <span class="variable">@if</span>($persion[<span class="string">'score'</span>]&lt;<span class="number">0</span> ||$persion[<span class="string">'score'</span>]&gt;<span class="number">100</span>)</div><div class="line">       不合法</div><div class="line">     <span class="variable">@elseif</span>($persion[<span class="string">'score'</span>]&lt;<span class="number">60</span>)</div><div class="line">       不及格</div><div class="line">     <span class="variable">@else</span></div><div class="line">       及格</div><div class="line">     <span class="variable">@endif</span></div><div class="line"></div><div class="line">如果传递的参数为字符串，模板引擎会转换为数字进行比较。</div></pre></td></tr></table></figure>
 </li>
 <li><p>模板引擎的流程控制 unless 怎么写？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">     @unless($persion[&apos;score&apos;]&gt;=60)</div><div class="line">       不及格</div><div class="line">     @endunless</div><div class="line"></div><div class="line">除非大于60分，否则都输出不及格，相当于 if !。</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">     <span class="variable">@unless</span>($persion[<span class="string">'score'</span>]&gt;=<span class="number">60</span>)</div><div class="line">       不及格</div><div class="line">     <span class="variable">@endunless</span></div><div class="line"></div><div class="line">除非大于<span class="number">60</span>分，否则都输出不及格，相当于 if !。</div></pre></td></tr></table></figure>
 </li>
 <li><p>模板引擎的流程控制 for 怎么写？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    @for($i=0; $i&lt;=$persion[&apos;score&apos;]; $i++ )</div><div class="line">      &#123;&#123;$i&#125;&#125;&lt;br /&gt;</div><div class="line">    @endfor</div><div class="line"></div><div class="line">for是可以嵌套使用的哦。</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    @<span class="keyword">for</span>($i=<span class="number">0</span>; $i&lt;=$persion[<span class="string">'score'</span>]; $i++ )</div><div class="line">      &#123;&#123;$i&#125;&#125;&lt;br /&gt;</div><div class="line">    @endfor</div><div class="line"></div><div class="line"><span class="keyword">for</span>是可以嵌套使用的哦。</div></pre></td></tr></table></figure>
 </li>
 <li><p>模板引擎的流程控制 foreach 怎么写？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@foreach($persion[&apos;article&apos;] as $v)</div><div class="line">  &#123;&#123; $v &#125;&#125;</div><div class="line">@endforeach</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">foreach</span>($persion[<span class="string">'article'</span>] <span class="keyword">as</span> $v)</div><div class="line">  &#123;&#123; $v &#125;&#125;</div><div class="line">@<span class="keyword">endforeach</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>模板引擎的流程控制 forelse 怎么写？？？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">    @forelse($persion[&apos;news&apos;] as $v)</div><div class="line">      &#123;&#123; $v &#125;&#125;</div><div class="line">    @empty</div><div class="line">      没有数据</div><div class="line">    @endforelse</div><div class="line"></div><div class="line">for else是对foreach的补充，要求填写没有数据时候的默认显示文字，一般可用来替代foreach。</div></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">    @forelse($persion[<span class="string">'news'</span>] as $v)</div><div class="line">      &#123;&#123; $v &#125;&#125;</div><div class="line">    @empty</div><div class="line">      没有数据</div><div class="line">    @endforelse</div><div class="line"></div><div class="line"><span class="keyword">for</span> <span class="keyword">else</span>是对<span class="keyword">foreach</span>的补充，要求填写没有数据时候的默认显示文字，一般可用来替代<span class="keyword">foreach</span>。</div></pre></td></tr></table></figure>
 </li>
 <li><p>模板引擎的流程控制 while 怎么写？？？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    @while(3&gt;1)</div><div class="line">      &#123;&#123; $persion[&apos;score&apos;] &#125;&#125;</div><div class="line">    @endwhile</div><div class="line"></div><div class="line">你可以试试。</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    @<span class="keyword">while</span>(<span class="number">3</span>&gt;<span class="number">1</span>)</div><div class="line">      &#123;&#123; $persion[<span class="string">'score'</span>] &#125;&#125;</div><div class="line">    @endwhile</div><div class="line"></div><div class="line">你可以试试。</div></pre></td></tr></table></figure>
 </li>
 <li><p>来个多种嵌套例子吧？？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@forelse($persion[&apos;article&apos;] as $k =&gt; $v)</div><div class="line">  @if($k&gt;2)</div><div class="line">    &#123;&#123; $k &#125;&#125;-&gt;&#123;&#123; $v &#125;&#125;&lt;br /&gt;</div><div class="line">  @endif</div><div class="line">@empty</div><div class="line">  没有数据</div><div class="line">@endforelse</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@forelse($persion[<span class="string">'article'</span>] <span class="keyword">as</span> $k =&gt; $v)</div><div class="line">  @<span class="keyword">if</span>($k&gt;<span class="number">2</span>)</div><div class="line">    &#123;&#123; $k &#125;&#125;-&gt;&#123;&#123; $v &#125;&#125;&lt;br /&gt;</div><div class="line">  @endif</div><div class="line">@<span class="keyword">empty</span></div><div class="line">  没有数据</div><div class="line">@endforelse</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
@@ -329,13 +329,13 @@
 <li><p>公共模板替换</p>
 </li>
 <li><p>怎么添加公共头部尾部呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@include(common/header)</div><div class="line">@include(common/footer)</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@include</span>(common/header)</div><div class="line"><span class="variable">@include</span>(common/footer)</div></pre></td></tr></table></figure>
 </li>
 <li><p>怎么添加略有不同的公共头部尾部呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    @include(&apos;common/header&apos;, [&apos;page&apos; =&gt; &apos;首页&apos;])</div><div class="line">    @include(&apos;common/header&apos;, [&apos;page&apos; =&gt; &apos;文章页&apos;])</div><div class="line">    &#123;&#123; $page &#125;&#125;</div><div class="line"></div><div class="line">那当然是要传递参数啦！公共页面使用双大括号接受并输出参数字符串。</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    <span class="variable">@include</span>(<span class="string">'common/header'</span>, [<span class="string">'page'</span> =&gt; <span class="string">'首页'</span>])</div><div class="line">    <span class="variable">@include</span>(<span class="string">'common/header'</span>, [<span class="string">'page'</span> =&gt; <span class="string">'文章页'</span>])</div><div class="line">    &#123;&#123; $<span class="selector-tag">page</span> &#125;&#125;</div><div class="line"></div><div class="line">那当然是要传递参数啦！公共页面使用双大括号接受并输出参数字符串。</div></pre></td></tr></table></figure>
 </li>
 <li><p>layouts布局具体怎么实现流程是什么样的呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这个还是让我先想想怎么说吧。。。</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这个还是让我先想想怎么说吧。。。</div></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -484,7 +484,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

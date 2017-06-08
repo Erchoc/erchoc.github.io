@@ -295,7 +295,7 @@
 <li><p>另外改hosts在苹果系统上刷新DNS并不是<code>ipconfig flushdns</code>也不是<code>sudo /etc/init.d/nscd restart</code>, 而是根据MacOS的版本选择不同的命令如:</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Mountain Lion 或 Lion版本(10.7.8.9):</div><div class="line">    sudo killall -HUP mDNSResponder</div><div class="line">Snow Leopard版本(10.6.10):</div><div class="line">    dscacheutil -flushcache</div><div class="line">Leopard和更早版本(10.4.5):</div><div class="line">    lookupd -flushcache</div><div class="line"></div><div class="line">大概就是这样了, 更高版本也在里面选择。</div><div class="line"></div><div class="line">吐槽以下Mac上这个刷新缓存很不统一啊</div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">Mountain</span> <span class="selector-tag">Lion</span> 或 <span class="selector-tag">Lion</span>版本(10<span class="selector-class">.7</span><span class="selector-class">.8</span><span class="selector-class">.9</span>):</div><div class="line">    <span class="selector-tag">sudo</span> <span class="selector-tag">killall</span> <span class="selector-tag">-HUP</span> <span class="selector-tag">mDNSResponder</span></div><div class="line"><span class="selector-tag">Snow</span> <span class="selector-tag">Leopard</span>版本(10<span class="selector-class">.6</span><span class="selector-class">.10</span>):</div><div class="line">    <span class="selector-tag">dscacheutil</span> <span class="selector-tag">-flushcache</span></div><div class="line"><span class="selector-tag">Leopard</span>和更早版本(10<span class="selector-class">.4</span><span class="selector-class">.5</span>):</div><div class="line">    <span class="selector-tag">lookupd</span> <span class="selector-tag">-flushcache</span></div><div class="line"></div><div class="line">大概就是这样了, 更高版本也在里面选择。</div><div class="line"></div><div class="line">吐槽以下<span class="selector-tag">Mac</span>上这个刷新缓存很不统一啊</div></pre></td></tr></table></figure>
 <ul>
 <li><p>最后还是用了shadowsock自建的搬瓦工服务器，学习dockerfile之后有空就把shadowsock也写成文件容器来使用。</p>
 </li>
@@ -311,19 +311,19 @@
 <li><p>另外使用了homebrew，操作了如下命令:</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">brew update    更新源</div><div class="line">brew search wget  查找软件包</div><div class="line">brew install wget  安装软件包</div><div class="line">brew list    列出已安装的软件包</div><div class="line">brew remove wget   删除软件包</div><div class="line">brew info wget   查看软件包信息</div><div class="line">brew deps wget   查看软件依赖关系</div><div class="line">brew outdated    列出已安装但不是最新版本的软件包</div><div class="line">brew upgrade wget   单个软件包更新</div><div class="line"></div><div class="line">其实homebrew提供定制自己的软件包的功能哦，一切源自github。</div></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">brew update    更新源</div><div class="line">brew search wget  查找软件包</div><div class="line">brew install wget  安装软件包</div><div class="line">brew list    列出已安装的软件包</div><div class="line">brew <span class="builtin-name">remove</span> wget   删除软件包</div><div class="line">brew <span class="builtin-name">info</span> wget   查看软件包信息</div><div class="line">brew deps wget   查看软件依赖关系</div><div class="line">brew outdated    列出已安装但不是最新版本的软件包</div><div class="line">brew<span class="built_in"> upgrade </span>wget   单个软件包更新</div><div class="line"></div><div class="line">其实homebrew提供定制自己的软件包的功能哦，一切源自github。</div></pre></td></tr></table></figure>
 <ul>
 <li>没几天我尝试了下面这条命令, 结果Mac上我下载的软件视频和代码都消失了, 只好重装系统。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo rm -rf /</div><div class="line"></div><div class="line">在Ubuntu服务器执行这条命令提示危险操作</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sudo</span> rm -rf /</div><div class="line"></div><div class="line">在Ubuntu服务器执行这条命令提示危险操作</div></pre></td></tr></table></figure>
 <ul>
 <li>重装系统后QQ视频聊天对方说我没有声音, 你可以在声音偏好设置的输出中选用Mac自带的内置扬声器, 我选择的是执行下面这条命令。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">printf &quot;p *(char*)(void(*)())AudioDeviceDuck=0xc3\nq&quot; | lldb -n QQ</div></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">printf <span class="string">"p *(char*)(void(*)())AudioDeviceDuck=0xc3\nq"</span> <span class="string">| lldb -n QQ</span></div></pre></td></tr></table></figure>
 <ul>
 <li>重装系统后因为要使用composer, 但意外的发现/bin/bin这样的环境变量下路径无权限访问。这是因为10.11开始加入的SIP验证机制, 我们只要重启进入命令行模式, 开机前将SIP关闭即可:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil disable</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">csrutil <span class="built_in">disable</span></div></pre></td></tr></table></figure>
 <ul>
 <li>还使用brew cask装了Docker-ce, 使用laradock单项目和多项目配置, 具体操作流程请看这篇文章:<br><a href="http://www.jianshu.com/p/3b564f452625" target="_blank" rel="external">http://www.jianshu.com/p/3b564f452625</a></li>
 </ul>
@@ -473,7 +473,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

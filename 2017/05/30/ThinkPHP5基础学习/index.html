@@ -351,14 +351,14 @@
 <li><p>默认情况下，TP5版本的框架已经自带了一个应用入口文件（以及默认的目录结构），内容如下：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(&apos;APP_PATH&apos;,&apos;./Application/&apos;);</div><div class="line"></div><div class="line">require &apos;./ThinkPHP/ThinkPHP.php&apos;;</div></pre></td></tr></table></figure>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'APP_PATH'</span>,<span class="string">'./Application/'</span>);</div><div class="line"></div><div class="line"><span class="keyword">require</span> <span class="string">'./ThinkPHP/ThinkPHP.php'</span>;</div></pre></td></tr></table></figure>
 <ul>
 <li><p>注意：3.2版本开始无需定义APP_NAME常量</p>
 </li>
 <li><p>如果你改变了项目目录（例如把Application更改为Apps），只需要在入口文件更改APP_PATH常量定义即可：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(&apos;APP_PATH&apos;,&apos;./Apps/&apos;);</div><div class="line"></div><div class="line">require &apos;./ThinkPHP/ThinkPHP.php&apos;;</div></pre></td></tr></table></figure>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'APP_PATH'</span>,<span class="string">'./Apps/'</span>);</div><div class="line"></div><div class="line"><span class="keyword">require</span> <span class="string">'./ThinkPHP/ThinkPHP.php'</span>;</div></pre></td></tr></table></figure>
 <ul>
 <li>注意：APP_PATH的定义支持相对路径和绝对路径，但必须以“/”结束</li>
 </ul>
@@ -565,7 +565,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

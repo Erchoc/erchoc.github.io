@@ -312,7 +312,7 @@
 <li><p>参考简书生成本地SSH密钥一文，搞定本地SSH和Gitlab，GitHub部署SSH。windows步骤如下：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">查看用户目录下是否有.ssh文件夹 cd &amp;&amp; ls -al</div><div class="line"></div><div class="line">如果有，则执行删除目录命令 rm -rf .ssh</div><div class="line"></div><div class="line">使用Git Bash执行 ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</div><div class="line"></div><div class="line">然后三次回车即可，不要自己添加这里没用的密码。</div><div class="line"></div><div class="line">查看.ssh目录下的文件有  id_rsa id_rsa.pub known_hosts。</div></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">查看用户目录下是否有<span class="string">.ssh</span>文件夹 <span class="keyword">cd</span> &amp;&amp; <span class="keyword">ls</span> -al</div><div class="line"></div><div class="line">如果有，则执行删除目录命令 rm -rf <span class="string">.ssh</span></div><div class="line"></div><div class="line">使用Git Bash执行 ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></div><div class="line"></div><div class="line">然后三次回车即可，不要自己添加这里没用的密码。</div><div class="line"></div><div class="line">查看<span class="string">.ssh</span>目录下的文件有  id_rsa id_rsa.pub known_hosts。</div></pre></td></tr></table></figure>
 <ul>
 <li><p>SSH使用的非对称加密算法存在公钥和私钥的说法，私钥id_rsa保留在本地即可，我们需要往Github和Gitlab部署的是公钥id_rsa.pub中的所有字符串。<a href="https://my.oschina.net/realfighter/blog/388486" target="_blank" rel="external">点击查看非对称加密详情</a>。</p>
 </li>
@@ -326,14 +326,14 @@
 </li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/3995745-b249a97abdac8292.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自简书"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git clone http://gitlab.develop.umeishu.com:port/root/rent-api.git 。</div><div class="line"></div><div class="line">由于魏关闭了服务器22端口，无法使用ssh下载。但是公钥部署和Access Token依然有用。</div><div class="line"></div><div class="line">git checkout -b develop master</div><div class="line"></div><div class="line">这里是是分支管理的内容，创建并切换到开发分支。</div><div class="line"></div><div class="line">cp .env.example .env</div><div class="line"></div><div class="line">新建rent数据库,切换win10的bash执行，修改.env中数据库和登陆账号密码。</div><div class="line"></div><div class="line">php artisan key:generate</div><div class="line"></div><div class="line">生成项目唯一key值。</div><div class="line"></div><div class="line">修改本地hosts,添加rent.dev映射，配置phpStudy虚拟域名，访问rent.dev测试。</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git clone http:<span class="comment">//gitlab.develop.umeishu.com:port/root/rent-api.git 。</span></div><div class="line"></div><div class="line">由于魏关闭了服务器<span class="number">22</span>端口，无法使用ssh下载。但是公钥部署和Access Token依然有用。</div><div class="line"></div><div class="line">git checkout -<span class="selector-tag">b</span> develop master</div><div class="line"></div><div class="line">这里是是分支管理的内容，创建并切换到开发分支。</div><div class="line"></div><div class="line">cp <span class="selector-class">.env</span><span class="selector-class">.example</span> <span class="selector-class">.env</span></div><div class="line"></div><div class="line">新建rent数据库,切换win10的bash执行，修改.env中数据库和登陆账号密码。</div><div class="line"></div><div class="line">php artisan key:generate</div><div class="line"></div><div class="line">生成项目唯一key值。</div><div class="line"></div><div class="line">修改本地hosts,添加rent.dev映射，配置phpStudy虚拟域名，访问rent.dev测试。</div></pre></td></tr></table></figure>
 <ul>
 <li><p>由于我clone的master，remote上的dev版本比master新。所以我要pull拉一下服务器上的dev代码，使用git pull origin dev，dev是服务器上分支名称，pull之后本地代码就会有变动，Route就会添加。</p>
 </li>
 <li><p>然后compoer install更新一下依赖包，访问测试路由/hello 出现一个错误：</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Unable to boot ApiServiceProvider, configure an API domain or prefix</div></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Unable <span class="built_in">to</span> boot ApiServiceProvider, configure <span class="keyword">an</span> API domain <span class="keyword">or</span> prefix</div></pre></td></tr></table></figure>
 <ul>
 <li>这是因为remote的dev上使用了用于RESTful API的dingo/api包，我pull的时候.env.example文件添加了几个API开头的配置项。全部复制到.env中并且将API_DOMAIN配置为本地映射的虚拟域名即可，再次访问/hello 搭建成功。</li>
 </ul>
@@ -483,7 +483,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

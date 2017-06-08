@@ -303,27 +303,27 @@
 <li><p>我们常用的授权命令是chmod，即改变权限模型。这个命令最常用的参数是 -R 权限递归。给文件增加或者减少权限，我们可以使用:</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">chmod u+x，g+wr filename</div><div class="line"></div><div class="line">chmod u-x，g-wr filename</div><div class="line"></div><div class="line">chmod u=xr，g=wrx filename</div></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">chmod</span> u+<span class="keyword">x</span>，g+wr filename</div><div class="line"></div><div class="line"><span class="keyword">chmod</span> u-<span class="keyword">x</span>，g-wr filename</div><div class="line"></div><div class="line"><span class="keyword">chmod</span> u=xr，g=wrx filename</div></pre></td></tr></table></figure>
 <ul>
 <li>这种写法在线上是不可能出现的，除非你学习权限的时候了解一下。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 557 filename</div></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod <span class="number">557</span> filename</div></pre></td></tr></table></figure>
 <ul>
 <li>但是这样使用也有些不方便，你也可以对所有用户授予同样权限，例如给所有用户最高权限:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod a+wrx filename</div></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod <span class="keyword">a</span>+wrx filename</div></pre></td></tr></table></figure>
 <ul>
 <li>修改文件的所有者，chown 用户名 文件或者用户名：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chown user1 filename</div></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">chown</span> user1 filename</div></pre></td></tr></table></figure>
 <ul>
 <li>其实你也可以使用这个命令同时改变文件所属用户和所属用户组，先用户名再用户组，使用点号或者分号分隔：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chown user1:wheel filename</div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">chown</span> <span class="selector-tag">user1</span><span class="selector-pseudo">:wheel</span> <span class="selector-tag">filename</span></div></pre></td></tr></table></figure>
 <ul>
 <li>修改所属组，chown 用户组 文件或者用户名(直接使用上面的chown也可以实现)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chgrp user1 filename</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">chgrp</span> user1 filename</div></pre></td></tr></table></figure>
 <ul>
 <li>windows中你添加的所有用户都在users这个用户组中，但是Linux中你添加的用户，系统会默认建立一个同名用户组。</li>
 </ul>
@@ -490,7 +490,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

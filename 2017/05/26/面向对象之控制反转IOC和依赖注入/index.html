@@ -297,7 +297,7 @@
 <li><p>A类用于查询数据库记录, B类用于连接数据库, 也就是说A依赖于B, 现在我们怎么在A类中书写查询方法呢？</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">为什么不在A中连接数据库？</div><div class="line"></div><div class="line">如果你有一百个A, 你连接一百次, new一百个对象实例出来吗？</div><div class="line"></div><div class="line">这是需要内存和IO开销的！</div><div class="line"></div><div class="line">B类只负责数据库链接, 还要封装工厂单例适配器等各种设计模式)</div></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">为什么不在<span class="keyword">A</span>中连接数据库？</div><div class="line"></div><div class="line">如果你有一百个<span class="keyword">A</span>, 你连接一百次, new一百个对象实例出来吗？</div><div class="line"></div><div class="line">这是需要内存和IO开销的！</div><div class="line"></div><div class="line">B类只负责数据库链接, 还要封装工厂单例适配器等各种设计模式)</div></pre></td></tr></table></figure>
 <ul>
 <li><p>单一功能原则是面向对象的基本原则之一, 也是GOF中设计模式的基本原则之一。全称single responsibility principle。</p>
 </li>
@@ -472,7 +472,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

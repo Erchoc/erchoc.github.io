@@ -385,12 +385,12 @@
 </blockquote>
 </li>
 <li><p>我们会发现database/seeds/里多了一个文件 ArticleSeeder.php，修改此文件中的 run 函数为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public function run() &#123;</div><div class="line">    DB::table(&apos;articles&apos;)-&gt;delete();</div><div class="line">    for ($i=0; $i &lt; 10; $i++) &#123;</div><div class="line">        \App\Article::create([ &apos;title&apos; =&gt; &apos;Title &apos;.$i, &apos;body&apos; =&gt; &apos;Body &apos;</div><div class="line">        &apos;user_id&apos; =&gt; 1, ]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">    DB::table(<span class="string">'articles'</span>)-&gt;delete();</div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; <span class="number">10</span>; $i++) &#123;</div><div class="line">        \App\Article::create([ <span class="string">'title'</span> =&gt; <span class="string">'Title '</span>.$i, <span class="string">'body'</span> =&gt; <span class="string">'Body '</span></div><div class="line">        <span class="string">'user_id'</span> =&gt; <span class="number">1</span>, ]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>上面代码中的 \App\Article 为<code>命名空间绝对引用</code>。</p>
 </li>
 <li><p>接下来我们把ArticleSeeder注册到系统内。修改database/seeds/DatabaseSeeder.php<br>中的 run 函数为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public function run() &#123;</div><div class="line">    $this-&gt;call(ArticleSeeder::class);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;call(ArticleSeeder::class);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>由于database目录没有像app 目录那样被composer注册为psr-4自动加载，采用的是psr-0 classmap方式，所以我们还需要运行以下命令把ArticleSeeder.php加入自动加载系统，避免找不到类的错误：</p>
 <blockquote>
@@ -559,7 +559,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
