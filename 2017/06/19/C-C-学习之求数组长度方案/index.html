@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="laravel," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -64,21 +64,16 @@
 
 
 
-<meta name="description" content="Laravel 5.4更改了默认数据库字符集，更改后默认使用的utf8mb4包括支持存储emojis。这只会影响新的应用程序，只要你运行的MySQL版本低于v5.7.7或者MariaDB低于10.2.2，就会碰到上述图片中的错误，那么我们该如何解决呢？ laravel 5.4官方文档在数据库迁移(migrate)中给出了解决方法：编辑app/Providers/AppServiceProvid">
-<meta name="keywords" content="laravel">
+<meta name="description" content="c++中没有求数组长度的默认函数，只能自己写。但经常有初学者把sizeof(), size(), length(), strlen() 混淆。本篇博文具体解释一下如何求数组长度和这四个函数，以及可能遇到的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Laravel 5.4 Composer报错：指定的键名太长">
-<meta property="og:url" content="http://erchoc.github.io/2017/05/12/Laravel-5-4-Composer报错：指定的键名太长/index.html">
+<meta property="og:title" content="C&#x2F;C++学习之求数组长度方案">
+<meta property="og:url" content="http://erchoc.github.io/2017/06/19/C-C-学习之求数组长度方案/index.html">
 <meta property="og:site_name" content="Coding Notes">
-<meta property="og:description" content="Laravel 5.4更改了默认数据库字符集，更改后默认使用的utf8mb4包括支持存储emojis。这只会影响新的应用程序，只要你运行的MySQL版本低于v5.7.7或者MariaDB低于10.2.2，就会碰到上述图片中的错误，那么我们该如何解决呢？ laravel 5.4官方文档在数据库迁移(migrate)中给出了解决方法：编辑app/Providers/AppServiceProvid">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-9baacd89f2b04eee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-cd5c87fb8b55afec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3995745-c7d502cdb3d1c3ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-06-05T03:35:47.000Z">
+<meta property="og:description" content="c++中没有求数组长度的默认函数，只能自己写。但经常有初学者把sizeof(), size(), length(), strlen() 混淆。本篇博文具体解释一下如何求数组长度和这四个函数，以及可能遇到的问题。">
+<meta property="og:updated_time" content="2017-06-18T17:00:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Laravel 5.4 Composer报错：指定的键名太长">
-<meta name="twitter:description" content="Laravel 5.4更改了默认数据库字符集，更改后默认使用的utf8mb4包括支持存储emojis。这只会影响新的应用程序，只要你运行的MySQL版本低于v5.7.7或者MariaDB低于10.2.2，就会碰到上述图片中的错误，那么我们该如何解决呢？ laravel 5.4官方文档在数据库迁移(migrate)中给出了解决方法：编辑app/Providers/AppServiceProvid">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3995745-9baacd89f2b04eee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="C&#x2F;C++学习之求数组长度方案">
+<meta name="twitter:description" content="c++中没有求数组长度的默认函数，只能自己写。但经常有初学者把sizeof(), size(), length(), strlen() 混淆。本篇博文具体解释一下如何求数组长度和这四个函数，以及可能遇到的问题。">
 
 
 
@@ -106,13 +101,13 @@
 
 
 
-  <link rel="canonical" href="http://erchoc.github.io/2017/05/12/Laravel-5-4-Composer报错：指定的键名太长/"/>
+  <link rel="canonical" href="http://erchoc.github.io/2017/06/19/C-C-学习之求数组长度方案/"/>
 
 
 
 
 
-  <title>Laravel 5.4 Composer报错：指定的键名太长 | Coding Notes</title>
+  <title>C/C++学习之求数组长度方案 | Coding Notes</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +217,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/05/12/Laravel-5-4-Composer报错：指定的键名太长/">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/06/19/C-C-学习之求数组长度方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Erchoc">
@@ -239,7 +234,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Laravel 5.4 Composer报错：指定的键名太长</h1>
+          <h1 class="post-title" itemprop="name headline">C/C++学习之求数组长度方案</h1>
         
 
         <div class="post-meta">
@@ -251,8 +246,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T23:51:50+08:00">
-                2017-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T00:59:21+08:00">
+                2017-06-19
               </time>
             
 
@@ -286,25 +281,74 @@
       
 
       
-        <p><img src="http://upload-images.jianshu.io/upload_images/3995745-9baacd89f2b04eee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自简书"></p>
-<blockquote>
-<p>Laravel 5.4更改了默认数据库字符集，更改后默认使用的utf8mb4包括支持存储emojis。这只会影响新的应用程序，只要你运行的MySQL版本低于v5.7.7或者MariaDB低于10.2.2，就会碰到上述图片中的错误，那么我们该如何解决呢？</p>
-<p>laravel 5.4官方文档在数据库迁移(migrate)中给出了解决方法：编辑app/Providers/AppServiceProvider.php文件，并在boot方法中设置一个默认的字符串长度191即可：<br>key_to_long解决办法。那么你知道这样做的原理吗？</p>
+        <blockquote>
+<p>c++中没有求数组长度的默认函数，只能自己写。但经常有初学者把sizeof(), size(), length(), strlen() 混淆。本篇博文具体解释一下如何求数组长度和这四个函数，以及可能遇到的问题。</p>
 </blockquote>
 <a id="more"></a>
-<p><img src="http://upload-images.jianshu.io/upload_images/3995745-cd5c87fb8b55afec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自简书"></p>
 <ul>
-<li><p>实际上这个问题我们可以看看原理，以前的MySQL使用UTF8时候一个编码字符等于3个字节，那么varchar(255)字段的最大存储字节就是255*3=765。InnoDB给出的限制是767b，那么MySQL 5.7之前varchar这个类型就是可以正常使用的。</p>
+<li>C++求数组长度为：</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int arr_length = sizeof(<span class="name">arr</span>) / sizeof(<span class="name">arr</span>[<span class="number">0</span>])<span class="comment">;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>为了方便使用，在C语言中常定义宏来求数组长度</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\<span class="meta">#<span class="meta-keyword">define</span> ARR_LEN(arr, length)&#123;</span></div><div class="line">truelength = <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用时，直接调用宏函数即可，如</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int arr[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line"></div><div class="line">int len;</div><div class="line"></div><div class="line">ARR_LEN(arr, len);  <span class="comment">//此时len赋值为5</span></div></pre></td></tr></table></figure>
+<ul>
+<li>在C++中，也可以定义模板函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"></div><div class="line"><span class="title">int</span> <span class="title">getArrayLen</span>(<span class="title">T</span> &amp;<span class="title">arr</span>)&#123;</div><div class="line">true<span class="keyword">return</span> <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用时，调用模板函数，如</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">string</span> arr[]=&#123;<span class="string">"abc"</span>, <span class="string">"ab"</span>, <span class="string">"abcde"</span>, <span class="string">"1234567"</span>, <span class="string">"890"</span>&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> <span class="built_in">len</span>=getArrayLen(arr);  <span class="comment">//此时len赋值为5</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>当数组传入函数时，传入的是指针，指针仅指向数组头arr[0]，不带有任何长度信息; 所以在传入数组时，要把数组长度同时传入函数。</p>
 </li>
-<li><p>但现在默认的utf8mb4编码中一个编码字符为4个字节，那么最大的varchar类型的最大字节数就是2554=1020b，这已经远远超过了InnoDB给出现限制767b。由于1914=764&lt;767，所以我们引入Schema类提供一个方法处理这个情况，通过boot方法调用了Schema的静态方法defaultStringLength设置所有varchar类型的字段的字符数默认(也是最大)为191。</p>
-</li>
-<li><p>实际上我在PhpStudy环境中只通过配置文件设置了MySQL默认数据库引擎为InnoDB就达到这一效果，这是因为我在低于MySQL5.7环境下新建voyager数据库时选择了utf8编码。<br>新建数据库时的字符集</p>
+<li><p>可以考虑一下，下面这个函数调用时，会输出什么？</p>
 </li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/3995745-c7d502cdb3d1c3ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MySQL默认字符集问题"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">length_array</span><span class="params">(<span class="keyword">int</span> arr[])</span></span>&#123;</div><div class="line">true<span class="keyword">int</span> len=getArrayLen(arr);</div><div class="line"></div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="string">"len="</span> &lt;&lt; len &lt;&lt; <span class="string">", sizeof(arr)= "</span> &lt;&lt;  <span class="keyword">sizeof</span>(arr) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Output: len=1, sizeof(arr)=4;</p>
+<p>这是因为arr是指针，而指针所占空间是4个字节。</p>
+<p>所以sizeof(arr)/sizeof(arr[0])=1。</p>
+</blockquote>
 <ul>
-<li>当然，无论是开发还是线上环境，还是推荐使用官方提供的homestead环境，内置的PHP和数据库均为配套的最新版本，还有一大堆集成的可用工具。如果你使用Docker集成，也可以使用bug挺多尚不完美的LaraDock，开源地址：<a href="https://github.com/laradock/laradock。" target="_blank" rel="external">https://github.com/laradock/laradock。</a></li>
+<li><p>请牢记：如果把数组作为参数传入函数，那么这个数组会退化为一个指针 int *arr。</p>
+</li>
+<li><p>下面说一下size(), length(), strlen()</p>
+</li>
+<li><p>先说 size() 和 length()，这两个方法都要先 include <string>，两者使用起来无任何差别。即str.size() == str.length() 为真。</string></p>
+</li>
+<li><p>引用cplusplus.com中的话：</p>
+</li>
 </ul>
+<blockquote>
+<p>Both string::size and string::length are synonyms and return the same value, which is the length of the string, in terms of bytes.</p>
+</blockquote>
+<ul>
+<li><p>而 strlen() 是<cstring>中的，是C语言的遗留物。</cstring></p>
+</li>
+<li><p>引用cplusplus.com中的话：</p>
+</li>
+</ul>
+<blockquote>
+<p>cstring::strlen returns the length of the C string str. In C++, char_traits::length implements the same behavior.</p>
+</blockquote>
+<ul>
+<li>即 strlen(str) == str.length() == str.size() 为真。</li>
+</ul>
+<ul>
+<li>参考文献及资料</li>
+</ul>
+<blockquote>
+<p><a href="http://www.cplusplus.com" target="_blank" rel="external">C++官方英文文档</a></p>
+<p><a href="http://blog.csdn.net/bopzhou/article/details/6063163" target="_blank" rel="external">CSDN博客: C/C++中如何获取数组的长度?</a></p>
+</blockquote>
 
       
     </div>
@@ -349,7 +393,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://erchoc.github.io/2017/05/12/Laravel-5-4-Composer报错：指定的键名太长/" title="Laravel 5.4 Composer报错：指定的键名太长">http://erchoc.github.io/2017/05/12/Laravel-5-4-Composer报错：指定的键名太长/</a>
+      <a href="http://erchoc.github.io/2017/06/19/C-C-学习之求数组长度方案/" title="C/C++学习之求数组长度方案">http://erchoc.github.io/2017/06/19/C-C-学习之求数组长度方案/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -363,12 +407,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/laravel/" rel="tag"># laravel</a>
-          
-        </div>
-      
 
       
 
@@ -376,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/PhpStorm-IDE个人使用指南/" rel="next" title="PhpStorm IDE个人使用指南">
-                <i class="fa fa-chevron-left"></i> PhpStorm IDE个人使用指南
+              <a href="/2017/06/18/C-C-学习之内存管理总结/" rel="next" title="C/C++学习之内存管理总结">
+                <i class="fa fa-chevron-left"></i> C/C++学习之内存管理总结
               </a>
             
           </div>
@@ -385,10 +423,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/13/Laravel-远程工作之开始前的准备和沟通/" rel="prev" title="Laravel 远程工作之开始前的准备和沟通">
-                Laravel 远程工作之开始前的准备和沟通 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

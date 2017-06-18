@@ -3,6 +3,82 @@
   
     
     <entry>
+      <title><![CDATA[C/C++学习之求数组长度方案]]></title>
+      <url>/2017/06/19/C-C-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%B1%82%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%E6%96%B9%E6%A1%88/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>c++中没有求数组长度的默认函数，只能自己写。但经常有初学者把sizeof(), size(), length(), strlen() 混淆。本篇博文具体解释一下如何求数组长度和这四个函数，以及可能遇到的问题。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>C++求数组长度为：</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int arr_length = sizeof(<span class="name">arr</span>) / sizeof(<span class="name">arr</span>[<span class="number">0</span>])<span class="comment">;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>为了方便使用，在C语言中常定义宏来求数组长度</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\<span class="meta">#<span class="meta-keyword">define</span> ARR_LEN(arr, length)&#123;</span></div><div class="line">truelength = <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用时，直接调用宏函数即可，如</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int arr[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line"></div><div class="line">int len;</div><div class="line"></div><div class="line">ARR_LEN(arr, len);  <span class="comment">//此时len赋值为5</span></div></pre></td></tr></table></figure>
+<ul>
+<li>在C++中，也可以定义模板函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"></div><div class="line"><span class="title">int</span> <span class="title">getArrayLen</span>(<span class="title">T</span> &amp;<span class="title">arr</span>)&#123;</div><div class="line">true<span class="keyword">return</span> <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用时，调用模板函数，如</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">string</span> arr[]=&#123;<span class="string">"abc"</span>, <span class="string">"ab"</span>, <span class="string">"abcde"</span>, <span class="string">"1234567"</span>, <span class="string">"890"</span>&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> <span class="built_in">len</span>=getArrayLen(arr);  <span class="comment">//此时len赋值为5</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>当数组传入函数时，传入的是指针，指针仅指向数组头arr[0]，不带有任何长度信息; 所以在传入数组时，要把数组长度同时传入函数。</p>
+</li>
+<li><p>可以考虑一下，下面这个函数调用时，会输出什么？</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">length_array</span><span class="params">(<span class="keyword">int</span> arr[])</span></span>&#123;</div><div class="line">true<span class="keyword">int</span> len=getArrayLen(arr);</div><div class="line"></div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="string">"len="</span> &lt;&lt; len &lt;&lt; <span class="string">", sizeof(arr)= "</span> &lt;&lt;  <span class="keyword">sizeof</span>(arr) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Output: len=1, sizeof(arr)=4;</p>
+<p>这是因为arr是指针，而指针所占空间是4个字节。</p>
+<p>所以sizeof(arr)/sizeof(arr[0])=1。</p>
+</blockquote>
+<ul>
+<li><p>请牢记：如果把数组作为参数传入函数，那么这个数组会退化为一个指针 int *arr。</p>
+</li>
+<li><p>下面说一下size(), length(), strlen()</p>
+</li>
+<li><p>先说 size() 和 length()，这两个方法都要先 include <string>，两者使用起来无任何差别。即str.size() == str.length() 为真。</string></p>
+</li>
+<li><p>引用cplusplus.com中的话：</p>
+</li>
+</ul>
+<blockquote>
+<p>Both string::size and string::length are synonyms and return the same value, which is the length of the string, in terms of bytes.</p>
+</blockquote>
+<ul>
+<li><p>而 strlen() 是<cstring>中的，是C语言的遗留物。</cstring></p>
+</li>
+<li><p>引用cplusplus.com中的话：</p>
+</li>
+</ul>
+<blockquote>
+<p>cstring::strlen returns the length of the C string str. In C++, char_traits::length implements the same behavior.</p>
+</blockquote>
+<ul>
+<li>即 strlen(str) == str.length() == str.size() 为真。</li>
+</ul>
+<ul>
+<li>参考文献及资料</li>
+</ul>
+<blockquote>
+<p><a href="http://www.cplusplus.com" target="_blank" rel="external">C++官方英文文档</a></p>
+<p><a href="http://blog.csdn.net/bopzhou/article/details/6063163" target="_blank" rel="external">CSDN博客: C/C++中如何获取数组的长度?</a></p>
+</blockquote>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[C/C++学习之内存管理总结]]></title>
       <url>/2017/06/18/C-C-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<blockquote>
