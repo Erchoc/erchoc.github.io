@@ -1,0 +1,737 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。本文的内容比一般教科书的要深入得多，读者需细心阅读，做到真正地通晓内存管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++学习之内存管理总结">
+<meta property="og:url" content="http://erchoc.github.io/2017/06/18/C-C-学习之内存管理总结/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。本文的内容比一般教科书的要深入得多，读者需细心阅读，做到真正地通晓内存管理。">
+<meta property="og:updated_time" content="2017-06-18T13:05:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C&#x2F;C++学习之内存管理总结">
+<meta name="twitter:description" content="程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。本文的内容比一般教科书的要深入得多，读者需细心阅读，做到真正地通晓内存管理。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/06/18/C-C-学习之内存管理总结/"/>
+
+
+
+
+
+  <title>C/C++学习之内存管理总结 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/06/18/C-C-学习之内存管理总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C/C++学习之内存管理总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T21:05:03+08:00">
+                2017-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>程序员们经常编写内存管理程序，往往提心吊胆。如果不想触雷，唯一的解决办法就是发现所有潜伏的地雷并且排除它们，躲是躲不了的。本文的内容比一般教科书的要深入得多，读者需细心阅读，做到真正地通晓内存管理。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>1、内存的三种分配方式</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">（<span class="number">1</span>）从静态存储区域分配。</div><div class="line"> 	内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。</div><div class="line">true例如全局变量，<span class="keyword">static</span>变量。</div><div class="line"></div><div class="line">（<span class="number">2</span>）在栈上创建。</div><div class="line">true在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。</div><div class="line">true栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。</div><div class="line"></div><div class="line">（<span class="number">3</span>）从堆上分配，亦称动态内存分配。</div><div class="line">true程序在运行的时候用<span class="built_in">malloc</span>或<span class="keyword">new</span>申请任意多少的内存，程序员自己负责在何时用<span class="built_in">free</span>或<span class="keyword">delete</span>释放内存。</div><div class="line">true动态内存的生存期由我们决定，使用非常灵活，但问题也最多。</div></pre></td></tr></table></figure>
+<ul>
+<li>2、常见的内存错误及其对策</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">发生内存错误是件非常麻烦的事情。</div><div class="line"></div><div class="line">编译器不能自动发现这些错误，通常是在程序运行时才能捕捉到。</div><div class="line"></div><div class="line">而这些错误大多没有明显的症状，时隐时现，增加了改错的难度。</div><div class="line"></div><div class="line">有时用户怒气冲冲地把你找来，程序却没有发生任何问题，你一走，错误又发作了。 </div><div class="line"></div><div class="line">常见的内存错误及其对策如下：</div><div class="line"></div><div class="line">　　<span class="number">1</span>) 内存分配未成功，却使用了它。</div><div class="line">　　	编程新手常犯这种错误，因为他们没有意识到内存分配会不成功。</div><div class="line">　　	常用解决办法是，在使用内存之前检查指针是否为<span class="literal">NULL</span>。</div><div class="line">　　	如果指针p是函数的参数，那么在函数的入口处用assert(p!=<span class="literal">NULL</span>)进行检查。</div><div class="line">　　	如果是用<span class="built_in">malloc</span>或<span class="keyword">new</span>来申请内存，应该用<span class="keyword">if</span>(p==<span class="literal">NULL</span>) 或<span class="keyword">if</span>(p!=<span class="literal">NULL</span>)进行防错处理。</div><div class="line"></div><div class="line">　　<span class="number">2</span>) 内存分配虽然成功，但是尚未初始化就引用它。</div><div class="line">　　	犯这种错误主要有两个起因：一是没有初始化的观念；二是误以为内存的缺省初值全为零，导致引用初值错误（例如数组）。</div><div class="line">　　	内存的缺省初值究竟是什么并没有统一的标准，尽管有些时候为零值，我们宁可信其无不可信其有。</div><div class="line">　　	所以无论用何种方式创建数组，都别忘了赋初值，即便是赋零值也不可省略，不要嫌麻烦。</div><div class="line"></div><div class="line">　　<span class="number">3</span>) 内存分配成功并且已经初始化，但操作越过了内存的边界。</div><div class="line">　　	例如在使用数组时经常发生下标“多<span class="number">1</span>”或者“少<span class="number">1</span>”的操作。</div><div class="line">　　	特别是在<span class="keyword">for</span>循环语句中，循环次数很容易搞错，导致数组操作越界。</div><div class="line">　　	数组越界有时输出<span class="number">0</span>，有时</div><div class="line"></div><div class="line">　　<span class="number">4</span>) 忘记了释放内存，造成内存泄露。</div><div class="line">　　	含有这种错误的函数每被调用一次就丢失一块内存。</div><div class="line">　　	刚开始时系统的内存充足，你看不到错误。</div><div class="line">　　	终有一次程序突然死掉，系统出现提示：内存耗尽。</div><div class="line">　　	动态内存的申请与释放必须配对，程序中<span class="built_in">malloc</span>与<span class="built_in">free</span>的使用次数一定要相同，否则肯定有错误（<span class="keyword">new</span>/<span class="keyword">delete</span>同理）。</div><div class="line"></div><div class="line">　　<span class="number">5</span>) 释放了内存却继续使用它。这时候有三种情况：</div><div class="line">　　	a) 程序中的对象调用关系过于复杂，实在难以搞清楚某个对象究竟是否已经释放了内存，此时应该重新设计数据结构，从根本上解决对象管理的混乱局面。</div><div class="line">　　	b）函数的<span class="keyword">return</span>语句写错了，注意不要返回指向“栈内存”的“指针”或者“引用”，因为该内存在函数体结束时被自动销毁。</div><div class="line">　　	c）使用<span class="built_in">free</span>或<span class="keyword">delete</span>释放了内存后，没有将指针设置为<span class="literal">NULL</span>。导致产生“野指针”。</div><div class="line"></div><div class="line">下面是老司机宝典：</div><div class="line"></div><div class="line">【规则<span class="number">1</span>】用<span class="built_in">malloc</span>或<span class="keyword">new</span>申请内存之后，应该立即检查指针值是否为<span class="literal">NULL</span>。防止使用指针值为<span class="literal">NULL</span>的内存。</div><div class="line"></div><div class="line">【规则<span class="number">2</span>】不要忘记为数组和动态内存赋初值。防止将未被初始化的内存作为右值使用。</div><div class="line"></div><div class="line">【规则<span class="number">3</span>】避免数组或指针的下标越界，特别要当心发生“多<span class="number">1</span>”或者“少<span class="number">1</span>”操作。</div><div class="line"></div><div class="line">【规则<span class="number">4</span>】动态内存的申请与释放必须配对，防止内存泄漏。</div><div class="line"></div><div class="line">【规则<span class="number">5</span>】用<span class="built_in">free</span>或<span class="keyword">delete</span>释放了内存之后，立即将指针设置为<span class="literal">NULL</span>，防止产生“野指针”。</div></pre></td></tr></table></figure>
+<ul>
+<li>3、指针与数组的对比</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">C/C++程序中，指针和数组在不少地方可以相互替换着用，让人产生一种错觉，以为两者是等价的。</div><div class="line"></div><div class="line">数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。</div><div class="line"></div><div class="line">数组名对应着（而不是指向）一块内存，其地址与容量在生命期内保持不变，只有数组的内容可以改变。</div><div class="line"></div><div class="line">指针可以随时指向任意类型的内存块，它的特征是“可变”，所以我们常用指针来操作动态内存。指针远比数组灵活，但也更危险。</div><div class="line"></div><div class="line">下面以字符串为例比较指针与数组的特性。</div><div class="line"></div><div class="line"><span class="number">3.1</span> 修改内容</div><div class="line"></div><div class="line">下面的程序(修改数组和指针的内容)中，字符数组a的容量是<span class="number">6</span>个字符，其内容为hello。</div><div class="line"></div><div class="line">a的内容可以改变，如a[<span class="number">0</span>]= ‘X’。</div><div class="line"></div><div class="line">指针p指向常量字符串“world”（位于静态存储区，内容为world），常量字符串的内容是不可以被修改的。</div><div class="line"></div><div class="line">从语法上看，编译器并不觉得语句 p[<span class="number">0</span>]= ‘X’有什么不妥，但是该语句企图修改常量字符串的内容而导致运行错误。</div><div class="line"></div><div class="line"><span class="keyword">char</span> a[] = “hello”;</div><div class="line">a[<span class="number">0</span>] = ‘X’;</div><div class="line"><span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"><span class="keyword">char</span> *p = “world”; <span class="comment">// 注意p指向常量字符串</span></div><div class="line">p[<span class="number">0</span>] = ‘X’; <span class="comment">// 编译器不能发现该错误</span></div><div class="line"><span class="built_in">cout</span> &lt;&lt; p &lt;&lt; <span class="built_in">endl</span>;</div><div class="line"></div><div class="line"><span class="number">3.2</span> 内容复制与比较</div><div class="line"></div><div class="line">不能对数组名进行直接复制与比较。</div><div class="line"></div><div class="line">下面的程序中，若想把数组a的内容复制给数组b，不能用语句 b = a ，否则将产生编译错误。</div><div class="line"></div><div class="line">应该用标准库函数<span class="built_in">strcpy</span>进行复制。</div><div class="line"></div><div class="line">同理，比较b和a的内容是否相同，不能用<span class="keyword">if</span>(b==a) 来判断，应该用标准库函数<span class="built_in">strcmp</span>进行比较。</div><div class="line"></div><div class="line">语句p = a 并不能把a的内容复制指针p，而是把a的地址赋给了p。</div><div class="line"></div><div class="line">要想复制a的内容，可以先用库函数<span class="built_in">malloc</span>为p申请一块容量为<span class="built_in">strlen</span>(a) <span class="number">1</span>个字符的内存，再用<span class="built_in">strcpy</span>进行字符串复制。</div><div class="line"></div><div class="line">同理，语句<span class="keyword">if</span>(p==a) 比较的不是内容而是地址，应该用库函数<span class="built_in">strcmp</span>来比较。</div><div class="line"></div><div class="line"><span class="comment">// 数组…</span></div><div class="line"><span class="keyword">char</span> a[] = <span class="string">"hello"</span>;</div><div class="line"><span class="keyword">char</span> b[<span class="number">10</span>];</div><div class="line"><span class="built_in">strcpy</span>(b, a); <span class="comment">// 不能用 b = a;</span></div><div class="line"><span class="keyword">if</span>(<span class="built_in">strcmp</span>(b, a) == <span class="number">0</span>) <span class="comment">// 不能用 if (b == a)</span></div><div class="line">…</div><div class="line"><span class="comment">// 指针…</span></div><div class="line"><span class="keyword">int</span> len = <span class="built_in">strlen</span>(a);</div><div class="line"><span class="keyword">char</span> *p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*(len <span class="number">1</span>));</div><div class="line"><span class="built_in">strcpy</span>(p,a); <span class="comment">// 不要用 p = a;</span></div><div class="line"><span class="keyword">if</span>(<span class="built_in">strcmp</span>(p, a) == <span class="number">0</span>) <span class="comment">// 不要用 if (p == a)</span></div><div class="line">…</div><div class="line"></div><div class="line"><span class="number">3.3</span> 计算内存容量</div><div class="line"></div><div class="line">用运算符<span class="keyword">sizeof</span>可以计算出数组的容量（字节数）。</div><div class="line"></div><div class="line">示例(a)部分中，<span class="keyword">sizeof</span>(a)的值是<span class="number">12</span>（注意别忘了’’）。</div><div class="line"></div><div class="line">指针p指向a，但是 <span class="keyword">sizeof</span>(p)的值却是<span class="number">4</span>。这是因为<span class="keyword">sizeof</span>(p)得到的是一个指针变量的字节数，相当于<span class="keyword">sizeof</span>(<span class="keyword">char</span>*)，而不是p所指的内存容量。 </div><div class="line"></div><div class="line">C/C++语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。</div><div class="line"></div><div class="line">注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。</div><div class="line"></div><div class="line">示例(b)部分中，不论数组a的容量是多少，<span class="keyword">sizeof</span>(a)始终等于<span class="keyword">sizeof</span>(<span class="keyword">char</span> *)。</div><div class="line"></div><div class="line"><span class="keyword">char</span> a[] = <span class="string">"hello world"</span>;</div><div class="line"><span class="keyword">char</span> *p = a;</div><div class="line"><span class="built_in">cout</span>&lt;&lt; <span class="keyword">sizeof</span>(a) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 12字节</span></div><div class="line"><span class="built_in">cout</span>&lt;&lt; <span class="keyword">sizeof</span>(p) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 4字节</span></div><div class="line"></div><div class="line">上面是(a)部分：计算数组和指针的内存容量</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func</span><span class="params">(<span class="keyword">char</span> a[<span class="number">100</span>])</span></span></div><div class="line">&#123;</div><div class="line">　<span class="built_in">cout</span>&lt;&lt; <span class="keyword">sizeof</span>(a) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 4字节而不是100字节</span></div><div class="line">&#125;</div><div class="line">上面是(b)部分：数组退化为指针</div></pre></td></tr></table></figure>
+<ul>
+<li>4、指针参数是如何传递内存的？</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">如果函数的参数是一个指针，不要指望用该指针去申请动态内存。</div><div class="line"></div><div class="line">下面的示例中，Test函数的语句GetMemory(str, <span class="number">200</span>)并没有使str获得期望的内存，str依旧是<span class="literal">NULL</span>，为什么？</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetMemory</span><span class="params">(<span class="keyword">char</span> *p, <span class="keyword">int</span> num)</span></span></div><div class="line">&#123;</div><div class="line">　p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * num);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *str = <span class="literal">NULL</span>;</div><div class="line">　GetMemory(str, <span class="number">100</span>); <span class="comment">// str 仍然为 NULL</span></div><div class="line">　<span class="built_in">strcpy</span>(str, <span class="string">"hello"</span>); <span class="comment">// 运行错误</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">上面试图用指针参数申请动态内存，毛病出在函数GetMemory中。</div><div class="line"></div><div class="line">编译器总是要为函数的每个参数制作临时副本，指针参数p的副本是 _p，编译器使 _p = p。</div><div class="line"></div><div class="line">如果函数体内的程序修改了_p的内容，就导致参数p的内容作相应的修改。这就是指针可以用作输出参数的原因。</div><div class="line"></div><div class="line">在本例中，_p申请了新的内存，只是把 _p所指的内存地址改变了，但是p丝毫未变。</div><div class="line"></div><div class="line">所以函数GetMemory并不能输出任何东西。</div><div class="line"></div><div class="line">事实上，每执行一次GetMemory就会泄露一块内存，因为没有用<span class="built_in">free</span>释放内存。</div><div class="line"></div><div class="line">如果非得要用指针参数去申请内存，那么应该改用“指向指针的指针”，见下面的示例代码。</div><div class="line"></div><div class="line"><span class="keyword">void</span> GetMemory2(<span class="keyword">char</span> **p, <span class="keyword">int</span> num)</div><div class="line">&#123;</div><div class="line">　*p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * num);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test2</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *str = <span class="literal">NULL</span>;</div><div class="line">　GetMemory2(&amp;str, <span class="number">100</span>); <span class="comment">// 注意参数是 &amp;str，而不是str</span></div><div class="line">　<span class="built_in">strcpy</span>(str, <span class="string">"hello"</span>);</div><div class="line">　<span class="built_in">cout</span>&lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　<span class="built_in">free</span>(str);</div><div class="line">&#125;</div><div class="line"></div><div class="line">上面用指向指针的指针申请动态内存，由于“指向指针的指针”这个概念不容易理解，我们可以用函数返回值来传递动态内存。这种方法更加简单，见下面的代码：</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">GetMemory3</span><span class="params">(<span class="keyword">int</span> num)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * num);</div><div class="line">　<span class="keyword">return</span> p;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test3</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *str = <span class="literal">NULL</span>;</div><div class="line">　str = GetMemory3(<span class="number">100</span>);</div><div class="line">　<span class="built_in">strcpy</span>(str, <span class="string">"hello"</span>);</div><div class="line">　<span class="built_in">cout</span>&lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　<span class="built_in">free</span>(str);</div><div class="line">&#125;</div><div class="line"></div><div class="line">上面用函数返回值来传递动态内存，用函数返回值来传递动态内存这种方法虽然好用，但是常常有人把<span class="keyword">return</span>语句用错了。</div><div class="line"></div><div class="line">这里强调不要用<span class="keyword">return</span>语句返回指向“栈内存”的指针，因为该内存在函数结束时自动消亡，见下面的代码：</div><div class="line"></div><div class="line"><span class="keyword">char</span> *GetString(<span class="keyword">void</span>)</div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> p[] = <span class="string">"hello world"</span>;</div><div class="line">　<span class="keyword">return</span> p; <span class="comment">// 编译器将提出警告</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test4</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *str = <span class="literal">NULL</span>;</div><div class="line">　str = GetString(); <span class="comment">// str 的内容是垃圾</span></div><div class="line">　<span class="built_in">cout</span>&lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">上面代码用<span class="keyword">return</span>语句返回指向“栈内存”的指针，用调试器逐步跟踪Test4，发现执行str = GetString语句后str不再是<span class="literal">NULL</span>指针，但是str的内容不是“hello world”而是垃圾。</div><div class="line"></div><div class="line">如果把上面那种改写成下面这种，会怎么样？</div><div class="line"></div><div class="line"><span class="keyword">char</span> *GetString2(<span class="keyword">void</span>)</div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *p = <span class="string">"hello world"</span>;</div><div class="line">　<span class="keyword">return</span> p;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test5</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">char</span> *str = <span class="literal">NULL</span>;</div><div class="line">　str = GetString2();</div><div class="line">　<span class="built_in">cout</span>&lt;&lt; str &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">上面这种改写是使用<span class="keyword">return</span>语句返回常量字符串，函数Test5运行虽然不会出错，但是函数GetString2的设计概念却是错误的。</div><div class="line"></div><div class="line">因为GetString2内的“hello world”是常量字符串，位于静态存储区，它在程序生命期内恒定不变。</div><div class="line"></div><div class="line">无论什么时候调用GetString2，它返回的始终是同一个“只读”的内存块。</div></pre></td></tr></table></figure>
+<ul>
+<li>5、杜绝“野指针”</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">“野指针”不是<span class="literal">NULL</span>指针，是指向“垃圾”内存的指针。</div><div class="line"></div><div class="line">人们一般不会错用<span class="literal">NULL</span>指针，因为用<span class="keyword">if</span>语句很容易判断。但是“野指针”是很危险的，<span class="keyword">if</span>语句对它不起作用。</div><div class="line"></div><div class="line">“野指针”的成因主要有两种：</div><div class="line">true<span class="number">1</span>）指针变量没有被初始化。</div><div class="line">true任何指针变量刚被创建时不会自动成为<span class="literal">NULL</span>指针，它的缺省值是随机的，它会乱指一气。</div><div class="line">true所以，指针变量在创建的同时应当被初始化，要么将指针设置为<span class="literal">NULL</span>，要么让它指向合法的内存。例如</div><div class="line">truetrue<span class="keyword">char</span> *p = <span class="literal">NULL</span>;</div><div class="line">truetrue<span class="keyword">char</span> *str = (<span class="keyword">char</span> *) <span class="built_in">malloc</span>(<span class="number">100</span>);</div><div class="line">true<span class="number">2</span>）指针p被<span class="built_in">free</span>或者<span class="keyword">delete</span>之后，没有置为<span class="literal">NULL</span>，让人误以为p是个合法的指针。</div><div class="line">true<span class="number">3</span>）指针操作超越了变量的作用范围。这种情况让人防不胜防,示例：</div><div class="line">true</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></div><div class="line">&#123;</div><div class="line">　<span class="keyword">public</span>:</div><div class="line">　　<span class="function"><span class="keyword">void</span> <span class="title">Func</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">　　&#123;</div><div class="line">　　	<span class="built_in">cout</span> &lt;&lt; “Func of <span class="class"><span class="keyword">class</span> <span class="title">A</span>” &lt;&lt; endl;</span></div><div class="line">　　&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">void Test(void)</div><div class="line">&#123;</div><div class="line">　A *p;</div><div class="line">　&#123;</div><div class="line">　　A a;</div><div class="line">　　p = &amp;a; // 注意 a 的生命期</div><div class="line">　&#125;</div><div class="line">　p-&gt;Func(); // p是“野指针”</div><div class="line">&#125;</div><div class="line"></div><div class="line">函数Test在执行语句p-&gt;<span class="title">Func</span>()时，对象<span class="title">a</span>已经消失，而<span class="title">p</span>是指向<span class="title">a</span>的，所以<span class="title">p</span>就成了“野指针”。</div><div class="line"></div><div class="line">但奇怪的是我运行这个程序时居然没有出错，这可能与编译器有关。</div></pre></td></tr></table></figure>
+<ul>
+<li>6、有了malloc/free为什么还要new/delete？</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">malloc</span>与<span class="built_in">free</span>是C /C语言的标准库函数，<span class="keyword">new</span>/<span class="keyword">delete</span>是C++的运算符(不是库函数)。</div><div class="line"></div><div class="line">它们都可用于申请动态内存和释放内存。</div><div class="line"></div><div class="line">对于非内部数据类型的对象而言，光用maloc/<span class="built_in">free</span>无法满足动态对象的要求。</div><div class="line"></div><div class="line">对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。</div><div class="line"></div><div class="line">由于<span class="built_in">malloc</span>/<span class="built_in">free</span>是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于<span class="built_in">malloc</span>/<span class="built_in">free</span>。</div><div class="line"></div><div class="line">因此C++语言需要一个能完成动态内存分配和初始化工作的运算符<span class="keyword">new</span>，以及一个能完成清理与释放内存工作的运算符<span class="keyword">delete</span>。</div><div class="line"></div><div class="line">我们先看一看<span class="built_in">malloc</span>/<span class="built_in">free</span>和<span class="keyword">new</span>/<span class="keyword">delete</span>如何实现对象的动态内存管理，见示例<span class="number">6</span>。</div><div class="line"></div><div class="line">class Obj</div><div class="line">&#123;</div><div class="line">　<span class="keyword">public</span> :</div><div class="line">　　Obj(<span class="keyword">void</span>)</div><div class="line">　　&#123;</div><div class="line">　　	<span class="built_in">cout</span> &lt;&lt; “Initialization” &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　　&#125;</div><div class="line">　　</div><div class="line">　　~Obj(<span class="keyword">void</span>)</div><div class="line">　　&#123;</div><div class="line">　　	<span class="built_in">cout</span> &lt;&lt; “Destroy” &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　　&#125;</div><div class="line">　　</div><div class="line">　　<span class="function"><span class="keyword">void</span> <span class="title">Initialize</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">　　&#123;</div><div class="line">　　	<span class="built_in">cout</span> &lt;&lt; “Initialization” &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　　&#125;</div><div class="line">　　<span class="function"><span class="keyword">void</span> <span class="title">Destroy</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">　　&#123;</div><div class="line">　　	<span class="built_in">cout</span> &lt;&lt; “Destroy” &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">　　&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// C语言风格的内存管理</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">UseMallocFree</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　Obj *a = (obj *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(obj)); <span class="comment">// 申请动态内存</span></div><div class="line">　a-&gt;Initialize(); <span class="comment">// 初始化</span></div><div class="line">　...</div><div class="line">　a-&gt;Destroy(); <span class="comment">// 清除工作</span></div><div class="line">　<span class="built_in">free</span>(a); <span class="comment">// 释放内存</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// C++风格的内存管理</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">UseNewDelete</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　Obj *a = <span class="keyword">new</span> Obj; <span class="comment">// 申请动态内存并且初始化</span></div><div class="line">　...</div><div class="line">　<span class="keyword">delete</span> a; <span class="comment">// 清除并且释放内存</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">用<span class="built_in">malloc</span>/<span class="built_in">free</span>和<span class="keyword">new</span>/<span class="keyword">delete</span>如何实现对象的动态内存管理(上面刚写完)</div><div class="line"></div><div class="line">类Obj的函数Initialize模拟了构造函数的功能，函数Destroy模拟了析构函数的功能。</div><div class="line"></div><div class="line">函数UseMallocFree中，由于<span class="built_in">malloc</span>/<span class="built_in">free</span>不能执行构造函数与析构函数，必须调用成员函数Initialize和Destroy来完成初始化与清除工作。C++风格的函数UseNewDelete则简单得多。</div><div class="line"></div><div class="line">所以我们不要企图用<span class="built_in">malloc</span>/<span class="built_in">free</span>来完成动态对象的内存管理，应该用<span class="keyword">new</span>/<span class="keyword">delete</span>。</div><div class="line"></div><div class="line">由于内部数据类型(基本数据类型)的“对象”没有构造与析构的过程，对它们而言<span class="built_in">malloc</span>/<span class="built_in">free</span>和<span class="keyword">new</span>/<span class="keyword">delete</span>是等价的。</div><div class="line"></div><div class="line">既然<span class="keyword">new</span>/<span class="keyword">delete</span>的功能完全覆盖了<span class="built_in">malloc</span>/<span class="built_in">free</span>，为什么C++不把<span class="built_in">malloc</span>/<span class="built_in">free</span>淘汰出局呢？</div><div class="line"></div><div class="line">这是因为C++程序经常要调用C函数，而C程序只能用<span class="built_in">malloc</span>/<span class="built_in">free</span>管理动态内存。</div><div class="line"></div><div class="line">如果用<span class="built_in">free</span>释放“<span class="keyword">new</span>创建的动态对象”，那么该对象因无法执行析构函数而可能导致程序出错。</div><div class="line"></div><div class="line">如果用<span class="keyword">delete</span>释放“<span class="built_in">malloc</span>申请的动态内存 ”，理论上讲程序不会出错，但是该程序的可读性很差。</div><div class="line"></div><div class="line">所以<span class="keyword">new</span>/<span class="keyword">delete</span>必须配对使用，<span class="built_in">malloc</span>/<span class="built_in">free</span>也一样。</div></pre></td></tr></table></figure>
+<ul>
+<li>7、内存耗尽怎么办？</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">如果在申请动态内存时找不到足够大的内存块，malloc和new将返回NULL指针，宣告内存申请失败。通常有三种方式处理“内存耗尽”问题。</div><div class="line"></div><div class="line"><span class="number">1</span>）判断指针是否为NULL，如果是则马上用return语句终止本函数。例如：</div><div class="line"></div><div class="line">void Func(void)</div><div class="line">&#123;</div><div class="line">　A *a = new A;</div><div class="line">　<span class="keyword">if</span>(a == NULL)</div><div class="line">　&#123;</div><div class="line">　　return;</div><div class="line">　&#125;</div><div class="line">　…</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="number">2</span>）判断指针是否为NULL，如果是则马上用<span class="keyword">exit</span>(<span class="number">1</span>)终止整个程序的运行。例如：</div><div class="line"></div><div class="line">void Func(void)</div><div class="line">&#123;</div><div class="line">　A *a = new A;</div><div class="line">　<span class="keyword">if</span>(a == NULL)</div><div class="line">　&#123;</div><div class="line">　　cout &lt;&lt; “Memory Exhausted” &lt;&lt; endl;</div><div class="line">　　<span class="keyword">exit</span>(<span class="number">1</span>);</div><div class="line">　&#125;</div><div class="line">　…</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="number">3</span>）为new和malloc设置异常处理函数。</div><div class="line"></div><div class="line">例如Visual C可以用_set_new_hander函数为new设置用户自己定义的异常处理函数，也可以让malloc享用与new相同的异常处理函数。</div><div class="line">详细内容请参考C 使用手册。</div><div class="line"></div><div class="line">上述（<span class="number">1</span>）（<span class="number">2</span>）方式使用最普遍。</div><div class="line">如果一个函数内有多处需要申请动态内存，那么方式（<span class="number">1</span>）就显得力不从心（释放内存很麻烦），应该用方式（<span class="number">2</span>）来处理。</div><div class="line"></div><div class="line">很多人不忍心用<span class="keyword">exit</span>(<span class="number">1</span>)，问：“不编写出错处理程序，让操作系统自己解决行不行？”</div><div class="line"></div><div class="line">答案是不行。</div><div class="line">如果发生“内存耗尽”这样的事情，一般说来应用程序已经无药可救。</div><div class="line">如果不用<span class="keyword">exit</span>(<span class="number">1</span>) 把坏程序杀死，它可能会害死操作系统。</div><div class="line">道理如同：如果不把歹徒击毙，歹徒在老死之前会犯下更多的罪。</div><div class="line"></div><div class="line">有一个很重要的现象要告诉大家。对于<span class="number">32</span>位以上的应用程序而言，无论怎样使用malloc与new，几乎不可能导致“内存耗尽”。</div><div class="line"></div><div class="line">我在Windows <span class="number">98</span>下用Visual C 编写了测试程序，见示例<span class="number">7</span>。</div><div class="line"></div><div class="line">这个程序会无休止地运行下去，根本不会终止。因为<span class="number">32</span>位操作系统支持“虚存”，内存用完了，自动用硬盘空间顶替。</div><div class="line"></div><div class="line">我只听到硬盘嘎吱嘎吱地响，Window <span class="number">98</span>已经累得对键盘、鼠标毫无反应。</div><div class="line"></div><div class="line">我可以得出这么一个结论：对于<span class="number">32</span>位以上的应用程序，“内存耗尽”错误处理程序毫无用处。</div><div class="line"></div><div class="line">这下可把Unix和Windows程序员们乐坏了：反正错误处理程序不起作用，我就不写了，省了很多麻烦。</div><div class="line"></div><div class="line">我不想误导读者，必须强调：不加错误处理将导致程序的质量很差，千万不可因小失大。</div><div class="line"></div><div class="line">void main(void)</div><div class="line">&#123;</div><div class="line">　float *p = NULL;</div><div class="line">　<span class="keyword">while</span>(<span class="number">1</span>)</div><div class="line">　&#123;</div><div class="line">　　p = new float[<span class="number">1000000</span>];</div><div class="line">　　cout &lt;&lt; <span class="string">"我正在吃你的电脑内存"</span> &lt;&lt; endl;</div><div class="line">　　<span class="keyword">if</span>(p==NULL)</div><div class="line">　　　<span class="keyword">exit</span>(<span class="number">1</span>);</div><div class="line">　&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">以上示例<span class="number">7</span>试图耗尽操作系统的内存, 在MacOS上测试<span class="number">8</span>G内存立刻就空了，然后硬盘剩余空间很快的下降，笔记本温度上升。</div></pre></td></tr></table></figure>
+<ul>
+<li>8、malloc/free 的使用要点</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">函数<span class="built_in">malloc</span>的原型如下：</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> * <span class="title">malloc</span><span class="params">(<span class="keyword">size_t</span> size)</span></span>;</div><div class="line"></div><div class="line">用<span class="built_in">malloc</span>申请一块长度为length的整数类型的内存，程序如下：</div><div class="line"></div><div class="line"><span class="keyword">int</span> *p = (<span class="keyword">int</span> *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * length);</div><div class="line"></div><div class="line">我们应当把注意力集中在两个要素上：“类型转换”和“<span class="keyword">sizeof</span>”。</div><div class="line"><span class="number">1</span>) <span class="built_in">malloc</span>返回值的类型是<span class="keyword">void</span> *，所以在调用<span class="built_in">malloc</span>时要显式地进行类型转换，将<span class="keyword">void</span> * 转换成所需要的指针类型。</div><div class="line">true</div><div class="line"><span class="number">2</span>) <span class="built_in">malloc</span>函数本身并不识别要申请的内存是什么类型，它只关心内存的总字节数。</div><div class="line"></div><div class="line">我们通常记不住<span class="keyword">int</span>,<span class="keyword">float</span>等数据类型的变量的确切字节数。例如:</div><div class="line">truea) <span class="keyword">int</span>变量在<span class="number">16</span>位系统下是<span class="number">2</span>个字节，在<span class="number">32</span>位下是<span class="number">4</span>个字节。</div><div class="line">true</div><div class="line">trueb) <span class="keyword">float</span>变量在<span class="number">16</span>位系统下是<span class="number">4</span>个字节，在<span class="number">32</span>位下也是<span class="number">4</span>字节。</div><div class="line">true</div><div class="line">最好用以下程序作一次测试：</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">char</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">int</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">long</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">unsigned</span> <span class="keyword">long</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">float</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">double</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true<span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(<span class="keyword">void</span> *) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">true</div><div class="line">在<span class="built_in">malloc</span>的“()”中使用<span class="keyword">sizeof</span>运算符是良好的风格,但要当心有时我们会昏了头,写出 p = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(p))这样的程序来。</div><div class="line"></div><div class="line"><span class="number">3</span>) 函数<span class="built_in">free</span>的原型如下：</div><div class="line"></div><div class="line"><span class="keyword">void</span> <span class="built_in">free</span>( <span class="keyword">void</span> * memblock );</div><div class="line"></div><div class="line">为什么<span class="built_in">free</span>函数不象<span class="built_in">malloc</span>函数那样复杂呢？这是因为指针p的类型以及它所指的内存的容量事先都是知道的，语句<span class="built_in">free</span>(p)能正确地释放内存。</div><div class="line"></div><div class="line">truea)如果p是<span class="literal">NULL</span>指针，那么<span class="built_in">free</span>对p无论操作多少次都不会出问题。</div><div class="line"></div><div class="line">trueb) 如果p不是<span class="literal">NULL</span>指针，那么<span class="built_in">free</span>对p连续操作两次就会导致程序运行错误。</div></pre></td></tr></table></figure>
+<ul>
+<li>9、new/delete 的使用要点</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">运算符<span class="keyword">new</span>使用起来要比函数<span class="built_in">malloc</span>简单得多，例如：</div><div class="line"></div><div class="line">C  : <span class="keyword">int</span> *p1 = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*length);</div><div class="line">C++: <span class="keyword">int</span> *p2 = <span class="keyword">new</span> <span class="keyword">int</span>[length];</div><div class="line"></div><div class="line">这是因为<span class="keyword">new</span>内置了<span class="keyword">sizeof</span>、类型转换和类型安全检查功能。</div><div class="line"></div><div class="line">对于非内部数据类型的对象而言，<span class="keyword">new</span>在创建动态对象的同时完成了初始化工作。</div><div class="line"></div><div class="line">如果对象有多个构造函数，那么<span class="keyword">new</span>的语句也可以有多种形式。例如:</div><div class="line"></div><div class="line">class Obj</div><div class="line">&#123;</div><div class="line">　<span class="keyword">public</span> :</div><div class="line">　　Obj(<span class="keyword">void</span>); <span class="comment">// 无参数的构造函数</span></div><div class="line">　　Obj(<span class="keyword">int</span> x); <span class="comment">// 带一个参数的构造函数</span></div><div class="line">true...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">　Obj *a = <span class="keyword">new</span> Obj;</div><div class="line">　Obj *b = <span class="keyword">new</span> Obj(<span class="number">1</span>); <span class="comment">// 初值为1</span></div><div class="line">　...</div><div class="line">　<span class="keyword">delete</span> a;</div><div class="line">　<span class="keyword">delete</span> b;</div><div class="line">&#125;</div><div class="line"></div><div class="line">如果用<span class="keyword">new</span>创建对象数组，那么只能使用对象的无参数构造函数。例如:</div><div class="line"></div><div class="line">Obj *objects = <span class="keyword">new</span> Obj[<span class="number">100</span>]; <span class="comment">// 创建100个动态对象</span></div><div class="line">不能写成</div><div class="line">Obj *objects = <span class="keyword">new</span> Obj[<span class="number">100</span>](<span class="number">1</span>);<span class="comment">// 创建100个动态对象的同时赋初值1</span></div><div class="line"></div><div class="line">在用<span class="keyword">delete</span>释放对象数组时，留意不要丢了符号‘[]’。例如:</div><div class="line"></div><div class="line"><span class="keyword">delete</span> []objects; <span class="comment">// true  正确的用法</span></div><div class="line"><span class="keyword">delete</span> objects;   <span class="comment">// false 错误的用法</span></div><div class="line"></div><div class="line">后者相当于<span class="keyword">delete</span> objects[<span class="number">0</span>]，漏掉了另外<span class="number">99</span>个对象。</div></pre></td></tr></table></figure>
+<ul>
+<li>10、一些心得体会</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">我认识不少技术不错的C/C++程序员，很少有人能拍拍胸脯说通晓指针与内存管理。</div><div class="line"></div><div class="line">大佬的经验教训是：</div><div class="line">true<span class="number">1</span>）越是怕指针，就越要使用指针。不会正确使用指针，肯定算不上是合格的程序员。</div><div class="line">true</div><div class="line">true<span class="number">2</span>）必须养成“使用调试器逐步跟踪程序”的习惯，只有这样才能发现问题的本质。</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/06/18/C-C-学习之内存管理总结/" title="C/C++学习之内存管理总结">http://erchoc.github.io/2017/06/18/C-C-学习之内存管理总结/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/13/利用Dockerfile的项目自动构建学习/" rel="next" title="简单的项目自动构建">
+                <i class="fa fa-chevron-left"></i> 简单的项目自动构建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tages/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
