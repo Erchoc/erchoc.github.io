@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="TP5框架的有六大配置: 惯例配置, 应用配置, 扩展配置, 场景配置, 模块配置, 动态配置。v5.0.9默认在application/目录下新建了应用配置文件config.php。我不推荐把所有配置项填写在这个文件中, 我们的项目中有数据库配置, Session配置, 缓存配置, Cookie配置, 邮件配置等等, 全部放在一个文件中会显得冗长不便于扩展。 一般PHP框架的学习流程是先路由然">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP学习之配置和环境">
+<meta property="og:url" content="http://erchoc.github.io/2017/06/24/ThinkPHP学习之配置和环境/index.html">
+<meta property="og:site_name" content="Coding Notes">
+<meta property="og:description" content="TP5框架的有六大配置: 惯例配置, 应用配置, 扩展配置, 场景配置, 模块配置, 动态配置。v5.0.9默认在application/目录下新建了应用配置文件config.php。我不推荐把所有配置项填写在这个文件中, 我们的项目中有数据库配置, Session配置, 缓存配置, Cookie配置, 邮件配置等等, 全部放在一个文件中会显得冗长不便于扩展。 一般PHP框架的学习流程是先路由然">
+<meta property="og:updated_time" content="2017-06-24T06:56:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ThinkPHP学习之配置和环境">
+<meta name="twitter:description" content="TP5框架的有六大配置: 惯例配置, 应用配置, 扩展配置, 场景配置, 模块配置, 动态配置。v5.0.9默认在application/目录下新建了应用配置文件config.php。我不推荐把所有配置项填写在这个文件中, 我们的项目中有数据库配置, Session配置, 缓存配置, Cookie配置, 邮件配置等等, 全部放在一个文件中会显得冗长不便于扩展。 一般PHP框架的学习流程是先路由然">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://erchoc.github.io/2017/06/24/ThinkPHP学习之配置和环境/"/>
+
+
+
+
+
+  <title>ThinkPHP学习之配置和环境 | Coding Notes</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coding Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://erchoc.github.io/2017/06/24/ThinkPHP学习之配置和环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erchoc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ThinkPHP学习之配置和环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T14:49:51+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>TP5框架的有六大配置: 惯例配置, 应用配置, 扩展配置, 场景配置, 模块配置, 动态配置。v5.0.9默认在application/目录下新建了应用配置文件config.php。我不推荐把所有配置项填写在这个文件中, 我们的项目中有数据库配置, Session配置, 缓存配置, Cookie配置, 邮件配置等等, 全部放在一个文件中会显得冗长不便于扩展。</p>
+<p>一般PHP框架的学习流程是先路由然后MVC到模板, TP框架学习的第一步却是配置。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>cofig()助手函数是对<code>think/Config</code>类的封装,Config有<code>range()</code>, <code>parse()</code>, <code>load()</code>, <code>has()</code>, <code>get()</code>, <code>set()</code>, <code>reset()</code>等静态方法。</p>
+</li>
+<li><p><code>thinkphp/convention.php</code>就是<strong>惯例配置</strong>的内容, 考虑扩展和迭代开发的话这个文件不应该被修改。删除config.php, 在不同模块中使用助手函数config()输出默认惯例配置的内容。</p>
+</li>
+<li><p>在项目根目录新建conf/config.php, 这里填写的就是<strong>应用配置</strong>。你可以添加惯例配置中没有的键值对，也可以填写同名配置项, TP5底层使用了<code>array_merge()</code>更新配置项。</p>
+</li>
+<li><p><strong>扩展配置</strong>如email, 必须新建<code>conf/extra/</code>目录并新建扩展配置文件email.php, 返回一个email的相关信息。查看config()可以看到多出一个email数组配置项, 这个配置项的key就是刚才新建的文件名email.php。数据库的配置文件名必须为<code>database.php</code>, 所在路径是<code>conf/</code>或者<code>conf/extra/</code>。当然你也可以以数组形式写在<code>conf/config.php</code>中。扩展配置会merge替换应用配置。</p>
+</li>
+<li><p><strong>场景配置</strong>能让你在公司和家里使用不同的配置项。比如你公司家里各有台式机, 这时候你应该在conf/中新建office.php和home.php并分别在里面配置相关环境项, 然后在config/中填写<code>app_status</code>项的value为对应的环境如home。</p>
+</li>
+<li><p><strong>模块配置</strong>顾名思义就是让不同的模块有不同的配置项, 如果你要给admin和index模块分别写特定的配置, 那么首先新建<code>conf/admin/config.php</code>和<code>conf/index/config.php</code>, 在分别的模块配置中还是可以新建extra目录等等, 这时候分别填写不同的配置项试试吧。</p>
+</li>
+<li><p><strong>动态配置</strong>就是使用助手函数config()动态设置配置项。如果你想让某个配置项只在某个控制器中可以访问, 那么你需要在该控制器的构造方法中使用助手函数<code>conifg(&#39;key&#39;, &#39;value&#39;)</code>设置配置项, 当然你也可以只在某个方法中动态设置这个配置项。</p>
+</li>
+<li><p>前面关于输出配置项都是使用config()这个助手函数, 你也可以使用Config类提供的静态方法get()获取。直接路径法请使用<code>\think\Config::get()</code>, 但是更推荐先使用<code>use \think\Config;</code>使用根命名空间, 再使用Config类的静态方法获取或者设置相关参数如<code>dump(\think\Config::get(&#39;app_debug&#39;))</code>获取bool值。</p>
+</li>
+<li><p>TP5的默认助手函数都在<code>thinkphp/helper.php</code>中, 所有助手函数都事先判断了是否存在该函数。也就是说, 如果你面对一个自定义了config()并大量使用该函数的项目, 那么你应该Config类的静态方法去重构。</p>
+</li>
+<li><p>Config类的set()静态方法或者助手函数config()第三个参数都可以传递配置作用域, 获取配置value也需要添加第二个作用域参数。</p>
+</li>
+<li><p>环境的配置首先可以使用PHP的<code>$_ENV</code>获取系统的环境变量(经过我的测试这样无法获取.env中定义的环境变量, 但使用TP5的<code>\think\ENV::get()</code>可以获取), 也可以在项目根目录添加默认会被加载的.env文件并以ini配置文件的方式写上环境变量值。这里输出会进行大小写转换, 前缀添加(thinkphp/base.php)和组名转换。使用<code>$_ENV[&#39;key&#39;]</code>获取不存在的环境变量会报错, 使用<code>\think\ENV::get(&#39;key&#39;)</code>获取不存在的环境变量会返回NULL。获取分组下的值可以使用<code>group_key</code>和<code>group.key</code>两种写法。</p>
+</li>
+<li><p>将TP5的配置和ENV环境变量类组合在一起, 可以在配置文件中使用<code>&#39;app_status&#39; =&gt; \think\Env::get(&#39;app_status&#39;, &#39;dev&#39;)</code>这种写法, 如果未定义环境变量就是用dev。</p>
+</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/source/images/alipay.png" alt="Erchoc Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Erchoc
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://erchoc.github.io/2017/06/24/ThinkPHP学习之配置和环境/" title="ThinkPHP学习之配置和环境">http://erchoc.github.io/2017/06/24/ThinkPHP学习之配置和环境/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/C-C-学习之求数组长度方案/" rel="next" title="C/C++学习之求数组长度方案">
+                <i class="fa fa-chevron-left"></i> C/C++学习之求数组长度方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/25/PHP接口测试/" rel="prev" title="PHP接口测试">
+                PHP接口测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Erchoc" />
+          <p class="site-author-name" itemprop="name">Erchoc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tages/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.paypal.me/erchoc" target="_blank" title="PayPal">
+                  
+                    <i class="fa fa-fw fa-cc-paypal"></i>
+                  
+                  PayPal
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/erchoc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://jikehui2018@gmail.com" target="_blank" title="G-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  G-Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/雪晋-杨-603848105/" target="_blank" title="领英中国">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  领英中国
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/9d64b43bc1a1" target="_blank" title="简书博客">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书博客
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erchoc</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

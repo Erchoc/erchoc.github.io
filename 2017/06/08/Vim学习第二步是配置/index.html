@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://erchoc.github.io/2017/06/08/Vim学习第二步是配置/index.html">
 <meta property="og:site_name" content="Coding Notes">
 <meta property="og:description" content="即使你根据第一篇文章实实在在的去敲过那么vim快捷键，我也建议你用vim写上一两万文章字数或者代码量再来看看这第二篇文章。对快捷键这种基础知识要是没有相当的熟练，你就会抱怨vim的各种不人性化，这第二篇文章就是让你对vim跨目相看，让你知道它是多么人性化。 但即使你熟悉了不少vim快捷键，默认情况它还是挺low的，这时候你需要配置vim自带的一些设置。这里我们就不讲快捷键，来说说vim自带的那些">
-<meta property="og:updated_time" content="2017-06-08T04:00:42.000Z">
+<meta property="og:updated_time" content="2017-07-03T00:11:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vim学习第二步是配置">
 <meta name="twitter:description" content="即使你根据第一篇文章实实在在的去敲过那么vim快捷键，我也建议你用vim写上一两万文章字数或者代码量再来看看这第二篇文章。对快捷键这种基础知识要是没有相当的熟练，你就会抱怨vim的各种不人性化，这第二篇文章就是让你对vim跨目相看，让你知道它是多么人性化。 但即使你熟悉了不少vim快捷键，默认情况它还是挺low的，这时候你需要配置vim自带的一些设置。这里我们就不讲快捷键，来说说vim自带的那些">
@@ -288,7 +288,62 @@
 </blockquote>
 <a id="more"></a>
 <ul>
-<li>fsd</li>
+<li><h1 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h1><p>:set number</p>
+</li>
+<li><h1 id="处理只读文件时弹框提示"><a href="#处理只读文件时弹框提示" class="headerlink" title="处理只读文件时弹框提示"></a>处理只读文件时弹框提示</h1><p>set confirm</p>
+</li>
+<li><h1 id="TAB键的宽度"><a href="#TAB键的宽度" class="headerlink" title="TAB键的宽度"></a>TAB键的宽度</h1><p>set tabstop=4</p>
+</li>
+<li><h1 id="统一缩进"><a href="#统一缩进" class="headerlink" title="统一缩进"></a>统一缩进</h1><p>set softtabstop=2<br>set shiftwidth=2</p>
+</li>
+<li><h1 id="是否兼容vi"><a href="#是否兼容vi" class="headerlink" title="是否兼容vi"></a>是否兼容vi</h1><p>“ 1: compatible为兼容<br>“ 2: nocompatible为不完全兼容<br>set nocompatible</p>
+</li>
+<li><h1 id="退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点"><a href="#退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点" class="headerlink" title="退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点"></a>退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点</h1><p>“ 1: vi兼容<br>“ 2: indent,eol<br>“ 3: indent,eol,start<br>set backspace=2</p>
+</li>
+</ul>
+<ul>
+<li><h1 id="解决菜单乱码"><a href="#解决菜单乱码" class="headerlink" title="解决菜单乱码"></a>解决菜单乱码</h1><p>set encoding=utf-8 </p>
+</li>
+<li><h1 id="自动重新加载外部修改内容"><a href="#自动重新加载外部修改内容" class="headerlink" title="自动重新加载外部修改内容"></a>自动重新加载外部修改内容</h1><p>set autoread </p>
+</li>
+<li><h1 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h1><p>syntax on </p>
+</li>
+<li><h1 id="当前行高亮"><a href="#当前行高亮" class="headerlink" title="当前行高亮"></a>当前行高亮</h1><p>set cursorline</p>
+</li>
+<li><h1 id="高亮显示搜索到的关键字"><a href="#高亮显示搜索到的关键字" class="headerlink" title="高亮显示搜索到的关键字"></a>高亮显示搜索到的关键字</h1><p>set hlsearch </p>
+</li>
+<li><h1 id="开启文件类型检测"><a href="#开启文件类型检测" class="headerlink" title="开启文件类型检测"></a>开启文件类型检测</h1><p>filetype plugin indent on </p>
+</li>
+<li><h1 id="括号等自动补全脚本"><a href="#括号等自动补全脚本" class="headerlink" title="括号等自动补全脚本"></a>括号等自动补全脚本</h1><p>inoremap ( ()<left><br>inoremap [ []<left><br>inoremap { {}<left></left></left></left></p>
+</li>
+<li><h1 id="智能对齐"><a href="#智能对齐" class="headerlink" title="智能对齐"></a>智能对齐</h1><p>set smartindent</p>
+</li>
+<li><h1 id="自动对齐"><a href="#自动对齐" class="headerlink" title="自动对齐"></a>自动对齐</h1><p>set autoindent</p>
+</li>
+<li><h1 id="自动缩进"><a href="#自动缩进" class="headerlink" title="自动缩进"></a>自动缩进</h1><p>set autoindent</p>
+</li>
+<li><h1 id="一次Tab为2个字符"><a href="#一次Tab为2个字符" class="headerlink" title="一次Tab为2个字符"></a>一次Tab为2个字符</h1><p>set tabstop=2</p>
+</li>
+<li><h1 id="按一次Tab前进2个字符"><a href="#按一次Tab前进2个字符" class="headerlink" title="按一次Tab前进2个字符"></a>按一次Tab前进2个字符</h1><p>set softtabstop=2<br>set shiftwidth=2</p>
+</li>
+<li><h1 id="用空格代替Tab"><a href="#用空格代替Tab" class="headerlink" title="用空格代替Tab"></a>用空格代替Tab</h1><p>set expandtab</p>
+</li>
+<li><h1 id="搜索忽略大小写"><a href="#搜索忽略大小写" class="headerlink" title="搜索忽略大小写"></a>搜索忽略大小写</h1><p>set ignorecase</p>
+</li>
+<li><h1 id="设置命令历史行数"><a href="#设置命令历史行数" class="headerlink" title="设置命令历史行数"></a>设置命令历史行数</h1><p>set history=100</p>
+</li>
+<li><h1 id="启动的时候不显示那个援助索马里儿童的提示"><a href="#启动的时候不显示那个援助索马里儿童的提示" class="headerlink" title="启动的时候不显示那个援助索马里儿童的提示"></a>启动的时候不显示那个援助索马里儿童的提示</h1><p>set shortmess=atl</p>
+</li>
+<li><h1 id="命令模式的行高度"><a href="#命令模式的行高度" class="headerlink" title="命令模式的行高度"></a>命令模式的行高度</h1><p>set cmdheight=2</p>
+</li>
+<li><h1 id="不要闪烁"><a href="#不要闪烁" class="headerlink" title="不要闪烁"></a>不要闪烁</h1><p>set novisualbell </p>
+</li>
+<li><h1 id="缺省不产生备份文件"><a href="#缺省不产生备份文件" class="headerlink" title="缺省不产生备份文件"></a>缺省不产生备份文件</h1><p>set nobackup</p>
+</li>
+<li><h1 id="使PHP识别EOT字符串"><a href="#使PHP识别EOT字符串" class="headerlink" title="使PHP识别EOT字符串"></a>使PHP识别EOT字符串</h1><p>hi link phpheredoc string</p>
+</li>
+<li><h1 id="设置鼠标模式为Windows"><a href="#设置鼠标模式为Windows" class="headerlink" title="设置鼠标模式为Windows"></a>设置鼠标模式为Windows</h1><p>behave mswin</p>
+</li>
 </ul>
 
       
@@ -436,7 +491,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -3,6 +3,163 @@
   
     
     <entry>
+      <title><![CDATA[NodeJS学习之模块和交互式环境下的使用]]></title>
+      <url>/2017/06/26/NodeJS%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9D%97%E5%92%8C%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>同于namespace命名空间,JS为了避免团队代码中的变量和函数相互污染,引入了Common.js规范,这个规范类似于PHP中的PSR约定,同时它也主要针对模块和组件开发。</p>
+<p>主要包括模块的定义,标识和引用三个部分。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>nodejs中文件和模块和对应的,模块主要有<code>核心模块</code>,<code>文件模块</code>和<code>第三发模块</code>,它们分别的引用模块方式为:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">核心模块: http fs path</div><div class="line"></div><div class="line">文件模块: <span class="keyword">var</span> util=<span class="built_in">require</span>(<span class="string">'./util.js'</span>)</div><div class="line"></div><div class="line">第三方模块: <span class="keyword">var</span> promise=<span class="built_in">require</span>(<span class="string">'bluebird'</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li><p>核心模块在node环境启动时被加载,第三方模块包括npm下载和团队自定义的模块。</p>
+</li>
+<li><p>模块流程: 创建模块,导出模块,加载模块,使用模块, 示例创建一个school模块。</p>
+</li>
+<li><p>关于exports和module.exports。 </p>
+</li>
+<li><p>URI和URL的区别(统一资源标识符和统一资源定位符),URL属于URI,我们常说的网址就是URL,但是URI是一个略微抽象的概念,URL的命名规则包括协议,英文,小写,文中编码等等。node也有一个用于网址解析的url模块。</p>
+</li>
+<li><p>在node命令环境中输入url就能看到这个模块暴露的方法,使用<code>url.pasre(&#39;http://www.imooc.com/course/list&#39;)</code>就能被模块解析成一个对象返回到终端。其组成部分包括:</p>
+</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">protocol	底层使用的协议</div><div class="line">slashes		是否有双斜线</div><div class="line">auth			是否有认证</div><div class="line">host			域名或ip地址<span class="built_in"></span></div><div class="line">port			端口</div><div class="line">hostname	主机名</div><div class="line">hash			哈希值</div><div class="line">search		查询参数</div><div class="line">query			发送的数据</div><div class="line">pathname	资源路径名</div><div class="line">path			资源路径</div><div class="line">href			完整超链接</div></pre></td></tr></table></figure>
+<ul>
+<li><p>url.parse和url.format是可逆的操作。</p>
+</li>
+<li><p>输入querystring查看这个模块提供的方法。其中有<code>querystring.stringify({name: &#39;scote&#39;, sex: &#39;男&#39;})</code>可以把对象序列化后变成URL参数路径。更多参数查看文档。</p>
+</li>
+<li><p><code>querystring.stringify</code>和<code>querystring.parse</code>是互逆的,后者是反序列化操作, 类似于<code>json_encode</code>和<code>json_decode</code>。就是字符串和对象之间的互相转换。更多参数请查阅API文档。</p>
+</li>
+<li><p>汉字转义使用<code>querystring.escape()</code>, 反转义使用<code>querystring.unescape()</code>。</p>
+</li>
+<li><p>输入网址按下回车后发生了什么？</p>
+</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span> 搜索浏览器自身的DNS缓存</div><div class="line"><span class="number">2.</span> 搜索操作系统自身的DNS缓存</div><div class="line"><span class="number">3.</span> 读取本地hosts文件</div><div class="line"><span class="number">4.</span> 向本地DNS服务商发起一个系统调用</div><div class="line"><span class="number">5.</span> 该服务商查看自身的DNS缓存记录和数据库</div><div class="line">true- 该服务商向根DNS服务器发起迭代DNS解析请求</div><div class="line">true- 该服务商拿到ip地址后返回系统内核并把记录缓存</div><div class="line">true- 操作系统内核把结果返回给浏览器</div><div class="line"><span class="number">5.</span> 得到ip后开始三次握手四次挥手,建立TCP/IP连接</div><div class="line">true- <span class="number">217.123</span><span class="number">.43</span><span class="number">.62</span>的哥们,你在线吗？(<span class="number">0</span><span class="number">-1</span>)</div><div class="line">true- 我在。(<span class="number">1</span><span class="number">-2</span>)</div><div class="line">true- 我要给你发送数据了,准备好了吗？(<span class="number">2</span><span class="number">-3</span>)</div><div class="line">true- 准备好了。(<span class="number">3</span><span class="number">-4</span>)</div><div class="line"><span class="number">6.</span> 连接建立成功后客户端发送HTTP方法。</div><div class="line"><span class="number">7.</span> 服务器端接收到请求,后端处理后把数据返回给浏览器。</div><div class="line"><span class="number">8.</span> 服务器上的静态资源也经过上面的步骤返回到浏览器</div><div class="line"><span class="number">9.</span> 浏览器把拿到的资源组合渲染给用户看</div></pre></td></tr></table></figure>
+<ul>
+<li><p>请求和响应都会发送http header和http body(正文信息)。</p>
+</li>
+<li></li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Apache的ab压力测试工具]]></title>
+      <url>/2017/06/26/Apache%E7%9A%84ab%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>Apache自带ApacheBench压力测试工具,主要针对服务端数据接口做性能测试,当然你也可以对本地web服务器做测试。</p>
+<p>下面简单使用<code>ab -n1000 -c10 http://devapi.umeishu.com/rent/areas</code>查看返回信息,简单解释用法。ab测试的更多参数自行搜索和查看文档。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>-n参数表明一共发送多少个请求,-c参数表明并发请求量为10个。</li>
+</ul>
+<p><img src="http://ool6x4l46.bkt.clouddn.com/hexo/preview.jpg" alt="preview"></p>
+<ul>
+<li>首先看第一张图,执行命令开始的前部分。没啥可说的,图上就是ab工具的版本,测试的接口地址,持续完成了多少个请求。</li>
+</ul>
+<ul>
+<li>下面这张图就是ab压力测试主要的返回数据了。<br><img src="http://ool6x4l46.bkt.clouddn.com/hexo/main.jpg" alt="main"></li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Server Software: 服务端跑的Http服务器软件<span class="built_in"></span></div><div class="line">Server Hostname: 主机名<span class="built_in"></span></div><div class="line">Server Port: 端口</div><div class="line"></div><div class="line">Document Path: 网址路径</div><div class="line">Document Length: 响应正文的长度(大小)</div><div class="line"></div><div class="line">Concurrency Level: 刚才设置的并发数</div><div class="line">Time taken <span class="keyword">for</span> tests: 所有请求处理完成所需时间</div><div class="line">Complete requests: 刚才设置的请求总数</div><div class="line">Failed requests: 失败的总请求数(异常或无响应)</div><div class="line">Total transferred: 所有数据的大小(长度)</div><div class="line">HTML transferred: HTML传输量(字节)</div><div class="line">Requests per second: 服务器吞吐率</div><div class="line">Time per request: 平均请求的等待时间</div><div class="line">Time per request: 每个链接请求运行的平均值</div><div class="line">Transfer rate: 请求在单位时间内的流量</div><div class="line"><span class="built_in"></span></div><div class="line">Connection Times (ms)</div><div class="line">ms: 百分之xxx的用户访问所需毫秒数</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[PHP接口测试]]></title>
+      <url>/2017/06/25/PHP%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>什么是接口, 接口类型和差异, 什么接口测试, 接口测试流程, 接口测试工具?</p>
+<p>人工测试接口太费成本, 这时候我们引用phpunit写自动化测试代码。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>测试接口就是测试HTTP请求,每个不同地址的HTTP请求就是一个接口。</p>
+</li>
+<li><p>接口包括内部接口和外部接口,内部接口中包括上层服务, 下层服务和同级服务。</p>
+</li>
+<li><p>接口以HTTP方法进行分类,HTTP方法(接口类型)主要有GET, POST, PUT, DELETE。注意PUT的修改是针对整个表字段,PATCH可以只修改部分字段。</p>
+</li>
+<li><p>我们对每个数据库实体的操作一般都有增删改查四个操作, 查询一般有查询多条和单条数据。也就是说一个实体资源一般有5个API(数据接口)。</p>
+</li>
+<li><p>接口测试流程和黑盒测试一样, 严格来说都要经过需求讨论, <code>需求评审</code>, <code>场景设计</code>, <code>用例设计</code>, <code>数据准备</code>, <code>数据准备</code>和<code>执行操作</code>。</p>
+</li>
+<li><p>重点是<code>设计测试用例</code>, 就是说你要确定某个资源要测试哪些操作, 放置后续执行漏测试一些接口, 测试用例也能让团队其他人员知道你所在的测试进度。</p>
+</li>
+<li><p>测试用例一般要考虑: 功能能否实现, 功能是否对应接口文档, 逻辑业务是否正常如权限认证。</p>
+</li>
+<li><p>接口API异常测试有参数异常<code>(关键字参数,参数为空,参数过多或缺少,错误参数)</code>和数据异常<code>(关键字数据,数据为空,长度类型校验,错误数据)</code>处理; 接口API安全问题<code>(cookie,header,认证token或手机唯一识别码等)</code>。</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+<li><p>f</p>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ThinkPHP学习之配置和环境]]></title>
+      <url>/2017/06/24/ThinkPHP%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%85%8D%E7%BD%AE%E5%92%8C%E7%8E%AF%E5%A2%83/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>TP5框架的有六大配置: 惯例配置, 应用配置, 扩展配置, 场景配置, 模块配置, 动态配置。v5.0.9默认在application/目录下新建了应用配置文件config.php。我不推荐把所有配置项填写在这个文件中, 我们的项目中有数据库配置, Session配置, 缓存配置, Cookie配置, 邮件配置等等, 全部放在一个文件中会显得冗长不便于扩展。</p>
+<p>一般PHP框架的学习流程是先路由然后MVC到模板, TP框架学习的第一步却是配置。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>cofig()助手函数是对<code>think/Config</code>类的封装,Config有<code>range()</code>, <code>parse()</code>, <code>load()</code>, <code>has()</code>, <code>get()</code>, <code>set()</code>, <code>reset()</code>等静态方法。</p>
+</li>
+<li><p><code>thinkphp/convention.php</code>就是<strong>惯例配置</strong>的内容, 考虑扩展和迭代开发的话这个文件不应该被修改。删除config.php, 在不同模块中使用助手函数config()输出默认惯例配置的内容。</p>
+</li>
+<li><p>在项目根目录新建conf/config.php, 这里填写的就是<strong>应用配置</strong>。你可以添加惯例配置中没有的键值对，也可以填写同名配置项, TP5底层使用了<code>array_merge()</code>更新配置项。</p>
+</li>
+<li><p><strong>扩展配置</strong>如email, 必须新建<code>conf/extra/</code>目录并新建扩展配置文件email.php, 返回一个email的相关信息。查看config()可以看到多出一个email数组配置项, 这个配置项的key就是刚才新建的文件名email.php。数据库的配置文件名必须为<code>database.php</code>, 所在路径是<code>conf/</code>或者<code>conf/extra/</code>。当然你也可以以数组形式写在<code>conf/config.php</code>中。扩展配置会merge替换应用配置。</p>
+</li>
+<li><p><strong>场景配置</strong>能让你在公司和家里使用不同的配置项。比如你公司家里各有台式机, 这时候你应该在conf/中新建office.php和home.php并分别在里面配置相关环境项, 然后在config/中填写<code>app_status</code>项的value为对应的环境如home。</p>
+</li>
+<li><p><strong>模块配置</strong>顾名思义就是让不同的模块有不同的配置项, 如果你要给admin和index模块分别写特定的配置, 那么首先新建<code>conf/admin/config.php</code>和<code>conf/index/config.php</code>, 在分别的模块配置中还是可以新建extra目录等等, 这时候分别填写不同的配置项试试吧。</p>
+</li>
+<li><p><strong>动态配置</strong>就是使用助手函数config()动态设置配置项。如果你想让某个配置项只在某个控制器中可以访问, 那么你需要在该控制器的构造方法中使用助手函数<code>conifg(&#39;key&#39;, &#39;value&#39;)</code>设置配置项, 当然你也可以只在某个方法中动态设置这个配置项。</p>
+</li>
+<li><p>前面关于输出配置项都是使用config()这个助手函数, 你也可以使用Config类提供的静态方法get()获取。直接路径法请使用<code>\think\Config::get()</code>, 但是更推荐先使用<code>use \think\Config;</code>使用根命名空间, 再使用Config类的静态方法获取或者设置相关参数如<code>dump(\think\Config::get(&#39;app_debug&#39;))</code>获取bool值。</p>
+</li>
+<li><p>TP5的默认助手函数都在<code>thinkphp/helper.php</code>中, 所有助手函数都事先判断了是否存在该函数。也就是说, 如果你面对一个自定义了config()并大量使用该函数的项目, 那么你应该Config类的静态方法去重构。</p>
+</li>
+<li><p>Config类的set()静态方法或者助手函数config()第三个参数都可以传递配置作用域, 获取配置value也需要添加第二个作用域参数。</p>
+</li>
+<li><p>环境的配置首先可以使用PHP的<code>$_ENV</code>获取系统的环境变量(经过我的测试这样无法获取.env中定义的环境变量, 但使用TP5的<code>\think\ENV::get()</code>可以获取), 也可以在项目根目录添加默认会被加载的.env文件并以ini配置文件的方式写上环境变量值。这里输出会进行大小写转换, 前缀添加(thinkphp/base.php)和组名转换。使用<code>$_ENV[&#39;key&#39;]</code>获取不存在的环境变量会报错, 使用<code>\think\ENV::get(&#39;key&#39;)</code>获取不存在的环境变量会返回NULL。获取分组下的值可以使用<code>group_key</code>和<code>group.key</code>两种写法。</p>
+</li>
+<li><p>将TP5的配置和ENV环境变量类组合在一起, 可以在配置文件中使用<code>&#39;app_status&#39; =&gt; \think\Env::get(&#39;app_status&#39;, &#39;dev&#39;)</code>这种写法, 如果未定义环境变量就是用dev。</p>
+</li>
+<li></li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[C/C++学习之求数组长度方案]]></title>
       <url>/2017/06/19/C-C-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%B1%82%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%E6%96%B9%E6%A1%88/</url>
       <content type="html"><![CDATA[<blockquote>
@@ -200,7 +357,62 @@
 </blockquote>
 <a id="more"></a>
 <ul>
-<li>fsd</li>
+<li><h1 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h1><p>:set number</p>
+</li>
+<li><h1 id="处理只读文件时弹框提示"><a href="#处理只读文件时弹框提示" class="headerlink" title="处理只读文件时弹框提示"></a>处理只读文件时弹框提示</h1><p>set confirm</p>
+</li>
+<li><h1 id="TAB键的宽度"><a href="#TAB键的宽度" class="headerlink" title="TAB键的宽度"></a>TAB键的宽度</h1><p>set tabstop=4</p>
+</li>
+<li><h1 id="统一缩进"><a href="#统一缩进" class="headerlink" title="统一缩进"></a>统一缩进</h1><p>set softtabstop=2<br>set shiftwidth=2</p>
+</li>
+<li><h1 id="是否兼容vi"><a href="#是否兼容vi" class="headerlink" title="是否兼容vi"></a>是否兼容vi</h1><p>“ 1: compatible为兼容<br>“ 2: nocompatible为不完全兼容<br>set nocompatible</p>
+</li>
+<li><h1 id="退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点"><a href="#退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点" class="headerlink" title="退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点"></a>退格键：indent能删除行首的空格，eol断行，start打开文件时回到上次编辑点</h1><p>“ 1: vi兼容<br>“ 2: indent,eol<br>“ 3: indent,eol,start<br>set backspace=2</p>
+</li>
+</ul>
+<ul>
+<li><h1 id="解决菜单乱码"><a href="#解决菜单乱码" class="headerlink" title="解决菜单乱码"></a>解决菜单乱码</h1><p>set encoding=utf-8 </p>
+</li>
+<li><h1 id="自动重新加载外部修改内容"><a href="#自动重新加载外部修改内容" class="headerlink" title="自动重新加载外部修改内容"></a>自动重新加载外部修改内容</h1><p>set autoread </p>
+</li>
+<li><h1 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h1><p>syntax on </p>
+</li>
+<li><h1 id="当前行高亮"><a href="#当前行高亮" class="headerlink" title="当前行高亮"></a>当前行高亮</h1><p>set cursorline</p>
+</li>
+<li><h1 id="高亮显示搜索到的关键字"><a href="#高亮显示搜索到的关键字" class="headerlink" title="高亮显示搜索到的关键字"></a>高亮显示搜索到的关键字</h1><p>set hlsearch </p>
+</li>
+<li><h1 id="开启文件类型检测"><a href="#开启文件类型检测" class="headerlink" title="开启文件类型检测"></a>开启文件类型检测</h1><p>filetype plugin indent on </p>
+</li>
+<li><h1 id="括号等自动补全脚本"><a href="#括号等自动补全脚本" class="headerlink" title="括号等自动补全脚本"></a>括号等自动补全脚本</h1><p>inoremap ( ()<left><br>inoremap [ []<left><br>inoremap { {}<left></left></left></left></p>
+</li>
+<li><h1 id="智能对齐"><a href="#智能对齐" class="headerlink" title="智能对齐"></a>智能对齐</h1><p>set smartindent</p>
+</li>
+<li><h1 id="自动对齐"><a href="#自动对齐" class="headerlink" title="自动对齐"></a>自动对齐</h1><p>set autoindent</p>
+</li>
+<li><h1 id="自动缩进"><a href="#自动缩进" class="headerlink" title="自动缩进"></a>自动缩进</h1><p>set autoindent</p>
+</li>
+<li><h1 id="一次Tab为2个字符"><a href="#一次Tab为2个字符" class="headerlink" title="一次Tab为2个字符"></a>一次Tab为2个字符</h1><p>set tabstop=2</p>
+</li>
+<li><h1 id="按一次Tab前进2个字符"><a href="#按一次Tab前进2个字符" class="headerlink" title="按一次Tab前进2个字符"></a>按一次Tab前进2个字符</h1><p>set softtabstop=2<br>set shiftwidth=2</p>
+</li>
+<li><h1 id="用空格代替Tab"><a href="#用空格代替Tab" class="headerlink" title="用空格代替Tab"></a>用空格代替Tab</h1><p>set expandtab</p>
+</li>
+<li><h1 id="搜索忽略大小写"><a href="#搜索忽略大小写" class="headerlink" title="搜索忽略大小写"></a>搜索忽略大小写</h1><p>set ignorecase</p>
+</li>
+<li><h1 id="设置命令历史行数"><a href="#设置命令历史行数" class="headerlink" title="设置命令历史行数"></a>设置命令历史行数</h1><p>set history=100</p>
+</li>
+<li><h1 id="启动的时候不显示那个援助索马里儿童的提示"><a href="#启动的时候不显示那个援助索马里儿童的提示" class="headerlink" title="启动的时候不显示那个援助索马里儿童的提示"></a>启动的时候不显示那个援助索马里儿童的提示</h1><p>set shortmess=atl</p>
+</li>
+<li><h1 id="命令模式的行高度"><a href="#命令模式的行高度" class="headerlink" title="命令模式的行高度"></a>命令模式的行高度</h1><p>set cmdheight=2</p>
+</li>
+<li><h1 id="不要闪烁"><a href="#不要闪烁" class="headerlink" title="不要闪烁"></a>不要闪烁</h1><p>set novisualbell </p>
+</li>
+<li><h1 id="缺省不产生备份文件"><a href="#缺省不产生备份文件" class="headerlink" title="缺省不产生备份文件"></a>缺省不产生备份文件</h1><p>set nobackup</p>
+</li>
+<li><h1 id="使PHP识别EOT字符串"><a href="#使PHP识别EOT字符串" class="headerlink" title="使PHP识别EOT字符串"></a>使PHP识别EOT字符串</h1><p>hi link phpheredoc string</p>
+</li>
+<li><h1 id="设置鼠标模式为Windows"><a href="#设置鼠标模式为Windows" class="headerlink" title="设置鼠标模式为Windows"></a>设置鼠标模式为Windows</h1><p>behave mswin</p>
+</li>
 </ul>
 ]]></content>
       
