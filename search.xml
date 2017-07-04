@@ -3,6 +3,70 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript之(ES6箭头函数和异步回调地狱)]]></title>
+      <url>/2017/07/03/JavaScript%E4%B9%8B-ES6%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E5%92%8C%E5%BC%82%E6%AD%A5%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信小程序开发扫盲(五)]]></title>
+      <url>/2017/07/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%89%AB%E7%9B%B2-%E4%BA%94/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信小程序开发扫盲(四)]]></title>
+      <url>/2017/07/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%89%AB%E7%9B%B2-%E5%9B%9B/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信小程序开发扫盲(三)]]></title>
+      <url>/2017/07/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%89%AB%E7%9B%B2-%E4%B8%89/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信小程序开发扫盲(二)]]></title>
+      <url>/2017/07/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%89%AB%E7%9B%B2-%E4%BA%8C/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信小程序开发扫盲(一)]]></title>
+      <url>/2017/07/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%89%AB%E7%9B%B2-%E4%B8%80/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>我不止一次地说过新时代分离开发模式下只有服务端接口和客户端容器概念, 微信小程序就是一个借助浏览器内核伪装成App的客户端容器, 本系列博文站在一个前端工程师的角度分析小程序开发流程。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>微信开发语言是wxml, wxss, javascript。wxml是一种微信用于替代html的类xml标记语言, wxss语法和css几乎没有区别, javascript方面微信自己封装了一个wx框架。</p>
+</li>
+<li><p>微信开发IDE必须使用微信官方提供的<code>微信Web开发者工具</code>, 目前还可以选择使用其他构建工具和代码编辑工具。</p>
+</li>
+<li><p>微信开发者ID也叫AppID, 早期只提供给内测人员使用, 现在所有个人开发者注册登录<code>微信公众平台 | 小程序</code>就能获取AppID。</p>
+</li>
+<li><p><code>微信Web开发者工具</code>无法再断网情况下使用。</p>
+</li>
+<li><p>微信小程序的入口文件为app.json。pages目录下为不同页面的内容。</p>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[NodeJS学习之模块和交互式环境下的使用]]></title>
       <url>/2017/06/26/NodeJS%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9D%97%E5%92%8C%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<blockquote>
